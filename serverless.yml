@@ -1,0 +1,87 @@
+service: fws
+provider:
+  name: aws
+  stackName: ${env:FWS_ENV_NAME}${self:service}
+  apiName: ${env:FWS_ENV_NAME}${self:service}-rest-api
+  runtime: nodejs8.10
+  role: ${env:FWS_LAMBDA_ROLE}
+  stage: ${env:FWS_ENV_NAME}
+  region: ${env:FWS_REGION}
+  deploymentBucket:
+    name: ${env:FWS_BUCKET}
+  vpc:
+    securityGroupIds:
+      - ${env:FWS_VPN_SEC_GRP}
+    subnetIds:
+      - ${env:FWS_SUB_1}
+      - ${env:FWS_SUB_2}
+  apiGateway:
+    restApiId: ${env:FWS_API_ID}
+    restApiRootResourceId: ${env:FWS_ROOT_ID}
+package:
+  exclude:
+    - test
+functions:
+  function2:
+    name: ${env:FWS_ENV_NAME}${self:service}-function2
+    handler: lib/functions/function2.handler
+    events:
+      - http:
+          method: post
+          path: function2
+          integration: lambda
+          request:
+            passThrough: WHEN_NO_TEMPLATES
+            template:
+              text/html: '{ "err": "$input.params("err")","bodyXml": $input.json("$")}'
+              application/json: ''
+              application/x-www-form-urlencoded: ''
+  processMessage:
+    name: ${env:FWS_ENV_NAME}${self:service}-processMessage
+    handler: lib/functions/processMessage.handler
+    events:
+      - http:
+          method: post
+          path: message
+          integration: lambda
+          request:
+            passThrough: WHEN_NO_TEMPLATES
+            template:
+              text/html: '{ "bodyXml": $input.json("$")}'
+              application/json: ''
+              application/x-www-form-urlencoded: ''
+  activateTargetArea:
+    name: ${env:FWS_ENV_NAME}${self:service}-activateTargetArea
+    handler: lib/functions/activateTargetArea.handler
+    events:
+      - http:
+          method: post
+          path: activateTargetArea
+          integration: lambda
+          request:
+            passThrough: WHEN_NO_TEMPLATES
+            template:
+              text/html: '{ "bodyXml": $input.json("$")}'
+              application/json: ''
+              application/x-www-form-urlencoded: ''
+  deactivateTargetArea:
+    name: ${env:FWS_ENV_NAME}${self:service}-deactivateTargetArea
+    handler: lib/functions/deactivateTargetArea.handler
+    events:
+      - http: 
+          method: post
+          path: deactivateTargetArea
+          integration: lambda
+          request:
+            passThrough: WHEN_NO_TEMPLATES
+            template:
+              text/html: '{ "bodyXml": $input.json("$")}'
+              application/json: ''
+              application/x-www-form-urlencoded: ''
+  getAllMessages:
+    name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
+    handler: lib/functions/getAllMessages.handler
+    events:
+      - http:
+          method: get
+          path: messages
