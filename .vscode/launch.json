@@ -9,6 +9,27 @@
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceFolder}/index.js"
-    }
+    }, {
+      "type": "node",
+      "request": "launch",
+      "name": "debug unit tests",
+      "program": "${workspaceFolder}/node_modules/.bin/lab",
+       "args": [
+           "test"
+       ]
+  }, {
+    "type": "node",
+    "request": "launch",
+    "name": "processMessage",
+    "program": "${workspaceFolder}/node_modules/.bin/sls",
+    "args":[
+      "invoke",
+      "local",
+      "-f",
+      "processMessage",
+      "--path",
+      "${workspaceFolder}/test/data/fws-message.json"
+    ]
+  }
   ]
 }
