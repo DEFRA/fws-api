@@ -1,0 +1,3 @@
+{
+  "getLastMessage": "SELECT * FROM u_fws.message WHERE target_area_code = $1 ORDER BY message_received DESC LIMIT 1"
+}

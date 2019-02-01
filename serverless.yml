@@ -39,7 +39,7 @@ functions:
               application/x-www-form-urlencoded: ''
   processMessage:
     name: ${env:FWS_ENV_NAME}${self:service}-processMessage
-    handler: lib/functions/processMessage.handler
+    handler: lib/functions/process-message.handler
     events:
       - http:
           method: post
@@ -53,11 +53,11 @@ functions:
               application/x-www-form-urlencoded: ''
   activateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-activateTargetArea
-    handler: lib/functions/activateTargetArea.handler
+    handler: lib/functions/activate-target-area.handler
     events:
       - http:
           method: post
-          path: activateTargetArea
+          path: activate-target-area
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -67,11 +67,11 @@ functions:
               application/x-www-form-urlencoded: ''
   deactivateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-deactivateTargetArea
-    handler: lib/functions/deactivateTargetArea.handler
+    handler: lib/functions/deactivate-target-area.handler
     events:
       - http: 
           method: post
-          path: deactivateTargetArea
+          path: deactivate-target-area
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -81,7 +81,7 @@ functions:
               application/x-www-form-urlencoded: ''
   getAllMessages:
     name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
-    handler: lib/functions/getAllMessages.handler
+    handler: lib/functions/get-all-messages.handler
     events:
       - http:
           method: get
