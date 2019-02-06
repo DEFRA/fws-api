@@ -1,4 +1,4 @@
 {
-  "getLastMessage": "SELECT * FROM u_fws.message WHERE target_area_code = $1 ORDER BY message_received DESC LIMIT 1",
-  "putMessage": "INSERT into u_fws.message (target_area_code, severity, severity_value, situation, situation_changed, severity_changed, message_received) VALUES ($1,$2,$3,$4,$5,$6,$7)"
+  "getLastMessage": "SELECT * FROM u_fws.message WHERE target_area_code = $1 ORDER BY message_received DESC LIMIT 1;",
+  "putMessage": "INSERT into u_fws.message (target_area_code, severity, severity_value, situation, situation_changed, severity_changed, message_received) VALUES ($1,$2,$3,$4,$5,$6,$7);"
 }
