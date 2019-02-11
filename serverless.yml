@@ -90,7 +90,7 @@ functions:
           request:
             passthrough: WHEN_NO_MATCH
             template:
-              application/json: '{ "Content-Type": "application/json" }'
+              application/json: '{ "Content-Type": "application/xml" }'
           #response:
           #  headers:
           #    Content-Type: "text/xml"
@@ -102,4 +102,4 @@ functions:
           request:
             passthrough: WHEN_NO_MATCH
             template:
-              application/json: '{ "Content-Type": "application/xml" }'
+              application/json: '{ "Content-Type": "application/json" }'
