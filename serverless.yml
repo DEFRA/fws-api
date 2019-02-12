@@ -86,20 +86,7 @@ functions:
       - http:
           method: get
           path: fwis.xml
-          integration: lambda
-          request:
-            passthrough: WHEN_NO_MATCH
-            template:
-              application/json: '{ "Content-Type": "application/xml" }'
-          #response:
-          #  headers:
-          #    Content-Type: "text/xml"
-          #  template: $input.path('$')
       - http:
           method: get
           path: fwis.json
-          integration: lambda
-          request:
-            passthrough: WHEN_NO_MATCH
-            template:
-              application/json: '{ "Content-Type": "application/json" }'
+

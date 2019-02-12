@@ -30,6 +30,32 @@
       "--path",
       "${workspaceFolder}/test/data/fws-message.json"
     ]
+  }, {
+    "type": "node",
+    "request": "launch",
+    "name": "getAllMessages-xml",
+    "program": "${workspaceFolder}/node_modules/.bin/sls",
+    "args":[
+      "invoke",
+      "local",
+      "-f",
+      "getAllMessages",
+      "--path",
+      "${workspaceFolder}/test/data/get-all-messages-xml.json"
+    ]
+  }, {
+    "type": "node",
+    "request": "launch",
+    "name": "getAllMessages-json",
+    "program": "${workspaceFolder}/node_modules/.bin/sls",
+    "args":[
+      "invoke",
+      "local",
+      "-f",
+      "getAllMessages",
+      "--path",
+      "${workspaceFolder}/test/data/get-all-messages-json.json"
+    ]
   }
   ]
 }
