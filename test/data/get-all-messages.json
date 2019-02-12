@@ -1,0 +1,25 @@
+{
+  "rows": [
+    {
+      "ta_id": 25363,
+      "ta_code": "111FWCECD022",
+      "ta_name": "Dorset coast at Preston Beach",
+      "ta_description": "The Sea Life Centre and the Preston Beach Road area of Lodmoor",
+      "quick_dial": "166090",
+      "version": "1",
+      "state": "A",
+      "ta_category": "Flood Warning",
+      "owner_area": "Wessex",
+      "created_date": "2019-02-12T13:33:41.040Z",
+      "last_modified_date": "2019-02-12T13:33:41.040Z",
+      "id": "7",
+      "target_area_code": "111FWCECD022",
+      "severity": "Flood Warning",
+      "severity_value": "2",
+      "situation": "test situation",
+      "situation_changed": "2018-12-10T13:29:00.000Z",
+      "severity_changed": "2018-12-10T13:29:00.000Z",
+      "message_received": "2019-02-06T10:42:07.874Z"
+    }
+  ]
+}

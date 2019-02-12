@@ -3,11 +3,11 @@
 const Lab = require('lab')
 const lab = exports.lab = Lab.script()
 const Code = require('code')
-const handler = require('../../lib/functions/process-message').handler
+// const handler = require('../../lib/functions/process-message').handler
 
 const Db = require('../../lib/helpers/db')
-const Services = require('../../lib/helpers/services')
-const Message = require('../../lib/models/message')
+// const Services = require('../../lib/helpers/services')
+// const Message = require('../../lib/models/message')
 
 const sinon = require('sinon').createSandbox()
 

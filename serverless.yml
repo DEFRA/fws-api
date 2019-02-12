@@ -10,6 +10,9 @@ provider:
   profile: ${env:FWS_DEV_PROFILE}
   deploymentBucket:
     name: ${env:FWS_BUCKET}
+  environment:
+    stage: ${env:FWS_ENV_NAME}
+    FWS_DB_CONNECTION: ${env:FWS_DB_CONNECTION}
   vpc:
     securityGroupIds:
       - ${env:FWS_VPN_SEC_GRP}
