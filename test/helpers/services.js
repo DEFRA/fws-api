@@ -33,5 +33,6 @@ lab.experiment('helpers/services', () => {
       created: ''
     })
     await services.getAllMessages()
+    await services.clearDownNoLongerInForce()
   })
 })
