@@ -18,6 +18,9 @@ lab.experiment('functions/get-all-messages', () => {
         rows: []
       })
     })
+    sinon.stub(Services.prototype, 'clearDownNoLongerInForce').callsFake(() => {
+      return Promise.resolve({})
+    })
   })
 
   lab.afterEach(() => {
