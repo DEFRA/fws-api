@@ -46,10 +46,7 @@ lab.experiment('functions/get-all-messages', () => {
     sinon.stub(Services.prototype, 'getAllMessages').callsFake(() => {
       return Promise.reject(new Error('test error'))
     })
-    try {
-      await handler(eventJson)
-    } catch (err) {
-      Code.expect(err).to.be.an.error()
-    }
+    const err = await Code.expect(handler(eventJson)).to.reject()
+    Code.expect(err.message).to.equal('test error')
   })
 })
