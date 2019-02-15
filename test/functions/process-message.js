@@ -55,4 +55,8 @@ lab.experiment('test', () => {
     Code.expect(response.body.SituationChanged).to.equal('12/10/2018 13:29')
     Code.expect(response.body.SeverityChanged).to.equal('12/10/2018 13:29')
   })
+  lab.test('xml not parseing and throwing error', async () => {
+    await Code.expect(handler({ bodyXml: 'xdvxsdvg' }))
+      .to.reject()
+  })
 })
