@@ -24,12 +24,12 @@ lab.experiment('helpers/services', () => {
 
     await services.getLastMessage('sdgds')
     await services.putMessage({
-      TargetAreaCode: '',
-      Severity: '',
-      SeverityValue: '',
-      Situation: '',
-      SituationChanged: '',
-      SeverityChanged: '',
+      targetAreaCode: '',
+      severity: '',
+      severityValue: '',
+      situation: '',
+      situationChanged: '',
+      severityChanged: '',
       created: ''
     })
     await services.getAllMessages()
