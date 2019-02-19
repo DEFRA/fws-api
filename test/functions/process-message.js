@@ -53,12 +53,5 @@ lab.experiment('test', () => {
     Code.expect(response.body.situation).to.equal(" This warning is in place for Preston Beach, Weymouth with tides at their highest between 7:30pm and 9:30pm today Friday 12th October. Flooding may occur along Preston Beach road. Large waves and spray mixed with shingle are likely so take care near coastal paths and promenades. The highest forecast water level including waves is 4mAOD, this is 3.34 metres above astronomical tide level. The forecast wind direction is SSW and the forecast wind strength is Force 7. Coastal conditions should ease for Saturday's high tides, however we are continuing to monitor the situation.")
     Code.expect(response.body.situationChanged).to.equal('12/10/2018 13:29')
     Code.expect(response.body.severityChanged).to.equal('12/10/2018 13:29')
-<<<<<<< HEAD
-=======
-  })
-  lab.test('xml not parseing and throwing error', async () => {
-    await Code.expect(handler({ bodyXml: 'xdvxsdvg' }))
-      .to.reject()
->>>>>>> f5eaa9bcd4c70c85bac441f100eb64e2764e67be
   })
 })
