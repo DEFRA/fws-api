@@ -29,6 +29,5 @@ lab.experiment('test', () => {
     const response = await handler({})
     Code.expect(response.statusCode).to.equal(400)
     Code.expect(response.errorMessage).to.equal(`Cannot read property 'substring' of undefined`)
-
   })
 })
