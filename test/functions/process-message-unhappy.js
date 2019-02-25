@@ -6,9 +6,12 @@ const Code = require('code')
 const handler = require('../../lib/functions/process-message').handler
 const services = require('../../lib/helpers/services')
 const sinon = require('sinon').createSandbox()
+let Message = require('../../lib/models/message')
 
 lab.experiment('test', () => {
   lab.beforeEach(() => {
+    // setup mocks
+    sinon.stub(Message.prototype, 'save').throws(new Error('insert or update on table "message" violates foreign key constraint "fk_tacode_message_target_area"'))
     services.putMessage = (query) => {
       return new Promise((resolve, reject) => {
         resolve()
