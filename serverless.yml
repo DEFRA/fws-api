@@ -26,20 +26,6 @@ package:
   exclude:
     - test
 functions:
-  function2:
-    name: ${env:FWS_ENV_NAME}${self:service}-function2
-    handler: lib/functions/function2.handler
-    events:
-      - http:
-          method: post
-          path: function2
-          integration: lambda
-          request:
-            passThrough: WHEN_NO_TEMPLATES
-            template:
-              text/html: '{ "err": "$input.params("err")","bodyXml": $input.json("$")}'
-              application/json: ''
-              application/x-www-form-urlencoded: ''
   processMessage:
     name: ${env:FWS_ENV_NAME}${self:service}-processMessage
     handler: lib/functions/process-message.handler
@@ -47,6 +33,7 @@ functions:
       - http:
           method: post
           path: message
+          private: false
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -61,6 +48,7 @@ functions:
       - http:
           method: post
           path: activate-target-area
+          private: false
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -75,6 +63,7 @@ functions:
       - http: 
           method: post
           path: deactivate-target-area
+          private: false
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -89,7 +78,13 @@ functions:
       - http:
           method: get
           path: fwis.xml
+          private: false
+          authorizer: ${env:FWS_ENV_NAME}${self:service}-authorizer
       - http:
           method: get
           path: fwis.json
+          private: false
+  authorizer:
+    name: ${env:FWS_ENV_NAME}${self:service}-authorizer
+    handler: lib/functions/authorizer.handler
 
