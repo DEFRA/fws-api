@@ -6,19 +6,36 @@ const Code = require('code')
 const handler = require('../../lib/functions/process-message').handler
 let Message = require('../../lib/models/message')
 const services = require('../../lib/helpers/services')
-
-const sinon = require('sinon').createSandbox()
+const sinon = require('sinon')
+const S3 = require('../../lib/helpers/s3')
 
 // const Db = {}
 
-lab.experiment('test', () => {
-  lab.beforeEach(() => {
-    // setup mocks
+// setup mocks
+lab.experiment('Notification API Client', () => {
+  let sandbox
+  // Use a Sinon sandbox to manage spies, stubs and mocks for each test.
+  lab.beforeEach(async () => {
+    sandbox = await sinon.createSandbox()
+    // stub the put message db call
     services.putMessage = () => {
       return new Promise((resolve, reject) => {
         resolve()
       })
     }
+    // stub the email after each error
+    sinon.stub(S3.prototype, 'publishMessage').callsFake(() => {
+      return Promise.resolve({
+        rows: [{
+          MessageId: '64f5e0ab-c4f0-5e5b-bf77-b4538794b2d6',
+          ResponseMetadata: {}
+        }]
+      })
+    })
+  })
+
+  lab.afterEach(async () => {
+    await sandbox.restore()
   })
 
   lab.afterEach(() => {
@@ -27,7 +44,8 @@ lab.experiment('test', () => {
   lab.test('1 - xml is rejected', async () => {
     try {
       await handler({
-        bodyXml: ' ' })
+        bodyXml: ' '
+      })
       Code.expect(true).to.equal(false)
     } catch (err) {
       Code.expect(err).to.be.an.error()
@@ -64,8 +82,7 @@ lab.experiment('test', () => {
           situation: ' This warning is in place for Preston Beach, Weymouth with tides at their highest between 7:30pm and 9:30pm today Friday 12th October. Flooding may occur along Preston Beach road. Large waves and spray mixed with shingle are likely so take care near coastal paths and promenades. The highest forecast water level including waves is 4mAOD, this is 3.34 metres above astronomical tide level. The forecast wind direction is SSW and the forecast wind strength is Force 7. Coastal conditions should ease for Saturday\'s high tides, however we are continuing to monitor the situation.',
           situation_changed: 'Mon Dec 10 2018 13:29:00 GMT+0000 (GMT)',
           target_area_code: '111FWCECD022'
-        }
-        ]
+        }]
       })
     })
     sinon.stub(services.prototype, 'putMessage').callsFake(() => {
