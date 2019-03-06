@@ -33,7 +33,6 @@ functions:
       - http:
           method: post
           path: message
-          private: false
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -48,7 +47,6 @@ functions:
       - http:
           method: post
           path: activate-target-area
-          private: false
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -63,7 +61,6 @@ functions:
       - http: 
           method: post
           path: deactivate-target-area
-          private: false
           integration: lambda
           request:
             passThrough: WHEN_NO_TEMPLATES
@@ -74,19 +71,22 @@ functions:
   getAllMessages:
     name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
     handler: lib/functions/get-all-messages.handler
+    custom:
+      lambda: testVar
     events:
       - http:
           method: get
           path: fwis.xml
-          private: false
           authorizer: 
             name: authorizer
             type: request
             identitySource: method.request.header.fws-account-id
+            resultTtlInSeconds: 0
+            custom:
+              event: testVar
       - http:
           method: get
           path: fwis.json
-          private: false
   authorizer:
     name: ${env:FWS_ENV_NAME}${self:service}-authorizer
     handler: lib/functions/authorizer.handler

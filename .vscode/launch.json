@@ -70,6 +70,19 @@
       "--path",
       "${workspaceFolder}/test/data/get-all-messages-json.json"
     ]
+  }, {
+    "type": "node",
+    "request": "launch",
+    "name": "authorizer",
+    "program": "${workspaceFolder}/node_modules/.bin/sls",
+    "args":[
+      "invoke",
+      "local",
+      "-f",
+      "authorizer",
+      "--path",
+      "${workspaceFolder}/test/data/authorizer.json"
+    ]
   }
   ]
 }

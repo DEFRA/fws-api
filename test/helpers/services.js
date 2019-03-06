@@ -34,5 +34,6 @@ lab.experiment('helpers/services', () => {
     })
     await services.getAllMessages()
     await services.clearDownNoLongerInForce()
+    await services.getApiKey()
   })
 })
