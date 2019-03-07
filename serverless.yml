@@ -95,7 +95,7 @@ functions:
             type: request
             identitySource: method.request.header.fws-account-id
             resultTtlInSeconds: 0
-       - http:
+      - http:
           method: get
           path: fwis.json
           authorizer: 
