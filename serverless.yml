@@ -40,6 +40,11 @@ functions:
               text/html: '{ "bodyXml": $input.json("$")}'
               application/json: ''
               application/x-www-form-urlencoded: ''
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.fws-account-id
+            resultTtlInSeconds: 0
   activateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-activateTargetArea
     handler: lib/functions/activate-target-area.handler
@@ -54,6 +59,11 @@ functions:
               text/html: '{ "bodyXml": $input.json("$")}'
               application/json: ''
               application/x-www-form-urlencoded: ''
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.fws-account-id
+            resultTtlInSeconds: 0
   deactivateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-deactivateTargetArea
     handler: lib/functions/deactivate-target-area.handler
@@ -68,11 +78,14 @@ functions:
               text/html: '{ "bodyXml": $input.json("$")}'
               application/json: ''
               application/x-www-form-urlencoded: ''
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.fws-account-id
+            resultTtlInSeconds: 0
   getAllMessages:
     name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
     handler: lib/functions/get-all-messages.handler
-    custom:
-      lambda: testVar
     events:
       - http:
           method: get
@@ -82,11 +95,14 @@ functions:
             type: request
             identitySource: method.request.header.fws-account-id
             resultTtlInSeconds: 0
-            custom:
-              event: testVar
-      - http:
+       - http:
           method: get
           path: fwis.json
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.fws-account-id
+            resultTtlInSeconds: 0
   authorizer:
     name: ${env:FWS_ENV_NAME}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
