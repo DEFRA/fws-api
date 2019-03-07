@@ -10,14 +10,6 @@ const Services = require('../../lib/helpers/services')
 
 const sinon = require('sinon').createSandbox()
 
-const routes = [
-  '/message',
-  '/activate-target-area',
-  '/deactivate-target-area',
-  '/fwis.xml',
-  '/fwis.json'
-]
-
 const scenarios = [{
   resource: '/message',
   tests: [{
@@ -54,40 +46,40 @@ const scenarios = [{
     result: 'Allow'
   }]
 }, {
-    resource: '/activate-target-area',
-    tests: [{
-      keys: false,
-      keysMatch: false,
-      result: 'Deny'
-    }, {
-      keys: true,
-      keysMatch: false,
-      result: 'Deny'
-    }, {
-      keys: true,
-      keysMatch: true,
-      read: true,
-      write: false,
-      result: 'Deny'
-    }, {
-      keys: true,
-      keysMatch: true,
-      read: true,
-      write: true,
-      result: 'Allow'
-    }, {
-      keys: true,
-      keysMatch: true,
-      read: false,
-      write: false,
-      result: 'Deny'
-    }, {
-      keys: true,
-      keysMatch: true,
-      read: false,
-      write: true,
-      result: 'Allow'
-    }]
+  resource: '/activate-target-area',
+  tests: [{
+    keys: false,
+    keysMatch: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: true,
+    write: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: true,
+    write: true,
+    result: 'Allow'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: false,
+    write: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: false,
+    write: true,
+    result: 'Allow'
+  }]
 }, {
   resource: '/deactivate-target-area',
   tests: [{
@@ -210,7 +202,6 @@ lab.experiment('functions/get-all-messages', () => {
   })
 
   lab.test('run through permission tests', async () => {
-
     for (let i = 0; i < scenarios.length; i++) {
       for (let ii = 0; ii < scenarios[i].tests.length; ii++) {
         Services.prototype.getApiKey.restore()
@@ -228,7 +219,7 @@ lab.experiment('functions/get-all-messages', () => {
         }
 
         const dbReturn = []
-        
+
         if (test.keysMatch) {
           dbReturn[0] = {
             read: test.read,
@@ -263,9 +254,9 @@ lab.experiment('functions/get-all-messages', () => {
 
     delete event.headers['fws-account-id']
     event.headers['fws-key'] = 'test'
-    
+
     const response2 = await handler(event)
-    Code.expect(response.policyDocument.Statement[0].Effect).to.equal('Deny')
+    Code.expect(response2.policyDocument.Statement[0].Effect).to.equal('Deny')
   })
 
   lab.test('thrown error from database', async () => {
@@ -276,6 +267,6 @@ lab.experiment('functions/get-all-messages', () => {
     event.headers['fws-account-id'] = 'test'
     event.headers['fws-key'] = 'test'
 
-    const ret = await Code.expect(handler(event)).to.reject()
+    await Code.expect(handler(event)).to.reject()
   })
 })
