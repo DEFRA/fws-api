@@ -43,7 +43,7 @@ functions:
           authorizer: 
             name: authorizer
             type: request
-            identitySource: method.request.header.fws-account-id
+            identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
   activateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-activateTargetArea
@@ -62,7 +62,7 @@ functions:
           authorizer: 
             name: authorizer
             type: request
-            identitySource: method.request.header.fws-account-id
+            identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
   deactivateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-deactivateTargetArea
@@ -81,7 +81,7 @@ functions:
           authorizer: 
             name: authorizer
             type: request
-            identitySource: method.request.header.fws-account-id
+            identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
   getAllMessages:
     name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
@@ -93,7 +93,7 @@ functions:
           authorizer: 
             name: authorizer
             type: request
-            identitySource: method.request.header.fws-account-id
+            identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
       - http:
           method: get
@@ -101,7 +101,7 @@ functions:
           authorizer: 
             name: authorizer
             type: request
-            identitySource: method.request.header.fws-account-id
+            identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
   authorizer:
     name: ${env:FWS_ENV_NAME}${self:service}-authorizer

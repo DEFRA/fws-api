@@ -211,11 +211,11 @@ lab.experiment('functions/get-all-messages', () => {
         event.resource = scenario.resource
         // keys
         if (test.keys) {
-          event.headers['fws-account-id'] = 'test'
-          event.headers['fws-key'] = 'test-key'
+          event.headers['x-api-account-id'] = 'test'
+          event.headers['x-api-key'] = 'test-key'
         } else {
-          delete event.headers['fws-account-id']
-          delete event.headers['fws-key']
+          delete event.headers['x-api-account-id']
+          delete event.headers['x-api-key']
         }
 
         const dbReturn = []
@@ -246,14 +246,14 @@ lab.experiment('functions/get-all-messages', () => {
   })
 
   lab.test('missing keys', async () => {
-    event.headers['fws-account-id'] = 'test'
-    delete event.headers['fws-key']
+    event.headers['x-api-account-id'] = 'test'
+    delete event.headers['x-api-key']
 
     const response = await handler(event)
     Code.expect(response.policyDocument.Statement[0].Effect).to.equal('Deny')
 
-    delete event.headers['fws-account-id']
-    event.headers['fws-key'] = 'test'
+    delete event.headers['x-api-account-id']
+    event.headers['x-api-key'] = 'test'
 
     const response2 = await handler(event)
     Code.expect(response2.policyDocument.Statement[0].Effect).to.equal('Deny')
@@ -264,8 +264,8 @@ lab.experiment('functions/get-all-messages', () => {
     sinon.stub(Services.prototype, 'getApiKey').callsFake((accountId, accountKey) => {
       throw new Error('DB test error')
     })
-    event.headers['fws-account-id'] = 'test'
-    event.headers['fws-key'] = 'test'
+    event.headers['x-api-account-id'] = 'test'
+    event.headers['x-api-key'] = 'test'
 
     await Code.expect(handler(event)).to.reject()
   })
