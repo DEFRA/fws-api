@@ -26,20 +26,6 @@ package:
   exclude:
     - test
 functions:
-  function2:
-    name: ${env:FWS_ENV_NAME}${self:service}-function2
-    handler: lib/functions/function2.handler
-    events:
-      - http:
-          method: post
-          path: function2
-          integration: lambda
-          request:
-            passThrough: WHEN_NO_TEMPLATES
-            template:
-              text/html: '{ "err": "$input.params("err")","bodyXml": $input.json("$")}'
-              application/json: ''
-              application/x-www-form-urlencoded: ''
   processMessage:
     name: ${env:FWS_ENV_NAME}${self:service}-processMessage
     handler: lib/functions/process-message.handler
@@ -54,6 +40,11 @@ functions:
               text/html: '{ "bodyXml": $input.json("$")}'
               application/json: ''
               application/x-www-form-urlencoded: ''
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.x-api-key
+            resultTtlInSeconds: 0
   activateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-activateTargetArea
     handler: lib/functions/activate-target-area.handler
@@ -68,6 +59,11 @@ functions:
               text/html: '{ "bodyXml": $input.json("$")}'
               application/json: ''
               application/x-www-form-urlencoded: ''
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.x-api-key
+            resultTtlInSeconds: 0
   deactivateTargetArea:
     name: ${env:FWS_ENV_NAME}${self:service}-deactivateTargetArea
     handler: lib/functions/deactivate-target-area.handler
@@ -82,6 +78,11 @@ functions:
               text/html: '{ "bodyXml": $input.json("$")}'
               application/json: ''
               application/x-www-form-urlencoded: ''
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.x-api-key
+            resultTtlInSeconds: 0
   getAllMessages:
     name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
     handler: lib/functions/get-all-messages.handler
@@ -89,7 +90,20 @@ functions:
       - http:
           method: get
           path: fwis.xml
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.x-api-key
+            resultTtlInSeconds: 0
       - http:
           method: get
           path: fwis.json
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.x-api-key
+            resultTtlInSeconds: 0
+  authorizer:
+    name: ${env:FWS_ENV_NAME}${self:service}-authorizer
+    handler: lib/functions/authorizer.handler
 
