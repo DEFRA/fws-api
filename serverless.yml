@@ -7,7 +7,6 @@ provider:
   role: ${env:FWS_LAMBDA_ROLE}
   stage: ${env:FWS_ENV_NAME}
   region: ${env:FWS_REGION}
-  profile: ${env:FWS_DEV_PROFILE}
   deploymentBucket:
     name: ${env:FWS_BUCKET}
   environment:
