@@ -13,6 +13,7 @@ provider:
     stage: ${env:FWS_ENV_NAME}
     FWS_DB_CONNECTION: ${env:FWS_DB_CONNECTION}
     FWS_SNS_TOPIC: ${env:FWS_SNS_TOPIC}
+    FWS_HTTP_PROXY: ${env:FWS_HTTP_PROXY}
   vpc:
     securityGroupIds:
       - ${env:FWS_VPN_SEC_GRP}
