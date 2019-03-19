@@ -47,6 +47,6 @@ lab.experiment('functions/get-all-messages', () => {
       return Promise.reject(new Error('test error'))
     })
     const err = await Code.expect(handler(eventJson)).to.reject()
-    Code.expect(err.message).to.equal('test error')
+    Code.expect(err.message).to.equal('[500] test error')
   })
 })
