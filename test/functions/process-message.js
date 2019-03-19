@@ -6,7 +6,7 @@ const Code = require('code')
 const handler = require('../../lib/functions/process-message').handler
 const services = require('../../lib/helpers/services')
 const sinon = require('sinon')
-const S3 = require('../../lib/helpers/s3')
+const AwsEmail = require('../../lib/helpers/aws')
 
 // setup mocks
 lab.experiment('Notification API Client', () => {
@@ -59,7 +59,7 @@ lab.experiment('Notification API Client', () => {
       })
     })
     // stub the email after each error
-    sinon.stub(S3.prototype, 'publishMessage').callsFake(() => {
+    sinon.stub(AwsEmail.prototype, 'publishMessage').callsFake(() => {
       return Promise.resolve({
         rows: [{
           MessageId: '64f5e0ab-c4f0-5e5b-bf77-b4538794b2d6',
@@ -154,7 +154,7 @@ lab.experiment('Notification API Client', () => {
       })
     })
     // stub the email after each error
-    sinon.stub(S3.prototype, 'publishMessage').callsFake(() => {
+    sinon.stub(AwsEmail.prototype, 'publishMessage').callsFake(() => {
       return Promise.resolve({
         rows: [{
           MessageId: '64f5e0ab-c4f0-5e5b-bf77-b4538794b2d6',
