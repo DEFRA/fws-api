@@ -14,6 +14,7 @@ provider:
     FWS_DB_CONNECTION: ${env:FWS_DB_CONNECTION}
     FWS_SNS_TOPIC: ${env:FWS_SNS_TOPIC}
     FWS_HTTP_PROXY: ${env:FWS_HTTP_PROXY}
+    FWS_FE_TAG: ${env:FWS_FE_TAG}
   vpc:
     securityGroupIds:
       - ${env:FWS_VPN_SEC_GRP}
