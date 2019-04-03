@@ -18,6 +18,7 @@
     "joi": "14.3.1",
     "js2xmlparser": "3.0.0",
     "moment": "2.24.0",
+    "moment-timezone": "^0.5.23",
     "pg": "7.8.0",
     "sinon": "7.2.3",
     "wreck": "^14.2.0",

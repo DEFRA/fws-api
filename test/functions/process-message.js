@@ -186,7 +186,7 @@ lab.experiment('Notification API Client', () => {
         }]
       })
     })
-    sinon.stub(services.prototype, 'putMessage').throws(new Error('insert or update on table "message" violates foreign key constraint "fk_tacode_message_target_area"'))
+    sinon.stub(services.prototype, 'putMessage').throws(new Error())
     try {
       await handler({
         bodyXml: '<?xml version="1.0" encoding="UTF-8"?><WarningMessage xmlns="http://www.environment-agency.gov.uk/XMLSchemas/EAFWD" approved="12/10/2018 13:29" requestId="" language="English"><TargetAreaCode><![CDATA[111FWCECD022]]></TargetAreaCode><SeverityLevel>2</SeverityLevel><InternetSituation><![CDATA[ This warning is in place for Preston Beach, Weymouth with tides at their highest between 7:30pm and 9:30pm today Friday 12th October. Flooding may occur along Preston Beach road. Large waves and spray mixed with shingle are likely so take care near coastal paths and promenades. The highest forecast water level including waves is 4mAOD, this is 3.34 metres above astronomical tide level. The forecast wind direction is SSW and the forecast wind strength is Force 7. Coastal conditions should ease for Saturday\'s high tides, however we are continuing to monitor the situation.]]></InternetSituation><FWISGroupedTACodes><![CDATA[]]></FWISGroupedTACodes></WarningMessage>'
@@ -197,7 +197,7 @@ lab.experiment('Notification API Client', () => {
     }
   })
   lab.test(' 6 - getting error when database is unavailible', async () => {
-    sinon.stub(services.prototype, 'putMessage').throws(new Error('getaddrinfo ENOTFOUND fws-dev-rds.aws-int.defra.cloud fws-dev-rds.aws-int.defra.cloud:5432'))
+    sinon.stub(services.prototype, 'putMessage').throws(new Error())
     try {
       await handler({
         bodyXml: '<?xml version="1.0" encoding="UTF-8"?><WarningMessage xmlns="http://www.environment-agency.gov.uk/XMLSchemas/EAFWD" approved="12/10/2018 13:29" requestId="" language="English"><TargetAreaCode><![CDATA[111FWCECD022]]></TargetAreaCode><SeverityLevel>2</SeverityLevel><InternetSituation><![CDATA[ This warning is in place for Preston Beach, Weymouth with tides at their highest between 7:30pm and 9:30pm today Friday 12th October. Flooding may occur along Preston Beach road. Large waves and spray mixed with shingle are likely so take care near coastal paths and promenades. The highest forecast water level including waves is 4mAOD, this is 3.34 metres above astronomical tide level. The forecast wind direction is SSW and the forecast wind strength is Force 7. Coastal conditions should ease for Saturday\'s high tides, however we are continuing to monitor the situation.]]></InternetSituation><FWISGroupedTACodes><![CDATA[]]></FWISGroupedTACodes></WarningMessage>'
@@ -216,5 +216,37 @@ lab.experiment('Notification API Client', () => {
     } catch (err) {
       Code.expect(err).to.be.an.error()
     }
+  })
+  lab.test(' 8 - testing GMT is added to the database', async () => {
+    sinon.stub(services.prototype, 'getLastMessage').callsFake(() => {
+      return Promise.resolve({
+        rows: []
+      })
+    })
+    sinon.stub(services.prototype, 'putMessage').callsFake((message) => {
+      Code.expect(message.situationChanged).to.equal('2019-02-01T12:00:00.000Z')
+      Code.expect(message.severityChanged).to.equal('2019-02-01T12:00:00.000Z')
+      return Promise.resolve({})
+    })
+    const response = await handler({
+      bodyXml: '<?xml version="1.0" encoding="UTF-8"?><WarningMessage xmlns="http://www.environment-agency.gov.uk/XMLSchemas/EAFWD" approved="01/02/2019 12:00" requestId="" language="English"><TargetAreaCode><![CDATA[111FWCECD022]]></TargetAreaCode><SeverityLevel>2</SeverityLevel><InternetSituation><![CDATA[ Test This warning is in place for Preston Beach, Weymouth with tides at their highest between 7:30pm and 9:30pm today Friday 12th October. Flooding may occur along Preston Beach road. Large waves and spray mixed with shingle are likely so take care near coastal paths and promenades. The highest forecast water level including waves is 4mAOD, this is 3.34 metres above astronomical tide level. The forecast wind direction is SSW and the forecast wind strength is Force 7. Coastal conditions should ease for Saturday\'s high tides, however we are continuing to monitor the situation.]]></InternetSituation><FWISGroupedTACodes><![CDATA[]]></FWISGroupedTACodes></WarningMessage>'
+    })
+    Code.expect(response.statusCode).to.equal(200)
+  })
+  lab.test(' 9 - testing BST is added to the database', async () => {
+    sinon.stub(services.prototype, 'getLastMessage').callsFake(() => {
+      return Promise.resolve({
+        rows: []
+      })
+    })
+    sinon.stub(services.prototype, 'putMessage').callsFake((message) => {
+      Code.expect(message.situationChanged).to.equal('2019-05-01T11:00:00.000Z')
+      Code.expect(message.severityChanged).to.equal('2019-05-01T11:00:00.000Z')
+      return Promise.resolve({})
+    })
+    const response = await handler({
+      bodyXml: '<?xml version="1.0" encoding="UTF-8"?><WarningMessage xmlns="http://www.environment-agency.gov.uk/XMLSchemas/EAFWD" approved="01/05/2019 12:00" requestId="" language="English"><TargetAreaCode><![CDATA[111FWCECD022]]></TargetAreaCode><SeverityLevel>2</SeverityLevel><InternetSituation><![CDATA[ Test This warning is in place for Preston Beach, Weymouth with tides at their highest between 7:30pm and 9:30pm today Friday 12th October. Flooding may occur along Preston Beach road. Large waves and spray mixed with shingle are likely so take care near coastal paths and promenades. The highest forecast water level including waves is 4mAOD, this is 3.34 metres above astronomical tide level. The forecast wind direction is SSW and the forecast wind strength is Force 7. Coastal conditions should ease for Saturday\'s high tides, however we are continuing to monitor the situation.]]></InternetSituation><FWISGroupedTACodes><![CDATA[]]></FWISGroupedTACodes></WarningMessage>'
+    })
+    Code.expect(response.statusCode).to.equal(200)
   })
 })
