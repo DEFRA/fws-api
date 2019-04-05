@@ -38,7 +38,7 @@ lab.experiment('functions/get-all-messages', () => {
     const response = await handler(eventXml)
     Code.expect(response.statusCode).to.equal(200)
     Code.expect(response.headers['Content-Type']).to.equal('application/xml')
-    Code.expect(response.body).to.equal('<?xml version="1.0"?><warningreport/>')
+    Code.expect(response.body).to.equal('<?xml version="1.0" encoding="utf-8"?><warningreport/>')
   })
 
   lab.test('get all messages throw error', async () => {
