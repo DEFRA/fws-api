@@ -1,6 +1,6 @@
 'use strict'
 
-const Lab = require('lab')
+const Lab = require('@hapi/lab')
 const lab = exports.lab = Lab.script()
 const Code = require('code')
 const handler = require('../../lib/functions/process-message').handler
