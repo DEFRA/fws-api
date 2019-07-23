@@ -117,6 +117,18 @@ functions:
             type: request
             identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
+  getAllHistoricalMessages:
+    name: ${env:FWS_ENV_NAME}${self:service}-getAllHistoricalMessages
+    handler: lib/functions/get-all-historical-messages.handler
+    events:
+      - http:
+          method: get
+          path: historical-messages/{code}
+          authorizer: 
+            name: authorizer
+            type: request
+            identitySource: method.request.header.x-api-key
+            resultTtlInSeconds: 0
   authorizer:
     name: ${env:FWS_ENV_NAME}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
