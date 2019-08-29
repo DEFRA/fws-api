@@ -13,23 +13,23 @@
   "author": "DEFRA",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "2.496.0",
+    "aws-sdk": "2.519.0",
     "https-proxy-agent": "2.2.2",
     "joi": "14.3.1",
     "js2xmlparser": "4.0.0",
     "moment": "2.24.0",
     "moment-timezone": "0.5.26",
-    "pg": "7.11.0",
-    "sinon": "7.3.2",
+    "pg": "7.12.1",
+    "sinon": "7.4.1",
     "xml2json": "0.11.2",
     "xmlbuilder": "13.0.2"
   },
   "devDependencies": {
     "code": "5.2.4",
     "codeclimate-test-reporter": "0.5.1",
-    "@hapi/lab": "19.1.0",
-    "serverless": "1.48.2",
-    "standard": "13.1.0",
+    "@hapi/lab": "20.2.1",
+    "serverless": "1.51.0",
+    "standard": "14.1.0",
     "xml2js": "0.4.19"
   }
 }
