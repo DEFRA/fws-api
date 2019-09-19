@@ -2,7 +2,7 @@
 
 const Lab = require('@hapi/lab')
 const lab = exports.lab = Lab.script()
-const Code = require('code')
+const Code = require('@hapi/code')
 const xml2js = require('xml2js')
 const Fwis = require('../../lib/models/fwis')
 const getAllMessages = require('../data/get-all-messages.json')

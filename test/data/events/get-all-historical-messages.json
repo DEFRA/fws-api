@@ -1,0 +1,8 @@
+{
+    "resource": "/historical-messages/013FWFGM2C",
+    "path": "/historical-messages/013FWFGM2C",
+    "pathParameters": {
+        "code": "013FWFGM2C"
+    },
+    "httpMethod": "GET"
+}
