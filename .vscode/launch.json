@@ -29,7 +29,7 @@
       "-f",
       "processMessage",
       "--path",
-      "${workspaceFolder}/test/data/fws-message.json"
+      "${workspaceFolder}/test/data/events/fws-message.json"
     ]
   }, {
     "type": "node",
@@ -42,7 +42,7 @@
       "-f",
       "getAllMessages",
       "--path",
-      "${workspaceFolder}/test/data/get-all-messages-xml.json"
+      "${workspaceFolder}/test/data/events/get-all-messages-xml.json"
     ]
   }, {
     "type": "node",
@@ -55,7 +55,7 @@
       "-f",
       "getAllMessages",
       "--path",
-      "${workspaceFolder}/test/data/get-all-messages-json.json"
+      "${workspaceFolder}/test/data/events/get-all-messages-json.json"
     ]
   }, {
     "type": "node",
@@ -68,7 +68,7 @@
       "-f",
       "activateTargetArea",
       "--path",
-      "${workspaceFolder}/test/data/get-all-messages-json.json"
+      "${workspaceFolder}/test/data/events/get-all-messages-json.json"
     ]
   }, {
     "type": "node",
@@ -81,7 +81,20 @@
       "-f",
       "authorizer",
       "--path",
-      "${workspaceFolder}/test/data/authorizer.json"
+      "${workspaceFolder}/test/data/events/authorizer.json"
+    ]
+  }, {
+    "type": "node",
+    "request": "launch",
+    "name": "getAllHistoricalMessages",
+    "program": "${workspaceFolder}/node_modules/.bin/sls",
+    "args":[
+      "invoke",
+      "local",
+      "-f",
+      "getAllHistoricalMessages",
+      "--path",
+      "${workspaceFolder}/test/data/events/get-all-historical-messages.json"
     ]
   }
   ]
