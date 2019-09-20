@@ -2,7 +2,7 @@
   "getLastMessage": "SELECT * FROM u_fws.message WHERE target_area_code = $1 AND latest;",
   "putMessage": "INSERT into u_fws.message (target_area_code, severity, severity_value, situation, situation_changed, severity_changed, message_received, created_by_id, created_by_email, created_by_name) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);",
   "getAllMessages": "SELECT ta.*, m.* FROM u_fws.message m INNER JOIN u_fws.target_area ta on m.target_area_code = ta.ta_code WHERE m.latest AND severity_value IN ('1', '2', '3', '4')  AND ta.state = 'A';",
-  "getHistoricMessages": "SELECT ta.*, m.* FROM u_fws.message m INNER JOIN u_fws.target_area ta on m.target_area_code = ta.ta_code WHERE not m.latest AND ta.ta_code = $1 AND severity_value IN ('1', '2', '3', '4') AND ta.state = 'A' ORDER BY situation_changed DESC LIMIT 1000;",
+  "getHistoricMessages": "SELECT ta.*, m.* FROM u_fws.message m INNER JOIN u_fws.target_area ta on m.target_area_code = ta.ta_code WHERE not m.latest AND ta.ta_code = $1 AND severity_value IN ('1', '2', '3', '4') AND ta.state = 'A' ORDER BY situation_changed DESC, message_received desc LIMIT 1000;",
   "clearDownNoLongerInForce": "insert into u_fws.message (target_area_code, severity, severity_value, situation, situation_changed, severity_changed, message_received) select m.target_area_code, 'none', '5', '', NOW() at time zone 'utc', NOW() at time zone 'utc', NOW() at time zone 'utc' FROM u_fws.message m WHERE latest AND m.severity_value = '4' AND (EXTRACT(EPOCH FROM NOW()) - EXTRACT(EPOCH FROM m.situation_changed)) > 86400;",
   "errorLog": "INSERT into u_fws.errorlog (created, error_message, fws_message) VALUES ($1,$2,$3);",
   "getApiKey": "Select * from u_fws.api_key where key = $1;",
