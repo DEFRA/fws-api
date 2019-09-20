@@ -1,0 +1,18 @@
+[
+    {
+        "ta_id": 31512,
+        "ta_code": "012FWFL3C",
+        "ta_name": "River Wyre at Ratten Row",
+        "ta_description": "Area adjacent to and north of the River Wyre at Ratten Row.",
+        "ta_category": "Flood Warning",
+        "owner_area": "Cumbria and Lancashire"
+    },
+    {
+        "ta_id": 31536,
+        "ta_code": "012FWFL24A",
+        "ta_name": "River Darwen at Higher Walton, around Higher Walton Rd, Darwen St and Higher Walton Mills",
+        "ta_description": "Properties on Higher Walton Road backing onto the River Darwen, businesses and properties close to Cann Bridge in Darwen Street, and businesses based in Higher Walton Mills.",
+        "ta_category": "Flood Warning",
+        "owner_area": "Cumbria and Lancashire"
+    }
+]

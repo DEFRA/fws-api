@@ -2,9 +2,9 @@
 
 const Lab = require('@hapi/lab')
 const lab = exports.lab = Lab.script()
-const Code = require('code')
+const Code = require('@hapi/code')
 const handler = require('../../lib/functions/authorizer').handler
-const event = require('../data/authorizer.json')
+const event = require('../data/events/authorizer.json')
 
 const Services = require('../../lib/helpers/services')
 
@@ -166,6 +166,76 @@ const scenarios = [{
     read: true,
     write: false,
     result: 'Allow'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: true,
+    write: true,
+    result: 'Allow'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: false,
+    write: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: false,
+    write: true,
+    result: 'Deny'
+  }]
+}, {
+  resource: '/target-areas.json',
+  tests: [{
+    keys: false,
+    keysMatch: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: true,
+    write: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: true,
+    write: true,
+    result: 'Allow'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: false,
+    write: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: false,
+    write: true,
+    result: 'Deny'
+  }]
+}, {
+  resource: '/historical-messages/{code}',
+  tests: [{
+    keys: false,
+    keysMatch: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: false,
+    result: 'Deny'
+  }, {
+    keys: true,
+    keysMatch: true,
+    read: true,
+    write: false,
+    result: 'Deny'
   }, {
     keys: true,
     keysMatch: true,

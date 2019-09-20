@@ -1,35 +1,38 @@
 {
   "name": "fws-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
     "deploy": "npm run validate-config && sls deploy -v --force",
     "lint": "standard",
     "test": "npm run lint && npm run unit-test",
-    "unit-test": "lab test -c -r console -o stdout -r lcov -o lcov.info -r junit -o test/output-unit.xml",
+    "unit-test": "lab test -c --coverage-path lib -r console -o stdout -r lcov -o lcov.info -r junit -o test/output-unit.xml",
     "validate-config": "node lib/config.js"
   },
   "author": "DEFRA",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "2.519.0",
+    "@hapi/joi": "16.1.2",
+    "aws-sdk": "2.531.0",
     "https-proxy-agent": "2.2.2",
     "joi": "14.3.1",
     "js2xmlparser": "4.0.0",
     "moment": "2.24.0",
     "moment-timezone": "0.5.26",
     "pg": "7.12.1",
-    "sinon": "7.4.1",
-    "xml2json": "0.11.2",
+    "sinon": "7.4.2",
+    "xml2js": "0.4.22",
     "xmlbuilder": "13.0.2"
   },
   "devDependencies": {
-    "code": "5.2.4",
+    "@hapi/code": "6.0.0",
+    "@hapi/lab": "20.2.2",
     "codeclimate-test-reporter": "0.5.1",
-    "@hapi/lab": "20.2.1",
-    "serverless": "1.51.0",
-    "standard": "14.1.0",
-    "xml2js": "0.4.19"
+    "serverless": "1.52.0",
+    "standard": "14.3.1"
   }
 }
