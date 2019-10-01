@@ -5,6 +5,7 @@ provider:
   apiName: ${env:FWS_ENV_NAME}${self:service}-rest-api
   runtime: nodejs10.x
   role: ${env:FWS_LAMBDA_ROLE}
+  #role: ${env:FWS_S3_ROLE}
   stage: ${env:FWS_ENV_NAME}
   region: ${env:FWS_REGION}
   deploymentBucket:
@@ -138,4 +139,6 @@ functions:
   authorizer:
     name: ${env:FWS_ENV_NAME}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
-
+  putWarningsAlerts:
+    name: ${env:FWS_ENV_NAME}${self:service}-putWarningsAlerts
+    handler: lib/functions/put-warnings-alerts.handler
