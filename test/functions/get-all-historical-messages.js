@@ -27,7 +27,7 @@ lab.experiment('functions/get-all-historical-messages', () => {
     const response = await handler(event)
     Code.expect(response.statusCode).to.equal(200)
     Code.expect(response.headers['Content-Type']).to.equal('application/json')
-    Code.expect(response.body).to.equal(JSON.stringify(require('../data/lambda-response/fwis.json')))
+    Code.expect(response.body).to.equal(JSON.stringify(require('../data/lambda-response/fwis-plus.json')))
   })
 
   lab.test('Sad: get all historical messages error', async () => {

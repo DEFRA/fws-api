@@ -1,0 +1,27 @@
+{
+    "warnings": [
+        {
+            "situation": "Sent from jmeter",
+            "attr": {
+                "taId": 32601,
+                "taCode": "013FWFGM2C",
+                "taName": "River Irwell at Salford Area C",
+                "taDescription": "Areas at risk include properties in the Lower Kersal, Lower Broughton, Charlestown and Wallness neighbourhoods including the University area to Adelphi Street and Trinity Way up to the junction of the A6041",
+                "quickDial": "305001",
+                "version": "2",
+                "taCategory": "Flood Warning",
+                "ownerArea": "Greater Manchester, Merseyside and Cheshire",
+                "createdDate": "2017-04-11T00:00:00.000Z",
+                "createdByID": null,
+                "createdByName": null,
+                "createdByEmail": null,
+                "lastModifiedDate": "2017-04-11T00:00:00.000Z",
+                "situationChanged": "2019-07-18T13:30:00.000Z",
+                "severityChanged": "2019-07-18T13:30:00.000Z",
+                "timeMessageReceived": "2019-07-19T11:20:13.377Z",
+                "severityValue": "3",
+                "severity": "Severe Flood Warning"
+            }
+        }
+    ]
+}
