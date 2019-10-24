@@ -111,6 +111,14 @@ functions:
             type: request
             identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
+      - http:
+          method: get
+          path: fwis-plus.json
+          authorizer:
+            name: authorizer
+            type: request
+            identitySource: method.request.header.x-api-key
+            resultTtlInSeconds: 0
   getAllTargetAreas:
     name: ${env:FWS_ENV_NAME}${self:service}-getAllTargetAreas
     handler: lib/functions/get-all-target-areas.handler
