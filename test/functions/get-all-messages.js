@@ -5,6 +5,7 @@ const lab = exports.lab = Lab.script()
 const Code = require('@hapi/code')
 const handler = require('../../lib/functions/get-all-messages').handler
 const eventJson = require('../data/events/get-all-messages-json.json')
+const eventPlusJson = require('../data/events/get-all-messages-plus-json.json')
 const eventXml = require('../data/events/get-all-messages-xml.json')
 const Services = require('../../lib/helpers/services')
 
@@ -34,6 +35,13 @@ lab.experiment('functions/get-all-messages', () => {
     Code.expect(response.body).to.equal('{"warnings":[]}')
   })
 
+  lab.test('Happy: get all messages plus json function (empty)', async () => {
+    const response = await handler(eventPlusJson)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.headers['Content-Type']).to.equal('application/json')
+    Code.expect(response.body).to.equal('{"warnings":[]}')
+  })
+
   lab.test('Happy: get all messages xml function (empty)', async () => {
     const response = await handler(eventXml)
     Code.expect(response.statusCode).to.equal(200)
@@ -53,6 +61,20 @@ lab.experiment('functions/get-all-messages', () => {
     Code.expect(response.statusCode).to.equal(200)
     Code.expect(response.headers['Content-Type']).to.equal('application/json')
     Code.expect(response.body).to.equal(JSON.stringify(require('../data/lambda-response/fwis.json')))
+  })
+
+  lab.test('Happy: get all messages plus json function (populated)', async () => {
+    Services.prototype.getAllMessages.restore()
+    sinon.stub(Services.prototype, 'getAllMessages').callsFake(() => {
+      return Promise.resolve({
+        rows: require('../data/db-response/messages-db.json')
+      })
+    })
+
+    const response = await handler(eventPlusJson)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.headers['Content-Type']).to.equal('application/json')
+    Code.expect(response.body).to.equal(JSON.stringify(require('../data/lambda-response/fwis-plus.json')))
   })
 
   lab.test('Happy: get all messages xml function (populated)', async () => {
@@ -75,6 +97,15 @@ lab.experiment('functions/get-all-messages', () => {
       return Promise.reject(new Error('test error'))
     })
     const err = await Code.expect(handler(eventJson)).to.reject()
+    Code.expect(err.message).to.equal('[500] test error')
+  })
+
+  lab.test('Sad: get all messages plus throw error', async () => {
+    Services.prototype.getAllMessages.restore()
+    sinon.stub(Services.prototype, 'getAllMessages').callsFake(() => {
+      return Promise.reject(new Error('test error'))
+    })
+    const err = await Code.expect(handler(eventPlusJson)).to.reject()
     Code.expect(err.message).to.equal('[500] test error')
   })
 })
