@@ -3,7 +3,7 @@ provider:
   name: aws
   stackName: ${env:FWS_ENV_NAME}${self:service}
   apiName: ${env:FWS_ENV_NAME}${self:service}-rest-api
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   role: ${env:FWS_LAMBDA_ROLE}
   stage: ${env:FWS_ENV_NAME}
   region: ${env:FWS_REGION}
