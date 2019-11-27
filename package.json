@@ -2,7 +2,7 @@
   "name": "fws-api",
   "version": "1.0.0",
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
   "description": "",
   "main": "index.js",
@@ -16,23 +16,22 @@
   "author": "DEFRA",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "16.1.2",
-    "aws-sdk": "2.531.0",
-    "https-proxy-agent": "2.2.2",
-    "joi": "14.3.1",
+    "@hapi/joi": "16.1.7",
+    "aws-sdk": "2.578.0",
+    "https-proxy-agent": "3.0.1",
     "js2xmlparser": "4.0.0",
     "moment": "2.24.0",
-    "moment-timezone": "0.5.26",
-    "pg": "7.12.1",
-    "sinon": "7.4.2",
+    "moment-timezone": "0.5.27",
+    "pg": "7.14.0",
+    "sinon": "7.5.0",
     "xml2js": "0.4.22",
     "xmlbuilder": "13.0.2"
   },
   "devDependencies": {
-    "@hapi/code": "6.0.0",
-    "@hapi/lab": "20.2.2",
+    "@hapi/code": "7.0.0",
+    "@hapi/lab": "21.0.0",
     "codeclimate-test-reporter": "0.5.1",
-    "serverless": "1.52.0",
+    "serverless": "1.58.0",
     "standard": "14.3.1"
   }
 }
