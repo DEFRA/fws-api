@@ -53,6 +53,13 @@ functions:
             type: request
             identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
+          response:
+            headers:
+              X-DNS-Prefetch-Control: "'off'"
+              Strict-Transport-Security: "'max-age=15552000; includeSubDomains; preload'"
+              X-Download-Options: "'noopen'"
+              X-Content-Type-Options: "'nosniff'"
+              Referrer-Policy: "'no-referrer'"
   # activateTargetArea:
   #   name: ${env:FWS_ENV_NAME}${self:service}-activateTargetArea
   #   handler: lib/functions/activate-target-area.handler
