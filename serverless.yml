@@ -31,6 +31,11 @@ provider:
       executionLogging: true
       level: INFO
       fullExecutionData: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lamda: InvokeFunction
+      Resource: "*"
 package:
   exclude:
     - test
@@ -157,3 +162,10 @@ functions:
   putWarningsAlerts:
     name: ${env:FWS_ENV_NAME}${self:service}-putWarningsAlerts
     handler: lib/functions/put-warnings-alerts.handler
+# Uncomment folling lines when running serverless offline instance
+#
+# plugins:
+# - serverless-offline
+# custom:
+#   serverless-offline:
+#     port: 8050
