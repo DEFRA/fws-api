@@ -1,22 +1,3 @@
 {
-    "Records": [
-        {
-            "EventVersion": "1.0",
-            "EventSubscriptionArn": "EXAMPLE",
-            "EventSource": "aws:sns",
-            "Sns": {
-                "SignatureVersion": "1",
-                "Timestamp": "2019-09-27T12:58:29.700Z",
-                "Signature": "EXAMPLE",
-                "SigningCertUrl": "EXAMPLE",
-                "MessageId": "2d2a1594-aa3d-48f0-afd0-891ee94c36c0",
-                "Message": "SNS Message",
-                "MessageAttributes": {},
-                "Type": "Notification",
-                "UnsubscribeUrl": "EXAMPLE",
-                "TopicArn": "arn:aws:sns:eu-west-1:123456789012:test-topic",
-                "Subject": "Test SNS Topic"
-            }
-        }
-    ]
+    "Test": "TEST"
 }
