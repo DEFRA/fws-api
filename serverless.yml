@@ -5,7 +5,6 @@ provider:
   apiName: ${env:FWS_ENV_NAME}${self:service}-rest-api
   runtime: nodejs12.x
   role: ${env:FWS_LAMBDA_ROLE}
-  #role: ${env:FWS_S3_ROLE}
   stage: ${env:FWS_ENV_NAME}
   region: ${env:FWS_REGION}
   deploymentBucket:
