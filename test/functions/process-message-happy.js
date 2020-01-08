@@ -200,4 +200,21 @@ lab.experiment('Notification API Client', () => {
     })
     Code.expect(response.statusCode).to.equal(200)
   })
+  lab.test(' 7 - testing situation text is escaped in the database', async () => {
+    sinon.stub(Services.prototype, 'getLastMessage').callsFake(() => {
+      return Promise.resolve({
+        rows: []
+      })
+    })
+
+    Services.prototype.putMessage.restore()
+    sinon.stub(Services.prototype, 'putMessage').callsFake((message) => {
+      Code.expect(message.situation).to.equal('&lt;script&gt;alert(&quot;This is an alert&quot;)&lt;/script&gt;')
+      return Promise.resolve({})
+    })
+    const response = await handler({
+      bodyXml: '<?xml version="1.0" encoding="UTF-8"?><WarningMessage xmlns="http://www.environment-agency.gov.uk/XMLSchemas/EAFWD" approved="01/02/2019 12:00" requestId="" language="English"><TargetAreaCode><![CDATA[111FWCECD022]]></TargetAreaCode><SeverityLevel>2</SeverityLevel><InternetSituation><![CDATA[<script>alert("This is an alert")</script>]]></InternetSituation><FWISGroupedTACodes><![CDATA[]]></FWISGroupedTACodes></WarningMessage>'
+    })
+    Code.expect(response.statusCode).to.equal(200)
+  })
 })
