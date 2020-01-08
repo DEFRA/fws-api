@@ -39,7 +39,7 @@ lab.experiment('functions/get-all-historical-messages', () => {
     })
 
     const err = await Code.expect(handler(event)).to.reject()
-    Code.expect(err.message).to.equal('[500] rows.map is not a function')
+    Code.expect(err.message).to.equal('[500] rows.forEach is not a function')
   })
 
   lab.test('Sad: get historical messages throw error', async () => {
