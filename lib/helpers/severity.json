@@ -1,7 +1,7 @@
 {
-    "1" : "Flood Alert",
-    "2" : "Flood Warning",
-    "3" : "Severe Flood Warning",
-    "4" : "No Longer In Force" ,
-    "5" : "none"
+    "1" : "Flood alert",
+    "2" : "Flood warning",
+    "3" : "Severe flood warning",
+    "4" : "Warning no longer in force" ,
+    "5" : "None"
 }
