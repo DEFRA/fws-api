@@ -34,7 +34,7 @@ lab.experiment('functions/store-warnings-alerts', () => {
 
   lab.test('store all warnings/alerts - success', async () => {
     const putObjectStub = AWS.S3.prototype.putObject = sinon.stub()
-    putObjectStub.yields(null, 'Success')
+    putObjectStub.returns({ promise: () => { return 'Success' } })
     const response = await handler(eventJson)
 
     Code.expect(response).to.equal('Success')
@@ -42,28 +42,27 @@ lab.experiment('functions/store-warnings-alerts', () => {
 
   lab.test('store all warnings/alerts - error', async () => {
     const putObjectStub = AWS.S3.prototype.putObject = sinon.stub()
-    putObjectStub.yields('failure', null)
+    putObjectStub.returns({ promise: () => { return null } })
     let result
     try {
       result = await handler(eventJson)
     } catch (err) {
       result = err
     }
-
-    // Code.expect(await handler(eventJson)).to.reject()
-    Code.expect(result).to.equal('failure')
+    Code.expect(result).to.be.null()
   })
 
   lab.test('store all warnings/alerts - catch error in putObject', async () => {
     const putObjectStub = AWS.S3.prototype.putObject = sinon.stub()
-    putObjectStub.throws(new Error('Catch error'))
+    putObjectStub.returns({ promise: () => { throw new Error('Catch error') }
+    })
     let result
     try {
       result = await handler(eventJson)
     } catch (err) {
       result = err
     }
-    Code.expect(result.message).to.equal('Catch error')
+    Code.expect(result).to.equal('Catch error')
   })
 
   lab.test('store all warnings/alerts - catch error in handler', async () => {
