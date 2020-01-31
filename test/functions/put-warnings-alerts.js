@@ -54,8 +54,7 @@ lab.experiment('functions/store-warnings-alerts', () => {
 
   lab.test('store all warnings/alerts - catch error in putObject', async () => {
     const putObjectStub = AWS.S3.prototype.putObject = sinon.stub()
-    putObjectStub.returns({ promise: () => { throw new Error('Catch error') }
-    })
+    putObjectStub.returns({ promise: () => { throw new Error('Catch error') } })
     let result
     try {
       result = await handler(eventJson)
