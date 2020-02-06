@@ -165,7 +165,6 @@ lab.experiment('Notification API Client', () => {
   })
 
   lab.test('8 - Lambda invoke should throw error', async () => {
-
     // Stub lambda.invoke
 
     const lambdaInvokeStub = AWS.Lambda.prototype.invoke = sinon.stub()
