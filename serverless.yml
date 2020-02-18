@@ -15,9 +15,6 @@ provider:
     FWS_SNS_TOPIC: ${env:FWS_SNS_TOPIC}
     FWS_HTTP_PROXY: ${env:FWS_HTTP_PROXY}
     FWS_FE_TAG: ${env:FWS_FE_TAG}
-    FWS_LAMBDA_ENDPOINT: ${env:FWS_LAMBDA_ENDPOINT}
-    FWS_S3_WARNINGS_BUCKET: ${env:FWS_S3_WARNINGS_BUCKET}
-    FWS_ENV_NAME: ${env:FWS_ENV_NAME}
   vpc:
     securityGroupIds:
       - ${env:FWS_VPN_SEC_GRP}
@@ -33,11 +30,6 @@ provider:
       executionLogging: true
       level: INFO
       fullExecutionData: true
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - lamda: InvokeFunction
-      Resource: "*"
 package:
   exclude:
     - test
@@ -161,9 +153,8 @@ functions:
   authorizer:
     name: ${env:FWS_ENV_NAME}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
-  putWarningsAlerts:
-    name: ${env:FWS_ENV_NAME}${self:service}-putWarningsAlerts
-    handler: lib/functions/put-warnings-alerts.handler
+plugins:
+  - serverless-layers
 # Uncomment folling lines when running serverless offline instance
 #
 # plugins:
