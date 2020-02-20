@@ -33,6 +33,7 @@
     "@hapi/code": "7.0.0",
     "@hapi/lab": "21.0.0",
     "codeclimate-test-reporter": "0.5.1",
+    "jsdoc": "^3.6.3",
     "serverless": "1.58.0",
     "serverless-layers": "^1.5.0",
     "serverless-offline": "^5.12.1",
