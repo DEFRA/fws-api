@@ -153,4 +153,12 @@ functions:
   authorizer:
     name: ${env:FWS_ENV_NAME}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
-
+plugins:
+  - serverless-layers
+# Uncomment folling lines when running serverless offline instance
+#
+# plugins:
+# - serverless-offline
+# custom:
+#   serverless-offline:
+#     port: 8050

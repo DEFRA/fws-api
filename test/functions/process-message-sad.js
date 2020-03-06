@@ -130,7 +130,7 @@ lab.experiment('Notification API Client', () => {
     Code.expect(err.message).to.equal('[500] Unclosed root tag\nLine: 0\nColumn: 15\nChar: ')
   })
 
-  lab.test('6 - Severity < 5 with blank situation should error', async () => {
+  lab.test('7 - Severity < 5 with blank situation should error', async () => {
     sinon.stub(Services.prototype, 'getLastMessage').callsFake(() => {
       return Promise.resolve({
         rows: [{
