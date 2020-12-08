@@ -159,7 +159,7 @@ plugins:
 # Uncomment folling lines when running serverless offline instance
 #
 # plugins:
-# - serverless-offline
+#   - serverless-offline
 # custom:
 #   serverless-offline:
-#     port: 8050
+#     httpPort: 8050

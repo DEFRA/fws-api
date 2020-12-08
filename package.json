@@ -17,25 +17,25 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "16.1.7",
-    "aws-sdk": "2.578.0",
-    "https-proxy-agent": "3.0.1",
-    "js2xmlparser": "4.0.0",
+    "aws-sdk": "2.799.0",
+    "https-proxy-agent": "5.0.0",
+    "js2xmlparser": "4.0.1",
     "lodash.escape": "^4.0.1",
     "lodash.unescape": "^4.0.1",
-    "moment": "2.24.0",
-    "moment-timezone": "0.5.27",
-    "pg": "7.14.0",
-    "sinon": "7.5.0",
-    "xml2js": "0.4.22",
-    "xmlbuilder": "13.0.2"
+    "moment": "2.29.1",
+    "moment-timezone": "0.5.32",
+    "pg": "8.5.1",
+    "sinon": "9.2.1",
+    "xml2js": "0.4.23",
+    "xmlbuilder": "15.1.1"
   },
   "devDependencies": {
-    "@hapi/code": "7.0.0",
-    "@hapi/lab": "21.0.0",
+    "@hapi/code": "8.0.2",
+    "@hapi/lab": "24.1.0",
     "codeclimate-test-reporter": "0.5.1",
-    "serverless": "1.58.0",
-    "serverless-layers": "^1.5.0",
-    "serverless-offline": "^5.12.1",
-    "standard": "14.3.1"
+    "serverless": "2.13.0",
+    "serverless-layers": "^2.3.1",
+    "serverless-offline": "^6.8.0",
+    "standard": "16.0.3"
   }
 }
