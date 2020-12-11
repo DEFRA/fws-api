@@ -101,7 +101,6 @@ functions:
   getAllMessages:
     name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
     handler: lib/functions/get-all-messages.handler
-    timeout: 30
     events:
       - http:
           method: get
