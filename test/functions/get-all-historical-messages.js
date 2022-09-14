@@ -54,6 +54,6 @@ lab.experiment('functions/get-all-historical-messages', () => {
   lab.test('Sad: get historical messages bad request throw error', async () => {
     event.pathParameters = undefined
     const err = await Code.expect(handler(event)).to.reject()
-    Code.expect(err.message).to.equal('[500] Cannot read property \'code\' of undefined')
+    Code.expect(err.message).to.equal('[500] Cannot read properties of undefined (reading \'code\')')
   })
 })
