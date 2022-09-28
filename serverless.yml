@@ -1,5 +1,5 @@
 service: fws
-frameworkVersion: '2'
+frameworkVersion: '3'
 useDotenv: true
 provider:
   name: aws
@@ -158,6 +158,8 @@ functions:
     handler: lib/functions/authorizer.handler
 plugins:
   - serverless-layers
+  functions:
+    process-message.js
 # Uncomment folling lines when running serverless offline instance
 #
 # plugins:
