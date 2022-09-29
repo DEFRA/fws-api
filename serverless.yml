@@ -157,6 +157,9 @@ functions:
     handler: lib/functions/authorizer.handler
 plugins:
   - serverless-layers
+custom:
+  serverless-layers:
+    dependenciesPath: ./package.json
 # Uncomment folling lines when running serverless offline instance
 #
 # plugins:
