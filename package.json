@@ -13,11 +13,11 @@
     "unit-test": "lab test -v -c --coverage-path lib -r console -o stdout -r lcov -o coverage/lcov.info -r junit -o test/output-unit.xml",
     "validate-config": "node lib/config.js"
   },
-  "author": "DEF",
+  "author": "DEFRA",
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "16.1.7",
-    "aws-sdk": "2.922.0",
+    "aws-sdk": "2.921.0",
     "https-proxy-agent": "5.0.0",
     "js2xmlparser": "4.0.1",
     "lodash.escape": "^4.0.1",
