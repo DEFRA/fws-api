@@ -13,7 +13,7 @@
     "unit-test": "lab test -v -c --coverage-path lib -r console -o stdout -r lcov -o coverage/lcov.info -r junit -o test/output-unit.xml",
     "validate-config": "node lib/config.js"
   },
-  "author": "DEFRA",
+  "author": "DEF",
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "16.1.7",
