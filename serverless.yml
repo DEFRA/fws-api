@@ -158,8 +158,6 @@ functions:
     handler: lib/functions/authorizer.handler
 plugins:
   - serverless-layers
-  functions:
-    process-message.js
 # Uncomment folling lines when running serverless offline instance
 #
 # plugins:
