@@ -7,7 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "npm run validate-config && serverless deploy --verbose --force",
+    "deploy": "npm run validate-config && sls deploy -v --force",
     "lint": "standard",
     "test": "npm run lint && npm run unit-test",
     "unit-test": "lab test -v -c --coverage-path lib -r console -o stdout -r lcov -o coverage/lcov.info -r junit -o test/output-unit.xml",
