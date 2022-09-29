@@ -27,12 +27,6 @@ provider:
   apiGateway:
     restApiId: ${env:FWS_API_ID}
     restApiRootResourceId: ${env:FWS_ROOT_ID}
-#  logs:
-#    restApi:
-#      accessLogging: false
-#      executionLogging: true
-#      level: INFO
-#      fullExecutionData: true
 package:
   exclude:
     - test
