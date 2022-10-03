@@ -1,6 +1,6 @@
 {
   "name": "fws-api",
-  "version": "1.2.0",
+  "version": "1.9.0",
   "engines": {
     "node": "16.x"
   },
