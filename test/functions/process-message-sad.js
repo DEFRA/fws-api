@@ -53,7 +53,7 @@ lab.experiment('Notification API Client', () => {
     const err = await Code.expect(handler({
       bodyXml: ' '
     })).to.reject()
-    Code.expect(err.message).to.equal('[500] Cannot read property \'WarningMessage\' of null')
+    Code.expect(err.message).to.equal('[500] Cannot read properties of null (reading \'WarningMessage\')')
   })
 
   lab.test(' 2 - getting error when severity is not 1-4', async () => {
