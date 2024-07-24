@@ -3,8 +3,8 @@ frameworkVersion: '3'
 useDotenv: true
 provider:
   name: aws
-  stackName: ${env:FWS_ENV_NAME}${self:service}
-  apiName: ${env:FWS_ENV_NAME}${self:service}-rest-api
+  stackName: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}
+  apiName: ${env:FWS_ENV_NAME}${self:service}2-rest-api
   runtime: nodejs18.x
   iam:
     role: ${env:FWS_LAMBDA_ROLE}
@@ -35,7 +35,7 @@ package:
     - test
 functions:
   processMessage:
-    name: ${env:FWS_ENV_NAME}${self:service}-processMessage
+    name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-processMessage
     handler: lib/functions/process-message.handler
     events:
       - http:
@@ -99,7 +99,7 @@ functions:
   #           identitySource: method.request.header.x-api-key
   #           resultTtlInSeconds: 0
   getAllMessages:
-    name: ${env:FWS_ENV_NAME}${self:service}-getAllMessages
+    name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllMessages
     handler: lib/functions/get-all-messages.handler
     events:
       - http:
@@ -127,7 +127,7 @@ functions:
             identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
   getAllTargetAreas:
-    name: ${env:FWS_ENV_NAME}${self:service}-getAllTargetAreas
+    name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllTargetAreas
     handler: lib/functions/get-all-target-areas.handler
     events:
       - http:
@@ -139,7 +139,7 @@ functions:
             identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
   getAllHistoricalMessages:
-    name: ${env:FWS_ENV_NAME}${self:service}-getAllHistoricalMessages
+    name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllHistoricalMessages
     handler: lib/functions/get-all-historical-messages.handler
     events:
       - http:
@@ -151,7 +151,7 @@ functions:
             identitySource: method.request.header.x-api-key
             resultTtlInSeconds: 0
   authorizer:
-    name: ${env:FWS_ENV_NAME}${self:service}-authorizer
+    name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
 plugins:
   - serverless-layers
