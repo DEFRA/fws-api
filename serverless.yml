@@ -14,9 +14,9 @@ provider:
     name: ${env:FWS_BUCKET}
   environment:
     stage: ${env:FWS_ENV_NAME}
-    FWS_DB_USERNAME: ${ssm:${env:FWS_DB_USERNAME}}
-    FWS_DB_NAME: ${ssm:${env:FWS_DB_NAME}}
-    FWS_DB_HOST: ${ssm:${env:FWS_DB_HOST}}
+    FWS_DB_USERNAME: ${ssm:/${self:provider.environment.stage}/ldn/fws/webops/postgres/db_user}
+    FWS_DB_NAME: ${ssm:/${self:provider.environment.stage}/ldn/fws/webops/postgres/db_name}
+    FWS_DB_HOST: ${ssm:/${self:provider.environment.stage}/ldn/fws/webops/postgres/db_host}
     FWS_DB_PASSWORD_SECRET_NAME: ${env:FWS_DB_PASSWORD_SECRET_NAME}
     FWS_SNS_TOPIC: ${env:FWS_SNS_TOPIC}
     FWS_HTTP_PROXY: ${env:FWS_HTTP_PROXY}
@@ -155,7 +155,6 @@ functions:
     handler: lib/functions/authorizer.handler
 plugins:
   - serverless-layers
-  # - serverless-ssm-fetch
 # Uncomment folling lines when running serverless offline instance
 #
 # plugins:
