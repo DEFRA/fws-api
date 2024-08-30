@@ -17,11 +17,13 @@ lab.experiment('helpers/services', () => {
     sinon.restore()
   })
 
-  lab.test('Happy path: vanilla', async () => {
-    const proxy = process.env.FWS_HTTP_PROXY
-    process.env.FWS_HTTP_PROXY = undefined
-    delete require.cache[require.resolve('../../lib/helpers/aws')]
-    require('../../lib/helpers/aws')
-    process.env.FWS_HTTP_PROXY = proxy
-  })
+  // Test no longer needs proxy as no proxy used with new Env
+
+  // lab.test('Happy path: vanilla', async () => {
+  //   const proxy = process.env.FWS_HTTP_PROXY
+  //   process.env.FWS_HTTP_PROXY = undefined
+  //   delete require.cache[require.resolve('../../lib/helpers/aws')]
+  //   require('../../lib/helpers/aws')
+  //   process.env.FWS_HTTP_PROXY = proxy
+  // })
 })

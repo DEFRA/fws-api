@@ -19,7 +19,6 @@ provider:
     FWS_DB_HOST: ${ssm:/${self:provider.environment.stage}/ldn/fws/webops/postgres/db_host}
     FWS_DB_PASSWORD: ${self:custom.supersecret}
     FWS_SNS_TOPIC: ${env:FWS_SNS_TOPIC}
-    FWS_HTTP_PROXY: ${env:FWS_HTTP_PROXY}
     FWS_FE_TAG: ${env:FWS_FE_TAG}
   vpc:
     securityGroupIds:
