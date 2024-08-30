@@ -31,8 +31,6 @@ provider:
     restApiId: ${env:FWS_API_ID}
     restApiRootResourceId: ${env:FWS_ROOT_ID}
     metrics: true
-    logs:
-      restApi: true
 package:
   exclude:
     - test
