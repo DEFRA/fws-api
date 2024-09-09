@@ -16,9 +16,9 @@
   "author": "DEFRA",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "16.1.7",
     "aws-sdk": "2.1466.0",
     "https-proxy-agent": "5.0.0",
+    "joi": "^17.13.3",
     "js2xmlparser": "4.0.1",
     "lodash.escape": "^4.0.1",
     "lodash.unescape": "^4.0.1",
