@@ -1,6 +1,9 @@
 ![Build status](https://github.com/DEFRA/fws-api/actions/workflows/ci.yml/badge.svg)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_fws-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=DEFRA_fws-api)[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_fws-api&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_fws-api)
 
 
+![Build status](https://github.com/DEFRA/fws-api/actions/workflows/ci.yml/badge.svg)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_fws-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=DEFRA_fws-api)[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_fws-api&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_fws-api)
+
+
 # FWS-API
 
 This repository contains the serverless backend services for the **FWIS replacement API** and the **FWIS management tool (FWS-app)**.
