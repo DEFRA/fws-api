@@ -31,9 +31,9 @@ You can check the required environment variables in `./lib/config.js`, which con
 ### Example environment variables:
 
 ```bash
-export API_KEY="your-api-key"
-export DATABASE_URL="your-database-url"
-export NODE_ENV="development"
+export FWS_ENV_NAME="env-name"
+export FWS_LAMBDA_ROLEL="lambda-connection-role"
+export FWS_DB_CONNECTION="db-connection"
 ```
 
 Ensure all required environment variables are configured correctly before running the project.
