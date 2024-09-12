@@ -62,6 +62,7 @@ The following status codes are returned by the API:
 
 - **200 Created**: The request was successful, and a new resource was created.
 - **401 Unauthorized**: The API key is invalid or missing.
+- **403 Forbidden**: The request is valid but the API key is not authorized to access this resource with an explicit deny.
 - **500 Internal Server Error**: An error occurred on the server.
 
 ## Contributing
