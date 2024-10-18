@@ -37,6 +37,7 @@ functions:
   processMessage:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-processMessage
     handler: lib/functions/process-message.handler
+    kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
     events:
       - http:
           method: post
@@ -101,6 +102,7 @@ functions:
   getAllMessages:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllMessages
     handler: lib/functions/get-all-messages.handler
+    kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
     events:
       - http:
           method: get
@@ -129,6 +131,7 @@ functions:
   getAllTargetAreas:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllTargetAreas
     handler: lib/functions/get-all-target-areas.handler
+    kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
     events:
       - http:
           method: get
@@ -141,6 +144,7 @@ functions:
   getAllHistoricalMessages:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllHistoricalMessages
     handler: lib/functions/get-all-historical-messages.handler
+    kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
     events:
       - http:
           method: get
@@ -153,6 +157,7 @@ functions:
   authorizer:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
+    kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
 plugins:
   - serverless-layers
 # Uncomment folling lines when running serverless offline instance
