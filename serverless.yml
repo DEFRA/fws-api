@@ -30,6 +30,14 @@ provider:
     restApiId: ${env:FWS_API_ID}
     restApiRootResourceId: ${env:FWS_ROOT_ID}
     metrics: true
+  tags:
+    Environment: upper(${env:FWS_ENV_NAME})
+    Project: "Flood Warnings System Replacement"
+    Source: "Terraform managed"
+    ServiceCode: FWS
+    Region: ${env:FWS_REGION}
+    ServiceType: LOB
+    ServiceName: "Flood Warnings System Replacement"
 package:
   exclude:
     - test
@@ -38,6 +46,8 @@ functions:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-processMessage
     handler: lib/functions/process-message.handler
     kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
+    tags:
+      Name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-processMessage
     events:
       - http:
           method: post
@@ -103,6 +113,8 @@ functions:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllMessages
     handler: lib/functions/get-all-messages.handler
     kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
+    tags:
+      Name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllMessages
     events:
       - http:
           method: get
@@ -132,6 +144,8 @@ functions:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllTargetAreas
     handler: lib/functions/get-all-target-areas.handler
     kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
+    tags:
+      Name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllTargetAreas
     events:
       - http:
           method: get
@@ -145,6 +159,8 @@ functions:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllHistoricalMessages
     handler: lib/functions/get-all-historical-messages.handler
     kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
+    tags:
+      Name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-getAllHistoricalMessages
     events:
       - http:
           method: get
@@ -158,8 +174,11 @@ functions:
     name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-authorizer
     handler: lib/functions/authorizer.handler
     kmsKeyArn: ${env:FWS_KMS_KEY_ARN}
+    tags:
+      Name: ${env:FWS_ENV_NAME}${env:FWS_LOC}${self:service}-authorizer
 plugins:
   - serverless-layers
+  - serverless-plugin-utils
 # Uncomment folling lines when running serverless offline instance
 #
 # plugins:
