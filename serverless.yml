@@ -31,7 +31,7 @@ provider:
     restApiRootResourceId: ${env:FWS_ROOT_ID}
     metrics: true
   tags:
-    Environment: ${upper:${env:FWS_ENV_NAME}}
+    Environment: ${env:FWS_ENV_NAME}
     Project: "Flood Warnings System Replacement"
     Source: "Terraform managed"
     ServiceCode: FWS
