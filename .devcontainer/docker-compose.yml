@@ -1,0 +1,41 @@
+services:
+  localstack:
+    container_name: "localstack-main"
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    env_file:
+      - .env
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./.volume:/var/lib/localstack"
+    networks:
+      ls:
+        # Set the container IP address in the 192.168.0.0/24 subnet
+        ipv4_address: 192.168.0.20
+  
+  dev-container:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: ""
+    volumes:
+      - ../..:/workspaces:cached
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    init: true    
+    env_file:
+      - .env
+    dns:
+      # Set the DNS server to be the LocalStack container
+      - 192.168.0.20
+    networks:
+      - ls
+
+networks:
+  ls:
+    ipam:
+      config:
+        # Specify the subnet range for IP address allocation
+        - subnet: 192.168.0.0/24
