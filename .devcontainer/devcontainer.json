@@ -26,6 +26,6 @@
 			]
 		}
 	},
-	"postCreateCommand": "/workspaces/fws-api/.devcontainer/scripts/post-create-command.sh"
+	"postCreateCommand": "(cd ${containerWorkspaceFolder} && .devcontainer/scripts/post-create-command.sh)"
 }
 
