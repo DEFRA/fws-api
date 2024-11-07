@@ -2,8 +2,7 @@
 set -e
 
 (
-  cd /workspaces/fws-api
+  cd ${containerWorkspaceFolder}
   sudo .devcontainer/scripts/install-packages.sh
   .devcontainer/scripts/init-npm.sh
 )
-
