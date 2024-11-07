@@ -1,8 +1,6 @@
 #!/bin/sh
+# This script MUST be called from the container workspace folder.
 set -e
 
-(
-  cd ${containerWorkspaceFolder}
-  sudo .devcontainer/scripts/install-packages.sh
-  .devcontainer/scripts/init-npm.sh
-)
+sudo .devcontainer/scripts/install-packages.sh
+.devcontainer/scripts/init-npm.sh
