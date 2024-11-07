@@ -1,8 +1,8 @@
 {
 	"name": "LocalStack DooD setup",
 	"dockerComposeFile": [
-		"dockercontainer.yml",
-        "infrastructure.yml"
+		"devcontainer.yml",
+                "infrastructure.yml"
     ],
 	"service": "fws",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
