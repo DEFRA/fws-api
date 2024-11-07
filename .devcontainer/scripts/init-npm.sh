@@ -5,5 +5,5 @@ set -e
 ( echo NPM_PACKAGES="${HOME}/.npm-packages"; echo PATH="${HOME}/.npm-packages/bin:${PATH}") >> ${HOME}/.bashrc
 
 # Install npm packages
-#npm i
+npm i
 
