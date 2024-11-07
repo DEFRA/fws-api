@@ -26,6 +26,6 @@
 			]
 		}
 	},
-        // Remove /etc/apt/sources.list.d/backports.list to resolve apt duplication warnings
-        "onCreateCommand": "rm /etc/apt/sources.list.d/backports.list && echo **DEBUG_CONTAINER_ADDRESS** **$NODEJS_VERSION**"
+        "onCreateCommand": "sudo .devcontainer/scripts/install-packages.sh && .devcontainer/scripts/init-npm.sh"
 }
+
