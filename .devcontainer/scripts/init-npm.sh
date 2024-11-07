@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
 
+NPM_PACKAGES_PATH="${HOME}/.npm-packages"
+
 # Allow npm package installation without using sudo
-( echo NPM_PACKAGES="${HOME}/.npm-packages"; echo PATH="${HOME}/.npm-packages/bin:${PATH}") >> ${HOME}/.bashrc
+( echo NPM_PACKAGES="${NPM_PACKAGES_PATH}"; echo PATH="${NPM_PACKAGES_PATH}/bin:${PATH}") >> ${HOME}/.bashrc
 
 # Install npm packages
 npm i
