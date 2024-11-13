@@ -1,0 +1,44 @@
+services:
+  localstack:
+    container_name: "localstack-main"
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    env_file:
+      - .env
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./.volume:/var/lib/localstack"
+    networks:
+      ls:
+        # Set the container IP address in the 192.168.0.0/24 subnet
+        ipv4_address: 192.168.0.20
+    
+  fwsdb:
+    secrets:
+      - postgres_password
+      - u_fws_password
+    build:
+      context: ../docker/infrastructure/fws-db
+      dockerfile: Dockerfile
+    user: "postgres"
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../docker/infrastructure/fws-db/bootstrap-fws-db.sh:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
+    networks:
+      ls:
+
+secrets:
+  postgres_password:
+    environment: POSTGRES_PASSWORD
+  u_fws_password:
+    environment: U_FWS_PASSWORD
+volumes:
+  pgdata:
+    external: true
