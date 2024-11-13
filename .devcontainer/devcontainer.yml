@@ -1,6 +1,6 @@
 services:  
   fws:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     entrypoint: ""
