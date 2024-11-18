@@ -36,9 +36,9 @@ services:
 
 secrets:
   postgres_password:
-    environment: POSTGRES_PASSWORD
+    file: ../docker/secrets/POSTGRES_PASSWORD
   u_fws_password:
-    environment: U_FWS_PASSWORD
+    file: ../docker/secrets/U_FWS_PASSWORD
 volumes:
   pgdata:
     external: true
