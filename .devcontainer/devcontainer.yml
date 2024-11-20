@@ -1,5 +1,9 @@
 services:  
   fws:
+    secrets:
+      - fws_db_username
+      - fws_db_password
+      - fws_db_url
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,7 +20,13 @@ services:
       - 192.168.0.20
     networks:
       - ls
-
+secrets:
+  fws_db_username:
+    file: ../docker/secrets/FWS_DB_USERNAME
+  fws_db_password:
+    file: ../docker/secrets/FWS_DB_PASSWORD
+  fws_db_url:
+    file: ../docker/secrets/FWS_DB_URL
 networks:
   ls:
     ipam:
