@@ -22,11 +22,11 @@ services:
       - ls
 secrets:
   fws_db_username:
-    file: ../docker/secrets/FWS_DB_USERNAME
+    file: ${HOME}/.fws-api/.devcontainer/.docker-secrets/fws_db_username
   fws_db_password:
-    file: ../docker/secrets/FWS_DB_PASSWORD
+    file: ${HOME}/.fws-api/.devcontainer/.docker-secrets/fws_db_password
   fws_db_url:
-    file: ../docker/secrets/FWS_DB_URL
+    file: ${HOME}/.fws-api/.devcontainer/.docker-secrets/fws_db_url
 networks:
   ls:
     ipam:
