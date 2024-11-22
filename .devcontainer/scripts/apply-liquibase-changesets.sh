@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-cp docker/infrastructure/fws-db/pom.xml ../fws-db/u_fws/pom.xml
+cp docker/fws-db/pom.xml ../fws-db/u_fws/pom.xml
 
 export FWS_DB_USERNAME=$(cat /run/secrets/fws_db_username)
 export FWS_DB_PASSWORD=$(cat /run/secrets/fws_db_password)

@@ -20,7 +20,7 @@ services:
       - postgres_password
       - u_fws_password
     build:
-      context: ../docker/infrastructure/fws-db
+      context: ../docker/fws-db
       dockerfile: Dockerfile
     user: "postgres"
     ports:
@@ -30,7 +30,7 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ../docker/infrastructure/fws-db/bootstrap-fws-db.sh:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
+      - ../docker/fws-db/bootstrap-fws-db.sh:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
     networks:
       ls:
 
