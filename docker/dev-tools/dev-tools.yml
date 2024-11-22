@@ -15,7 +15,7 @@ services:
       ls:
 secrets:
   pgadmin_default_password:
-    file: ../docker/secrets/PGADMIN_DEFAULT_PASSWORD
+    file: ${HOME}/.fws-api/.devcontainer/.docker-secrets/pgadmin_default_password
 volumes:
   pgadmin:
     external: true
