@@ -9,5 +9,5 @@ if [ ! -d /fws_indexes ]; then
 fi
 psql -c "CREATE USER u_fws WITH PASSWORD '$(cat /run/secrets/u_fws_password)';"
 psql -c "CREATE DATABASE fws";
-psql -d fws -f "/tmp/fws-setup.sql"
-
+psql -d $(cat /run/secrets/fws_db_name) -f "/tmp/fws-setup.sql";
+psql -d $(cat /run/secrets/fws_db_name) -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"";
