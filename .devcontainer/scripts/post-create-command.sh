@@ -9,4 +9,6 @@ sudo .devcontainer/scripts/install-packages.sh
 docker exec -it fws-api_devcontainer-fwsdb-1 psql -d $(cat /run/secrets/fws_db_name) -f /tmp/populate-api-keys.sql
 .devcontainer/scripts/init-npm.sh
 .devcontainer/scripts/register-lambda-functions.sh
+.devcontainer/scripts/set-environment-variables-for-lambda-functions.sh
+.devcontainer/scripts/register-api-gateway.sh
 docker image prune -f
