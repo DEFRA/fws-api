@@ -31,11 +31,6 @@ for lambda_function in "$lambda_functions_dir"/*; do
         --no-cli-pager
       sleep 1
 
-      # Register a URL for the function so that it can be invoked without use of the LocalStack AWS CLI.
-      echo Registering URL for $function_name
-      awslocal lambda create-function-url-config \
-        --function-name $function_name \
-        --auth-type NONE
   fi
 done
 
