@@ -78,7 +78,19 @@ put_method_and_integration() {
       --authorization-type "NONE" \
       $(get_request_parameters $lambda_function_name)
 
+  # The process-message lambda function requires a request template which is not required for other lambda functions.
+  # Unnfortunately, attempts to call a function of the form $(get_request_templates $lambda_function_name) to reduce
+  # duplication have been unsuccesful due to unresolved shell expansion issues.
+  # As such, a conditional block is used to hardcode the request-templates parameter for the process-message
+  # lambda function.
   if [ $lambda_function_name = "process-message" ]; then
+  # IMPORTANT
+  # Due to apparent processing differences between the real AWS API Gateway and the associated localstack emulator,
+  # the request template for localstack AWS API gateway emulation uses $input.json("$.message") rather than
+  # $input.json("$").
+  # This is to allow the application code to receive the same data as it would from the real AWS API Gateway.
+  # This requires XML data submitted to the AWS API gateway localstack emulator to be wrapped in a JSON object
+  # of the form {"message": "<xml data with double quote escaping>"}.
     awslocal apigateway put-integration \
       --rest-api-id $fws_rest_api_id \
       --resource-id $1 \
@@ -87,7 +99,7 @@ put_method_and_integration() {
       --integration-http-method POST \
       --uri arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:000000000000:function:$lambda_function_name/invocations \
       --passthrough-behavior WHEN_NO_TEMPLATES \
-      --request-templates '{"text/html": "{\"bodyXml\": $input.json(\"$\")}"}'
+      --request-templates '{"text/html": "{\"bodyXml\": $input.json(\"$.message\")}"}'
   else
     awslocal apigateway put-integration \
       --rest-api-id $fws_rest_api_id \
