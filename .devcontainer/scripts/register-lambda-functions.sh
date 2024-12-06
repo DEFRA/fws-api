@@ -1,5 +1,6 @@
 #!/bin/sh
-# This script MUST be called from the container workspace folder.
+# This script MUST be called from ${containerWorkspace Folder}.
+# See https://containers.dev/implementors/json_reference/.
 set -e
 
 lambda_functions_dir="lib/functions"
