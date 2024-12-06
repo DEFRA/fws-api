@@ -16,7 +16,7 @@ main() {
     http_method=$(get_http_method $lambda_function_name)
 
     if [ $lambda_function_name = "authorizer" ]; then
-      echo Skipping $lambda_function
+      echo Skipping $lambda_function because LocalStack community edition does not support custom authorizers
       continue
     fi
 
@@ -86,11 +86,11 @@ put_method_and_integration() {
   # lambda function.
   if [ $lambda_function_name = "process-message" ]; then
   # IMPORTANT
-  # Due to apparent processing differences between the real AWS API Gateway and the associated localstack emulator,
-  # the request template for localstack AWS API gateway emulation uses $input.json("$.message") rather than
+  # Due to apparent processing differences between the real AWS API Gateway and the associated LocalStack emulator,
+  # the request template for LocalStack AWS API gateway emulation uses $input.json("$.message") rather than
   # $input.json("$").
   # This is to allow the application code to receive the same data as it would from the real AWS API Gateway.
-  # This requires XML data submitted to the AWS API gateway localstack emulator to be wrapped in a JSON object
+  # This requires XML data submitted to the AWS API gateway LocalStack emulator to be wrapped in a JSON object
   # of the form {"message": "<xml data with double quote escaping>"}.
     awslocal apigateway put-integration \
       --rest-api-id $fws_rest_api_id \
