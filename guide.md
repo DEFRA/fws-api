@@ -29,7 +29,7 @@ This API uses an API key for authentication.
 
 - **Headers**:
   - `x-api-key`: Your API key (required).
-  - **Content-Type**:
+  - **Content-Type**: (one of the following required): 
     - Use `text/html` if sending XML as a string.
     - Use `text/xml` for XML compatibility.
 
