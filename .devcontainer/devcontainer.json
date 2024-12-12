@@ -29,7 +29,6 @@
 			]
 		}
 	},
-	"forwardPorts": [ 8080 ],
 	"initializeCommand": "(cd ${containerWorkspaceFolder} && .devcontainer/scripts/initialize-command.sh)",
 	"onCreateCommand": "(cd ${containerWorkspaceFolder} && .devcontainer/scripts/on-create-command.sh)",
 	"postCreateCommand": "(cd ${containerWorkspaceFolder} && .devcontainer/scripts/post-create-command.sh)"
