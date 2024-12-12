@@ -105,6 +105,9 @@ put_method_and_integration() {
       --request-templates '{"text/html": "{\"bodyXml\": $input.json(\"$.message\")}"}'
 
     # AWS integrations require integration responses to be set manually.
+    # Note that response parameters are omitted due to https://github.com/localstack/localstack/issues/11303.
+    # While alignment of local development and operational environment provisioning is desirable,
+    # a workaround has not been attempted due to response parameters not being required for effective local development.
     set -- 200 400 401 403 404 422 500 502
 
     for status_code in $@; do
