@@ -105,7 +105,7 @@ put_method_and_integration() {
       --request-templates '{"text/html": "{\"bodyXml\": $input.json(\"$.message\")}"}'
 
     # AWS integrations require integration responses to be set manually.
-    set -- 200 400 401 403 404 422 500 502 504
+    set -- 200 400 401 403 404 422 500 502
 
     for status_code in $@; do
       awslocal apigateway put-integration-response \
