@@ -12,5 +12,14 @@
             "type": "node",
             "preLaunchTask": "Wait Remote Debugger Server"
         },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "debug unit tests",
+            "program": "${workspaceFolder}/node_modules/.bin/lab",
+             "args": [
+                 "test"
+             ]
+        }
     ]
 }
