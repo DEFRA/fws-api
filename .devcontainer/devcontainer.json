@@ -9,7 +9,9 @@
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	// Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"upgradePackages": true
+		},
 		"ghcr.io/localstack/devcontainer-feature/localstack-cli:latest": {
 			"version": "latest",
 			"awslocal": true, // if true, add in features manually: ghcr.io/devcontainers/features/aws-cli
