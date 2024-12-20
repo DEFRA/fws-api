@@ -3,7 +3,7 @@ services:
     image: dpage/pgadmin4
     user: pgadmin
     secrets:
-      - pgadmin_default_password 
+      - pgadmin_default_password
     environment:
       - PGADMIN_DEFAULT_EMAIL=ubuntu@localhost.localdomain
       - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/pgadmin_default_password

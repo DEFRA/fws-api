@@ -14,7 +14,6 @@ services:
       ls:
         # Set the container IP address in the 192.168.0.0/24 subnet
         ipv4_address: 192.168.0.20
-    
   fwsdb:
     secrets:
       - postgres_password
