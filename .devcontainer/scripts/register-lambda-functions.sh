@@ -20,7 +20,7 @@ for lambda_function in "$lambda_functions_dir"/*; do
   if [ -f "$lambda_function" ]; then
       function_name=$(basename "$lambda_function" .js)
       echo Registering $function_name with LocalStack
-      
+
       awslocal lambda create-function \
         --function-name "$function_name" \
         --code S3Bucket="hot-reload",S3Key="$(pwd)/" \
