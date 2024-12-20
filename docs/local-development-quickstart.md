@@ -37,14 +37,15 @@ The development environment as code approach ensures that all developers utilise
 **These instructions are for use with a Docker installation on native Linux currently**.
 
 [setup-for-rootless-docker.sh](../.devcontainer/scripts/setup-for-rootless-docker.sh) **must** be run as **root** before attempting to create a dev container from either a local fws-api repository or by cloning the remote fws-api repository into a container volume. The script performs the following actions that are required regardless of how dev containers are created:
+
 * Rootful Docker socket backup.
 * Replacement of rootful Docker socket with a symbolic link to the rootless Docker socket.
-  * This is required because the Docker socket used by [Docker outside Of Docker Compose](https://github.com/devcontainers/
-    templates/tree/main/src/docker-outside-of-docker-compose) development containers does not appear to be configurable
-    at the time of writing.
+  * This is required because the Docker socket used by [Docker outside Of Docker Compose](https://github.com/devcontainers/templates/tree/main/src/docker-outside-of-docker-compose) dev containers does not appear to be configurable
+  at the time of writing.
 * Grant of rootless Docker socket read write access to the host SUBGID for the dev container **vscode** user.
 
 The following actions allow a dev container to be created from a local fws-api repository with read write access to repository items being possible from inside and outside of the dev container.
+
 * Creation of a symbolic link from the dev container workspace directory (**/workspaces/fws-api** created on the host filesystem
   during dev container creation) to the local fws-api repository location on the host filesystem.
 * Grant of local fws-api repository read write access to the host SUBGID for the dev container **vscode** user.
@@ -70,6 +71,7 @@ sudo --preserve-env=LOCAL_FWS_API_DIR,FWS_API_HOST_USERNAME "$LOCAL_FWS_API_DIR"
 ```
 
 #### Housekeeping Considerations
+
 **IMPORTANT** - The rootful Docker socket (/var/run/docker.sock) appears to be recreated in scenarios such as a system
 reboot. As such [setup-for-rootless-docker.sh](../.devcontainer/scripts/setup-for-rootless-docker.sh) **must** be run following such scenarios to ensure that /var/run/docker.sock refers to the rootless Docker socket.
 
@@ -98,12 +100,13 @@ The following Docker secret files are required.
 | fws_db_name | FWS database name (fws is suggested) |
 | fws_db_password | FWS database password for the **u_fws** user |
 | fws_db_url | FWS database JDBC URL - jdbc:postgresql://fwsdb:5432/&lt;&lt;replace with FWS database name&gt;&gt; |
-| fws_db_username | Runtime FWS database username (This **must** be **u_fws**)
+| fws_db_username | Runtime FWS database username (This **must** be **u_fws**) |
 | pgadmin_default_password | Runtime password for accessing Pgadmin4 as **ubuntu.localhost.localdomain** |
 | postgres_password | FWS database password for the **postgres** user |
 | u_fws_password | FWS database password for the **u_fws** user |
 
-**IMPORTANT**
+IMPORTANT
+
 * Docker secret files **must** be used even when creating a dev container from a local fws-api repository.
 * All Docker secret files **must** contain **no** additional content.
 * fws_db_password and u_fws_password **must** contain the same content.
@@ -141,7 +144,7 @@ After a local directory has been selected or a repository URL has been entered i
 [The development container environment variable file](../.devcontainer/.env) is configured to debug a
 LocalStack hosted AWS Lambda function by default through the following environment variable:
 
-```
+```sh
 LAMBDA_DOCKER_FLAGS=-e NODE_OPTIONS=--inspect-brk=0.0.0.0:9229 -p 9229:9229
 ```
 
@@ -151,6 +154,7 @@ in a LocalStack Docker container used to run an AWS Lambda function.
 ### Disabling Debug Functionality
 
 AWS Lambda function debugging can be disabled by:
+
 * Commenting out the **LAMBDA_DOCKER_FLAGS** environment variable in [the development container environment variable file](../.devcontainer/.env)
 * Replacing ([Teardown](#teardown) and recreate )the existing containerised development environment with a new containerised development environment using
   the revised configuration
@@ -185,7 +189,8 @@ as a guide to making a HTTP GET request to the **/fwis.json** endpoint using **c
 curl -H "Content-Type: text/html" "http://<<REST-API-ID>>.execute-api.localhost.localstack.cloud:4566/local/fwis.json"
 ```
 
-**IMPORTANT**
+IMPORTANT
+
 * The **&lt;&lt;REST-API-ID&gt;&gt;** placeholder **must** be replaced.
 * The HTTP request header containing an API key is **not** required when running/debugging AWS Lambda functions with LocalStack because custom authorizer function configuration requires use of LocalStack Pro.
 * When the debugger attaches, it breaks before running the AWS Lambda function. As such, debugging **must** be resumed to reach
@@ -199,7 +204,7 @@ At the time of writing, LocalStack API Gateway software appears to require raw X
 within a JSON document and a slightly different request template to be able to provide the AWS Lambda function with an event object reflecting that received from real AWS API Gateway software. For example, real AWS API Gateway software is capable of
 handling raw XML such as the following:
 
-```
+```sh
 <xml>
   <element>content</element>
 </xml>
@@ -208,7 +213,7 @@ handling raw XML such as the following:
 LocalStack API Gateway software appears to require the following structure for Lambda functions to receive an event object
 consistent with that received from real AWS API Gateway software.
 
-```
+```sh
 {
   "message": "<xml><element>content</element></xml>"
 }
@@ -220,7 +225,8 @@ The following command can be used as a guide to making a HTTP POST request to th
 curl -H "Content-Type: text/html" -d "@<</path/to/message/file>>" "http://<<REST-API-ID>>.execute-api.localhost.localstack.cloud:4566/local/message"
 ```
 
-**IMPORTANT**
+IMPORTANT
+
 * The **&lt;&lt;path/to/message/file&gt;&gt;** and **&lt;&lt;REST-API-ID&gt;&gt;** placeholders **must** be replaced.
 
 ### Making Code Changes
@@ -311,16 +317,19 @@ Pushing to GitHub or backing up regularly is recommended.
 If network connectivity from Docker containers is lost try restarting the docker daemon (or equivalent) on the machine running the Visual Studio Code dev container.
 
 For example, in a Linux environment using systemd:
+
 * Issue the following command for rootful Docker:
 
   ```sh
   sudo systemctl restart docker
   ```
+
 * Issue the following command as a rootless Docker socket owner:
 
   ```sh
   systemctl --user restart docker
   ```
+
 ### Volume Permissions
 
 If container volume permissions change unexpectedly, a potential reason could be unorderly container shutdown. Restoration of required volume permissions can be achieved using standard operating system commands. For example, in a Linux environment, issue the following command (substituting the required user ID, group ID and volume path):
@@ -328,10 +337,12 @@ If container volume permissions change unexpectedly, a potential reason could be
 ```sh
 sudo chown -R <<user ID>>:<<group ID>> <<path/to/volume>>
 ```
+
 ### Teardown
 
 Teardown can be performed by closing the remote connection to the dev container in Visual Studio Code
 (File -> Close Remote Connection) and running [teardown.sh](../.devcontainer/scripts/teardown.sh). This script:
+
 * stops and removes **ALL** Docker containers (using [stop-and-remove-containers.sh](../.devcontainer/scripts/stop-and-remove-containers.sh))
 * removes the custom network **ls** used by fws-api associated Docker containers (using [remove-networks.sh](../.devcontainer/scripts/remove-networks.sh))
 * removes the following fws-api associated volumes (using [remove-volumes.sh](../.devcontainer/scripts/remove-volumes.sh)):
