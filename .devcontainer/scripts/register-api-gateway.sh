@@ -89,11 +89,18 @@ put_method_and_integration() {
   if [ $lambda_function_name = "process-message" ]; then
     # IMPORTANT
     # Due to apparent processing differences between the real AWS API Gateway and the associated LocalStack emulator,
-    # the request template for LocalStack AWS API gateway emulation uses $input.json("$.message") rather than
+    # the text/html request template for LocalStack AWS API Gateway emulation uses $input.json("$.message") rather than
     # $input.json("$").
-    # This is to allow the application code to receive the same data as it would from the real AWS API Gateway.
-    # This requires XML data submitted to the AWS API gateway LocalStack emulator to be wrapped in a JSON object
-    # of the form {"message": "<xml data with double quote escaping>"}.
+    # This is to allow the application code to receive the same data as it would from the real AWS API Gateway
+    # when client requests are submitted using the content type text/html. When using the content type text/html,
+    # XML data submitted to the AWS API gateway LocalStack emulator MUST be wrapped in a JSON object of the
+    # form {"message": "<xml data with double quote escaping>"}. This results in the Lambda function receiving
+    # JSON of the form {"bodyXml": "<xml data with double quote escaping>"}.
+    # JSON of the form {"bodyXml": "<xml data with double quote escaping>"} can also be submitted to the
+    # AWS API Gateway LocalStack emulator directly using the application/json content type. Use of the request template
+    # $input.body for the content type application/json ensures that the request payload is passed to the Lambda function
+    # unaltered. In contrast, the real AWS API Gateway achieves the same effect using the request template {} for the
+    # content type application/json.
     awslocal apigateway put-integration \
       --rest-api-id $fws_rest_api_id \
       --resource-id $resource_id \
@@ -102,7 +109,7 @@ put_method_and_integration() {
       --integration-http-method POST \
       --uri arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:000000000000:function:$lambda_function_name/invocations \
       --passthrough-behavior WHEN_NO_TEMPLATES \
-      --request-templates '{"text/html": "{\"bodyXml\": $input.json(\"$.message\")}"}'
+      --request-templates '{"text/html": "{\"bodyXml\": $input.json(\"$.message\")}", "application/json": "$input.body"}'
 
     # AWS integrations require integration responses to be set manually.
     # Note that response parameters are omitted due to https://github.com/localstack/localstack/issues/11303.
