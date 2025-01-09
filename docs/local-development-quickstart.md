@@ -113,6 +113,7 @@ IMPORTANT
 
 ## Create A Dev Container
 
+* A dev container **must** be created using a new Visual Studio Code window.
 * A dev container can be created from either a local fws-api repository on the development machine or a remote repository URL.
   * A local fws-api repository provides easier access to the code outside the container using a bind mount.
   * When using a remote repository URL:
@@ -198,11 +199,12 @@ IMPORTANT
 
 #### Making A HTTP POST To The /message Endpoint
 
-An AWS API Gateway request template is used to ensure XML message content is embedded within AWS Lambda JSON event objects.
+AWS API Gateway request templates are used to ensure XML message content is embedded within AWS Lambda JSON event objects.
 Real AWS API Gateway software is capable of embedding raw XML within AWS Lambda JSON event objects without further configuration.
 At the time of writing, LocalStack API Gateway software appears to require raw XML message content to be embedded as a string
-within a JSON document and a slightly different request template to be able to provide the AWS Lambda function with an event object reflecting that received from real AWS API Gateway software. For example, real AWS API Gateway software is capable of
-handling raw XML such as the following:
+within a JSON document and slightly different request templates to be able to provide the AWS Lambda function with an event object
+reflecting that received from real AWS API Gateway software. For example, real AWS API Gateway software is capable of handling raw XML
+such as the following:
 
 ```sh
 <xml>
@@ -210,7 +212,7 @@ handling raw XML such as the following:
 </xml>
 ```
 
-LocalStack API Gateway software appears to require the following structure for Lambda functions to receive an event object
+LocalStack API Gateway software appears to require a JSON structure for Lambda functions to receive an event object
 consistent with that received from real AWS API Gateway software.
 
 ```sh
@@ -228,6 +230,33 @@ curl -H "Content-Type: text/html" -d "@<</path/to/message/file>>" "http://<<REST
 IMPORTANT
 
 * The **&lt;&lt;path/to/message/file&gt;&gt;** and **&lt;&lt;REST-API-ID&gt;&gt;** placeholders **must** be replaced.
+* The **Content-Type: text/html** request header **must** be used to ensure correct processing by the LocalStack API Gateway request template.
+
+Alternatively, messages can be submitted to the AWS API Gateway in the JSON format expected by the Lambda function:
+
+```sh
+{
+  "bodyXml": "<xml><element>content</element></xml>"
+}
+```
+
+In this case, the **application/json** content type **must** be used. Unlike the real AWS API Gateway
+which supports a default content type of **application/json**, the LocalStack API Gateway appears to require
+the Content-Type header to be specified.
+
+The following command can be used as a guide to making a HTTP POST request to the **/message** endpoint using **curl**:
+
+```sh
+curl -H "Content-Type: application/json" -d "@<</path/to/bodyXml/file>>" "http://<<REST-API-ID>>.execute-api.localhost.localstack.cloud:4566/local/message"
+```
+
+IMPORTANT
+
+* The **&lt;&lt;path/to/bodyXml/file&gt;&gt;** and **&lt;&lt;REST-API-ID&gt;&gt;** placeholders **must** be replaced.
+
+While there is little difference between the JSON formats supported for local development and debugging, both formats
+are supported to match real AWS API Gateway request template configuration as closely as possible. Raw XML submission
+to real AWS API Gateway infrastructure provides the ability to modify and debug readable XML payloads in cloud environments.
 
 ### Making Code Changes
 
