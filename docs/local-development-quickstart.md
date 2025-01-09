@@ -378,5 +378,6 @@ Teardown can be performed by closing the remote connection to the dev container 
   * pgadmin
   * pgdata
   * vscode
+  * Development container volume
 
  The custom network and/or volumes can be retained by running the individual removal scripts mentioned above.
