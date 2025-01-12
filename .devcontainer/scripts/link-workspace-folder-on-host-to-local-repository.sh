@@ -1,7 +1,5 @@
 #!/bin/sh
-# # This script MUST be run on the host before attempting to create a dev container.
-# This script MUST be called from ${containerWorkspace Folder}.
-# See https://containers.dev/implementors/json_reference/.
+# This script MUST be run on the host before attempting to create a dev container.
 set -e
 
 if [ `whoami` != root ]; then
