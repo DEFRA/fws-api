@@ -46,8 +46,7 @@ The following environment variables **must** be set regardless of whether rootfu
 **These instructions are for use with a 'NIX based Docker installation (including WSL2)**.
 
 [link-workspace-folder-on-host-to-local-repository.sh](../.devcontainer/scripts/link-workspace-folder-on-host-to-local-repository.sh) **must** be run as **root** before attempting to create a dev container. This script validates the mandatory environment variables and exits if configuration
-issues are detected. If no configuration issues are detected, the following actions are performed to allow a dev container to be created from a local fws-api
-repository:
+issues are detected. If no configuration issues are detected, the following actions are performed to allow a dev container to be created from either a local fws-api repository or by cloning the remote fws-api repository into a container volume:
 
 * Ensure the **/workspaces** directory exists on the host
 * Ensure a symbolic link from **/workspaces/fws-api** to the local fws-api repository root exists.
