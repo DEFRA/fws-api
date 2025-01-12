@@ -1,5 +1,5 @@
 #!/bin/sh
-# This script MUST be run before attempting to create a dev container using rootless Docker.
+# This script MUST be run on the host before attempting to create a dev container using rootless Docker.
 set -e
 
 if [ `whoami` != root ]; then
@@ -9,18 +9,26 @@ fi
 
 HOST_UID=$(id -u "$FWS_API_HOST_USERNAME")
 HOST_GID=$(id -g "$FWS_API_HOST_USERNAME")
+HOST_SUBUID=$(echo $(cat /etc/subuid | grep `echo $FWS_API_HOST_USERNAME` | cut -d ':' -f 2))
 HOST_SUBGID=$(echo $(cat /etc/subgid | grep `echo $FWS_API_HOST_USERNAME` | cut -d ':' -f 2))
+
+if [ x"$HOST_SUBUID" = "x" ]; then
+  echo The host user $FWS_API_HOST_USERNAME does not have a subuid entry in /etc/subuid
+  exit 1
+fi
 
 if [ x"$HOST_SUBGID" = "x" ]; then
   echo The host user $FWS_API_HOST_USERNAME does not have a subgid entry in /etc/subgid
   exit 1
 fi
 
+DEV_CONTAINER_UID_ON_HOST=`echo $((($HOST_SUBUID + $HOST_UID) - 1))`
 DEV_CONTAINER_GID_ON_HOST=`echo $((($HOST_SUBGID + $HOST_GID) - 1))`
 DEV_CONTAINER_DOCKER_GID_ON_HOST=$((($HOST_SUBGID + `getent group docker | cut -d ':' -f 3`) - 1))
 DOCKER_SOCKET=/var/run/docker.sock
 ROOTLESS_DOCKER_SOCKET=/run/user/$HOST_UID/docker.sock
-FWS_API_WORKSPACE_DIR=/workspaces/fws-api
+FWS_API_WORKSPACE_DIR=/workspaces/fws-api/
+WORKSPACE_FOLDER_HOST_OWNERSHIP=$DEV_CONTAINER_UID_ON_HOST:$DEV_CONTAINER_GID_ON_HOST
 
 if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x`echo $"$LOCAL_FWS_API_DIR" | grep -E /fws-api/?$` = "x" ]; then
  echo LOCAL_FWS_API_DIR must be set to the absolute path of the root of a local fws-api repository
@@ -46,27 +54,18 @@ if [ $(realpath -m "$DOCKER_SOCKET") = "$ROOTLESS_DOCKER_SOCKET" ]; then
   echo "$DOCKER_SOCKET" references "$ROOTLESS_DOCKER_SOCKET"
 fi
 
-# If creating a dev container from a local fws-api repository:
-#   - The host user needs to retain ownership of local repository items to prevent git from reporting dubious ownership.
-#   - The dev container user needs read write access to /workspaces/fws-api on the host machine so that changes can be written
-#     from within the dev container.
-#
-#  This is achieved by:
-#  - creating /workspaces/fws-api as a symbolic link to the local fws-api repository root.
-#  - changing the GID of local fws-api repository items to be the GID of the dev container user.
-#
-# This approach also allows the host user to make changes using the local fws-api repository on the host filesystem.
+# If creating a dev container from a local fws-api repository, the dev container user needs read write access to the
+# workspace folder strucure on the host machine so that changes can be written from within the dev container. The host user
+# is given no access to the host workspace folder structure to guard against git reporting dubious ownership if attempts are
+# made to push to the remote repository from the host workspace folder strutcure rather than than the dev container workspace
+# folder structure .
 #
 # If creating a dev container by cloning the fws-api repository into a container volume, the dev container user has ownership
-# of items in the volume without causing git to report dubious ownership.
-if [ ! -L "$FWS_API_WORKSPACE_DIR" ] && [ $(realpath -m "$FWS_API_WORKSPACE_DIR") != $(realpath -m "$LOCAL_FWS_API_DIR") ]; then
-  mkdir -p /workspaces
-  ln -s "$LOCAL_FWS_API_DIR" "$FWS_API_WORKSPACE_DIR"
-  echo Created symbolic link from "$FWS_API_WORKSPACE_DIR" to "$LOCAL_FWS_API_DIR"
-  chgrp -R "$DEV_CONTAINER_GID_ON_HOST" "$LOCAL_FWS_API_DIR"
-  echo Dev container host group "$DEV_CONTAINER_GID_ON_HOST" has been granted recursive read write access to "$LOCAL_FWS_API_DIR"
+# of items in the volume without risk of git reporting dubious ownership.
+if [ `stat -c "%u:%g" $FWS_API_WORKSPACE_DIR` != $WORKSPACE_FOLDER_HOST_OWNERSHIP ]; then
+  chown -R $WORKSPACE_FOLDER_HOST_OWNERSHIP $FWS_API_WORKSPACE_DIR
+  echo Changed UID:GID for $FWS_API_WORKSPACE_DIR to $WORKSPACE_FOLDER_HOST_OWNERSHIP
+else
+  echo UID:GID for $FWS_API_WORKSPACE_DIR is set to $WORKSPACE_FOLDER_HOST_OWNERSHIP
 fi
 
-if [ $(realpath -m "$FWS_API_WORKSPACE_DIR") = $(realpath -m "$LOCAL_FWS_API_DIR") ]; then
-  echo "$FWS_API_WORKSPACE_DIR" references "$LOCAL_FWS_API_DIR"
-fi
