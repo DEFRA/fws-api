@@ -99,7 +99,7 @@ put_method_and_integration() {
     # JSON of the form {"bodyXml": "<xml data with double quote escaping>"} can also be submitted to the
     # AWS API Gateway LocalStack emulator directly using the application/json content type. Use of the request template
     # $input.body for the content type application/json ensures that the request payload is passed to the Lambda function
-    # unaltered. In contrast, the real AWS API Gateway achieves the same effect using the request template {} for the
+    # unaltered. In contrast, the real AWS API Gateway achieves the same effect using an empty request template for the
     # content type application/json.
     awslocal apigateway put-integration \
       --rest-api-id $fws_rest_api_id \
