@@ -1,6 +1,5 @@
 {
 	"name": "LocalStack DooD setup",
-	"remoteUser": "${localEnv:UID}",
 	"dockerComposeFile": [
 		"devcontainer.yml",
 		"../docker/infrastructure.yml",
