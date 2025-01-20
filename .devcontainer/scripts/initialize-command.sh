@@ -24,4 +24,3 @@ set -e
 # local repository, named volumes are created on the host machne.
 docker volume create pgdata
 docker volume create pgadmin
-
