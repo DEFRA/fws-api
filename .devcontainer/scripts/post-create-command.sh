@@ -7,9 +7,8 @@ sudo .devcontainer/scripts/install-packages.sh
 .devcontainer/scripts/setup-aws-cli-command-completion.sh
 .devcontainer/scripts/install-maven.sh
 .devcontainer/scripts/apply-liquibase-changesets.sh
-docker exec -it fws-api_devcontainer-fwsdb-1 bash -c "(cd /tmp && psql -d $(cat /run/secrets/fws_db_name) -f ./populate-api-keys.sql -f ./target_area_load.sql)"
+docker exec -it fws-api_devcontainer-fwsdb-1 bash -c "(cd /tmp && psql -d ${FWS_DB_NAME} -f ./populate-api-keys.sql -f ./target_area_load.sql)"
 .devcontainer/scripts/init-npm.sh
 .devcontainer/scripts/register-lambda-functions.sh
-.devcontainer/scripts/set-environment-variables-for-lambda-functions.sh
 .devcontainer/scripts/register-api-gateway.sh
 docker image prune -f
