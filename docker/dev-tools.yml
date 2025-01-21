@@ -2,20 +2,14 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     user: pgadmin
-    secrets:
-      - pgadmin_default_password
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=ubuntu@localhost.localdomain
-      - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/pgadmin_default_password
+    env_file:
+      - .env
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
       - "127.0.0.1:8080:80"
     networks:
       ls:
-secrets:
-  pgadmin_default_password:
-    file: ${HOME}/.fws-api/.devcontainer/.docker-secrets/pgadmin_default_password
 volumes:
   pgadmin:
     external: true
