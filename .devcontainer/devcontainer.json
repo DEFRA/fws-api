@@ -6,13 +6,7 @@
 		"../docker/dev-tools.yml"
 	],
 	"service": "fws",
-	"workspaceFolder": "${localEnv:FWS_API_WORKSPACE_FOLDER}/${localWorkspaceFolderBasename}",
-	"containerEnv": {
-		"FWS_API_WORKSPACE_FOLDER": "${localEnv:FWS_API_WORKSPACE_FOLDER}"
-	},
-	"remoteEnv": {
-		"FWS_API_WORKSPACE_FOLDER": "${localEnv:FWS_API_WORKSPACE_FOLDER}"
-	},
+	"workspaceFolder": "/opt/workspaces/${localWorkspaceFolderBasename}",
 	// Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
