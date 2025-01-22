@@ -6,12 +6,12 @@
 		"../docker/dev-tools.yml"
 	],
 	"service": "fws",
-	"workspaceFolder": "${localEnv:FWS_API_WORKSPACE_FOLDER}/${localWorkspaceFolderBasename}:${localEnv:HOME}/Projects",
+	"workspaceFolder": "${localEnv:FWS_API_WORKSPACE_FOLDER:${localEnv:HOME}/Projects}/${localWorkspaceFolderBasename}",
 	"containerEnv": {
-		"FWS_API_WORKSPACE_FOLDER": "${localEnv:FWS_API_WORKSPACE_FOLDER}:${localEnv:HOME}/Projects"
+		"FWS_API_WORKSPACE_FOLDER": "${localEnv:FWS_API_WORKSPACE_FOLDER:${localEnv:HOME}/Projects}"
 	},
 	"remoteEnv": {
-		"FWS_API_WORKSPACE_FOLDER": "${localEnv:FWS_API_WORKSPACE_FOLDER}:${localEnv:HOME}/Projects"
+		"FWS_API_WORKSPACE_FOLDER": "${localEnv:FWS_API_WORKSPACE_FOLDER:${localEnv:HOME}/Projects}"
 	},
 	// Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {
