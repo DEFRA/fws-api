@@ -33,4 +33,7 @@ fi
 # Create a temporay container to load the database bootstrapping script into a named volume
 # used by the database container
 # https://stackoverflow.com/questions/37468788/what-is-the-right-way-to-add-data-to-an-existing-named-volume-in-docker
-docker run --rm -v ${HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh:/bootstrap-fws-db.sh -v pgbootstrap:/docker-entrypoint-initdb.d alpine cp /bootstrap-fws-db.sh /docker-entrypoint-initdb.d
+#docker run --rm -v ${HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh:/bootstrap-fws-db.sh -v pgbootstrap:/docker-entrypoint-initdb.d alpine cp /bootstrap-fws-db.sh /docker-entrypoint-initdb.d
+docker container create --name temp -v pgbootstrap:/docker-entrypoint-initdb.d alpine
+docker cp ${HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh temp:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
+docker rm temp
