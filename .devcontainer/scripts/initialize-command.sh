@@ -18,3 +18,7 @@ set -e
 
 docker volume create pgdata
 docker volume create pgadmin
+docker volume create pgbootstrap
+docker container create --name temp -v pgbootstrap:/docker-entrypoint-initdb.d alpine
+docker cp /opt/workspaces/fws-api/docker/fws-db/bootstrap-fws-db.sh temp:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
+docker rm temp
