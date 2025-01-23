@@ -25,9 +25,11 @@ services:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ../docker/fws-db/bootstrap-fws-db.sh:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
+      - pgbootstrap:/docker-entrypoint-initdb.d
     networks:
       ls:
 volumes:
   pgdata:
+    external: true
+  pgbootstrap:
     external: true
