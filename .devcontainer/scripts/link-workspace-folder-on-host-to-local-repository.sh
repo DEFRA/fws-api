@@ -20,7 +20,7 @@ FWS_API_WORKSPACE_DIR=/opt/workspaces/fws-api
 #
 # Create a symbolic link from the local repository on the host to the workspace folder.
 if [ ! -L "$FWS_API_WORKSPACE_DIR" ] && [ $(realpath -m "$FWS_API_WORKSPACE_DIR") != $(realpath -m "$LOCAL_FWS_API_DIR") ]; then
-  mkdir -p /workspaces 
+  mkdir -p /opt/workspaces
   ln -s "$LOCAL_FWS_API_DIR" "$FWS_API_WORKSPACE_DIR"
   echo Created symbolic link from "$FWS_API_WORKSPACE_DIR" to "$LOCAL_FWS_API_DIR"
 fi
