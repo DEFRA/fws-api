@@ -5,6 +5,9 @@ services:
     env_file:
       - .env
     volumes:
+      # IMPORTANT
+      # Named volumes ensure portability across the host plaforms used to
+      # create and run dev containers.
       - pgadmin:/var/lib/pgadmin
     ports:
       - "127.0.0.1:8080:80"
