@@ -23,15 +23,14 @@ docker volume create pgbootstrap
 
 # Default to configuration required when creating a dev container by cloning the remote
 # repository into a container volume.
-HOST_DIR=/workspaces/fws-api
+HOST_DIR=/workspaces/fws-api/
 
-if [ !-d ${HOST_DIR} && -d /opt{$HOST_DIR} ]; then
+if [ ! -d ${HOST_DIR} ] && ([ -d /opt${HOST_DIR} ] || [ -L /opt${HOST_DIR} ]); then
   # A dev container is being created from a local repository.
-  HOST_DIR=/opt{$HOST_DIR}
+  HOST_DIR=/opt${HOST_DIR}
 fi
 
 # Create a temporay container to load the database bootstrapping script into a named volume
-# used by the database container.
-docker container create --name temp -v pgbootstrap:/docker-entrypoint-initdb.d alpine
-docker cp ${HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh temp:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
-docker rm temp
+# used by the database container
+# https://stackoverflow.com/questions/37468788/what-is-the-right-way-to-add-data-to-an-existing-named-volume-in-docker
+docker run --rm -v ${HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh:/bootstrap-fws-db.sh -v pgbootstrap:/docker-entrypoint-initdb.d alpine cp /bootstrap-fws-db.sh /docker-entrypoint-initdb.d
