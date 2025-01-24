@@ -46,7 +46,7 @@ FWS_API_VOLUME_WORKSPACE_DIR=/workspaces/fws-api
 # structure by creating a symbolic link from /workspaces/fws-api to the macOS compatible local repository location
 # /opt/fws-api. If a local repository has been cloned to somewhere other than /opt/fws-api, this results in two symbolic
 # links leading to the local repository on the host. For example:
-# /workspaces/fws-api -> /opt/fws-api -> /path/to/local/fws-api
+# /workspaces/fws-api -> /opt/workspaces/fws-api -> /path/to/local/fws-api
 #
 # As macOS does not support creating content under / by default
 # (see https://apple.stackexchange.com/questions/388236/unable-to-create-folder-in-root-of-macintosh-hd),
