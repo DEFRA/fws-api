@@ -24,7 +24,7 @@ FWS_API_WORKSPACE_DIR=/opt/workspaces/fws-api
 # If creating a dev container from a local fws-api repository, the dev container user needs read write access to the workspace
 # folder from within the dev container.
 #
-# Create a symbolic link from the local repository on the host to the workspace folder.
+# Create a symbolic link from the workspace folder to the local repository on the host.
 if [ ! -L "$FWS_API_WORKSPACE_DIR" ] && [ $(realpath -m "$FWS_API_WORKSPACE_DIR") != $(realpath -m "$LOCAL_FWS_API_DIR") ]; then
   mkdir -p /opt/workspaces
   ln -s "$LOCAL_FWS_API_DIR" "$FWS_API_WORKSPACE_DIR"
