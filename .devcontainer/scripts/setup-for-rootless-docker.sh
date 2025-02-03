@@ -58,7 +58,7 @@ fi
 # workspace folder strucure on the host machine so that changes can be written from within the dev container. The host user
 # is given no access to the host workspace folder structure to guard against git reporting dubious ownership if attempts are
 # made to push to the remote repository from the host workspace folder strutcure rather than than the dev container workspace
-# folder structure .
+# folder structure.
 #
 # If creating a dev container by cloning the fws-api repository into a container volume, the dev container user has ownership
 # of items in the volume without risk of git reporting dubious ownership.
