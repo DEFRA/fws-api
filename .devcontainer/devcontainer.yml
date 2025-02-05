@@ -1,0 +1,31 @@
+services:
+  fws:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: ""
+    volumes:
+      # IMPORTANT
+      # For successful debugger attachment, the workspace folder MUST be the same
+      # in the container as it is on the host.
+      - ../..:/opt/workspaces/:cached
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    init: true
+    env_file:
+      - .env
+    dns:
+      # Set the DNS server to be the LocalStack container
+      - 192.168.0.20
+    networks:
+      - ls
+networks:
+  ls:
+    ipam:
+      config:
+        # Specify the subnet range for IP address allocation
+        # This differs from the default subnet in LocalStack networking documentation
+        # (see https://blog.localstack.cloud/2024-03-04-making-connecting-to-localstack-easier/)
+        #  to avoid conflicts with Oracle VirtualBox networking.
+        # If using a different virtualization platform, the subnet range might need to be adjusted.
+        - subnet: 192.168.0.0/24
