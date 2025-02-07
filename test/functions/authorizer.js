@@ -315,6 +315,35 @@ lab.experiment('functions/get-all-messages', () => {
     }
   })
 
+  lab.test('case insensitive headers', async () => {
+    deleteApiEventProperties()
+    event.headers['X-Api-Account-Id'] = 'test'
+    event.headers['X-Api-Key'] = 'test'
+    event.resource = '/message'
+
+    Services.prototype.getApiKey.restore()
+    sinon.stub(Services.prototype, 'getApiKey').callsFake((accountId, accountKey) => {
+      return Promise.resolve({
+        rows: [{
+          read: false,
+          write: true
+        }]
+      })
+    })
+
+    const response = await handler(event)
+    Code.expect(response.policyDocument.Statement[0].Effect).to.equal('Allow')
+
+    deleteApiEventProperties()
+    event.headers['X-API-ACCOUNT-ID'] = 'test'
+    event.headers['X-API-KEY'] = 'test'
+    event.resource = '/message'
+
+    const response2 = await handler(event)
+    Code.expect(response2.policyDocument.Statement[0].Effect).to.equal('Allow')
+    deleteApiEventProperties()
+  })
+
   lab.test('missing keys', async () => {
     event.headers['x-api-account-id'] = 'test'
     delete event.headers['x-api-key']
@@ -340,3 +369,11 @@ lab.experiment('functions/get-all-messages', () => {
     await Code.expect(handler(event)).to.reject()
   })
 })
+
+function deleteApiEventProperties () {
+  const xApiAccountIdHeaders = Object.keys(event.headers).filter(header => header.toLowerCase() === 'x-api-account-id-headers')
+  const xApiKeyHeaders = Object.keys(event.headers).filter(header => header.toLowerCase() === 'x-api-key-headers')
+  xApiAccountIdHeaders?.forEach(header => delete event.headers(header))
+  xApiKeyHeaders?.forEach(header => delete event.headers(header))
+  delete event.resource
+}
