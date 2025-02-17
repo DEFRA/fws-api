@@ -10,7 +10,6 @@ This repository contains the serverless backend services for the **FWIS replacem
 - **Node.js v18** or higher
 - Appropriate API keys and environment variables (see below)
 
-
 ## Setup
 
 1. Install dependencies:
