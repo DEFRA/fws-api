@@ -10,7 +10,13 @@ This repository contains the serverless backend services for the **FWIS replacem
 - **Node.js 20** or higher
 - Appropriate API keys and environment variables (see below)
 
-## Setup
+## Getting Started
+
+[Containerised development environments](docs/local-development-quickstart.md) are used to provide developers with the ability to develop, run and debug AWS Lambda functions without reliance on deployment to AWS infrastructure. This replaces [Serverless local function invocation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local) following Serverless V.3 reaching end of support and a decision not to [upgrade to Serverless V.4](https://wb.serverless.com/framework/docs-guides-upgrading-v4).
+
+## Manual Setup
+
+Following the removal of [Serverless](https://www.serverless.com/), manual setup is **not** recommended due to running and debugging AWS Lambda functions locally being limited to running and debugging unit tests.
 
 1. Install dependencies:
 
@@ -54,6 +60,10 @@ To run tests, use the following commands:
    ```
 
 Auto tests for this project can be found at: [GitHub: DEFRA/fws-tests](https://github.com/DEFRA/fws-tests).
+
+## Debugging Unit Tests
+
+Run the Visual Studio Code **debug unit tests** debug configuration.
 
 ## API Status Codes
 
