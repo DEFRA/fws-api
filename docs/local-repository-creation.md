@@ -36,7 +36,7 @@ To satisfy this requirement and provide a dev container solution compatible with
 The macOS root filesystem is read only by default. This prevents creation of the default workspace folder on the host.
 
 If creating a dev container from a local repository, the local repository can be placed in a different location to the workspace folder (such as within the
-home directory structure of the user running the dev container). In this scenario, configuration is required](./workspace-folder-configuration.md) to link
+home directory structure of the user running the dev container). In this scenario, [configuration is required](./workspace-folder-configuration.md) to link
 the workspace folder to the local repository root.
 
 ### Windows / WSL 2 Constraints
