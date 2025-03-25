@@ -17,6 +17,19 @@ if [ `uname` != "Linux" ] && [ `uname` != "Darwin" ]; then
   exit 1
 fi
 
+
+# The macOS version of realpath does not support the -m switch so the GNU version
+# is needed.
+if [ `uname` = "Darwin" ] && [ x`command -v grealpath` = "x" ]; then
+  echo "GNU coreutils need to be installed to use realpath with the -m switch"
+  exit 1
+fi
+
+# If running on macOS use the GNU version of realpath.
+if [ `uname` = "Darwin" ]; then
+  alias realpath="grealpath"
+fi
+
 # Ensure that local/remote repository contents are available in a dev container directory compatible with Linux and macOS.
 FWS_API_WORKSPACE_DIR=/opt/workspaces/fws-api
 
