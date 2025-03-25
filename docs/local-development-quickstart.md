@@ -30,7 +30,7 @@ If an existing local development environment has been configured manually **it i
 * [Prerequisites](./prerequisites.md)
 * [Local Repository Creation](./local-repository-creation.md)
 * [Workspace Folder Configuration](./workspace-folder-configuration.md)
-  * **Not** applicable when using Winsows with WSL2 currently.
+  * **Not** applicable when using Windows with WSL2 currently.
 * [Rootless Docker Configuration](./rootless-docker-configuration.md)
   * **Only** applicable when using native Linux.
 * [Dev Container Creation](./dev-container-creation.md)
