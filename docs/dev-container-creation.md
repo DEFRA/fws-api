@@ -4,7 +4,8 @@
 * When using macOS or Windows with WSL 2 the dev container **must** be created using a [local fws-api repository](./local-repository-creation.md) on the development machine.
   * When using WSL 2 the [\\wsl drive](https://learn.microsoft.com/en-us/windows/wsl/filesystems#interoperability-between-windows-and-linux-commands) can be used to access the local fws-api respository from Visual Studio Code on Windows.
 * When using native Linux the dev container can be created from either a local fws-api repository on the development machine or a remote repository URL.
-  * When using a remote repository URL [git SSH URLs](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories) **must** be used when cloning to ensure compatibility with credential sharing.
+  * When using SSH key based credential sharing, [git SSH URLs](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories) **must** be used when cloning a remote repository URL to ensure compatibility with credential sharing.
+  * When **not** using SSH key based credential sharing, [git HTTPS URLs](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories) **must** be used when cloning a remote repository URL to ensure compatibility with credential sharing.
 
 Please consult the [Microsoft documentation](https://code.visualstudio.com/docs/remote/containers) for further details.
 
