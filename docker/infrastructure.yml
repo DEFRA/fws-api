@@ -11,7 +11,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./.volume:/var/lib/localstack"
     networks:
-      ls:
+      fws:
         # Set the container IP address in the 192.168.0.0/24 subnet
         ipv4_address: 192.168.0.20
   fwsdb:
@@ -30,7 +30,7 @@ services:
       - pgdata:/var/lib/postgresql/data
       - pgbootstrap:/docker-entrypoint-initdb.d
     networks:
-      ls:
+      fws:
 volumes:
   pgdata:
     external: true
