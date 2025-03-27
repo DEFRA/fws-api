@@ -3,4 +3,4 @@
 # See https://containers.dev/implementors/json_reference/.
 set -e
 
-.devcontainer/scripts/prepare-for-fws-db-creation.sh
+docker/scripts/prepare-for-fws-db-creation.sh

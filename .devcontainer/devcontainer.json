@@ -1,9 +1,10 @@
 {
 	"name": "LocalStack DooD setup",
 	"dockerComposeFile": [
-		"devcontainer.yml",
+		"../docker/networks.yml",
 		"../docker/infrastructure.yml",
-		"../docker/dev-tools.yml"
+		"../docker/dev-tools.yml",
+		"devcontainer.yml"
 	],
 	"service": "fws",
 	"workspaceFolder": "/opt/workspaces/${localWorkspaceFolderBasename}",
@@ -31,7 +32,7 @@
 			]
 		}
 	},
-	"initializeCommand": ".devcontainer/scripts/initialize-command.sh",
-	"onCreateCommand": "(cd ${containerWorkspaceFolder} && .devcontainer/scripts/on-create-command.sh)",
-	"postCreateCommand": "(cd ${containerWorkspaceFolder} && .devcontainer/scripts/post-create-command.sh)"
+	"initializeCommand": "docker/scripts/initialize-command.sh",
+	"onCreateCommand": "(cd ${containerWorkspaceFolder} && docker/scripts/on-create-command.sh)",
+	"postCreateCommand": "(cd ${containerWorkspaceFolder} && docker/scripts/post-create-command.sh)"
 }

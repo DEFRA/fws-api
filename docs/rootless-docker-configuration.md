@@ -11,7 +11,7 @@ Ensure the Visual Studio Code user settings JSON file  contains a **dev.containe
 [Ensure that a local fws-api repository for use with a dev container exists on the host](./local-repository-creation.md)
 
 The repository can be located anywhere on the Linux host accessible to the user account that runs a dev container. This account
-**must** also be the account that runs the rootless Docker socket. In the simplest case where the local repository is used to create a dev container, the location **/opt/workspaces/**  (resulting in a local repository root of  **/opt/workspaces/fws-api)** is suggested as it matches the location required when using macOS / WSL 2. If the local repository is located elsewhere, [shell scripting ensures that the local repository will be utilised at runtime to enable code location for running/debugging purposes](../.devcontainer/scripts/link-workspace-folder-on-host-to-local-repository.sh).
+**must** also be the account that runs the rootless Docker socket. In the simplest case where the local repository is used to create a dev container, the location **/opt/workspaces/**  (resulting in a local repository root of  **/opt/workspaces/fws-api)** is suggested as it matches the location required when using macOS / WSL 2. If the local repository is located elsewhere, [shell scripting ensures that the local repository will be utilised at runtime to enable code location for running/debugging purposes](../docker/scripts/link-workspace-folder-on-host-to-local-repository.sh).
 
 ## Mandatory Environment Variables
 
@@ -22,7 +22,7 @@ The repository can be located anywhere on the Linux host accessible to the user 
 
 ## Run Configuration Shell Script
 
-[setup-for-rootless-docker.sh](../.devcontainer/scripts/setup-for-rootless-docker.sh) **must** be run as **root** before attempting to create a dev container from either a local fws-api repository or by cloning the remote fws-api repository into a container volume. This script validates the mandatory environment variables and exits if configuration issues are detected. If no configuration issues are detected, the following actions are performed regardless of how dev containers are created:
+[setup-for-rootless-docker.sh](../docker/scripts/setup-for-rootless-docker.sh) **must** be run as **root** before attempting to create a dev container from either a local fws-api repository or by cloning the remote fws-api repository into a container volume. This script validates the mandatory environment variables and exits if configuration issues are detected. If no configuration issues are detected, the following actions are performed regardless of how dev containers are created:
 
 * Rootful Docker socket backup.
 * Replacement of rootful Docker socket with a symbolic link to the rootless Docker socket.
@@ -37,13 +37,13 @@ To facilitate dev container creation from the local fws-api repository, ownershi
 
 When creating a dev container by cloning the remote fws-api repository into a container volume, the dev container user has ownership of items in the volume without risk of git reporting dubious ownership.
 
-**IMPORTANT** - If [setup-for-rootless-docker.sh](../.devcontainer/scripts/setup-for-rootless-docker.sh) is run using the sudo command, the user session from which the sudo command is run **must** ensure that mandatory environment variables are available to the script. This is because user session environment variables are not available to a sudo command by default. For example, if the environment variables are available to the user session running the sudo command, they can be preserved for availability to [setup-for-rootless-docker.sh](../.devcontainer/scripts/setup-for-rootless-docker.sh) using the following sudo command:
+**IMPORTANT** - If [setup-for-rootless-docker.sh](../docker/scripts/setup-for-rootless-docker.sh) is run using the sudo command, the user session from which the sudo command is run **must** ensure that mandatory environment variables are available to the script. This is because user session environment variables are not available to a sudo command by default. For example, if the environment variables are available to the user session running the sudo command, they can be preserved for availability to [setup-for-rootless-docker.sh](../docker/scripts/setup-for-rootless-docker.sh) using the following sudo command:
 
 ```sh
-sudo --preserve-env=LOCAL_FWS_API_DIR,FWS_API_HOST_USERNAME "$LOCAL_FWS_API_DIR"/.devcontainer/scripts/setup-for-rootless-docker.sh
+sudo --preserve-env=LOCAL_FWS_API_DIR,FWS_API_HOST_USERNAME "$LOCAL_FWS_API_DIR"/docker/scripts/setup-for-rootless-docker.sh
 ```
 
 ### Housekeeping Considerations
 
 **IMPORTANT** - The rootful Docker socket (/var/run/docker.sock) appears to be recreated in scenarios such as a system
-reboot. As such [setup-for-rootless-docker.sh](../.devcontainer/scripts/setup-for-rootless-docker.sh) **must** be run following such scenarios to ensure that /var/run/docker.sock refers to the rootless Docker socket.
+reboot. As such [setup-for-rootless-docker.sh](../docker/scripts/setup-for-rootless-docker.sh) **must** be run following such scenarios to ensure that /var/run/docker.sock refers to the rootless Docker socket.
