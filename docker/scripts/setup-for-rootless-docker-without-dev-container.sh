@@ -12,7 +12,6 @@ fi
 HOST_UID=$(id -u "$FWS_API_HOST_USERNAME")
 DOCKER_SOCKET=/var/run/docker.sock
 ROOTLESS_DOCKER_SOCKET=/run/user/$HOST_UID/docker.sock
-FWS_API_WORKSPACE_DOCKER_DIR=/workspaces/fws-api/docker
 
 if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x`echo $"$LOCAL_FWS_API_DIR" | grep -E /fws-api/?$` = "x" ]; then
  echo LOCAL_FWS_API_DIR must be set to the absolute path of the root of a local fws-api repository
