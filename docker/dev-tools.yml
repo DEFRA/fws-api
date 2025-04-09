@@ -12,7 +12,24 @@ services:
     ports:
       - "127.0.0.1:8080:80"
     networks:
-      fws:
+      ls:
+  liquibase:
+    image: liquibase/liquibase:4.31
+    depends_on:
+      fwsdb:
+        condition: service_healthy
+    env_file:
+      - .env
+    volumes:
+      # IMPORTANT
+      # Named volumes ensure portability across the host plaforms used to
+      # create and run dev containers.
+      - liquibase:/fwsdb
+    networks:
+      ls:
+    command: update
 volumes:
   pgadmin:
+    external: true
+  liquibase:
     external: true

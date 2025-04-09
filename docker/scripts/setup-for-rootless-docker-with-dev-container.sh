@@ -28,7 +28,9 @@ DEV_CONTAINER_DOCKER_GID_ON_HOST=$((($HOST_SUBGID + `getent group docker | cut -
 DOCKER_SOCKET=/var/run/docker.sock
 ROOTLESS_DOCKER_SOCKET=/run/user/$HOST_UID/docker.sock
 FWS_API_WORKSPACE_DIR=/workspaces/fws-api/
+FWS_API_WORKSPACE_DOCKER_DIR=${FWS_API_WORKSPACE_DIR}docker
 WORKSPACE_FOLDER_HOST_OWNERSHIP=$DEV_CONTAINER_UID_ON_HOST:$DEV_CONTAINER_GID_ON_HOST
+WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP=$HOST_UID:$HOST_GID
 
 if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x`echo $"$LOCAL_FWS_API_DIR" | grep -E /fws-api/?$` = "x" ]; then
  echo LOCAL_FWS_API_DIR must be set to the absolute path of the root of a local fws-api repository
@@ -69,3 +71,11 @@ else
   echo UID:GID for $FWS_API_WORKSPACE_DIR is set to $WORKSPACE_FOLDER_HOST_OWNERSHIP
 fi
 
+# Ensure the local fws-api repository docker directory hierarchy UID:GID is set to HOST_UID:HOST_GID so that
+# named Docker volumes can be created.
+if [ `stat -c "%u:%g" $FWS_API_WORKSPACE_DOCKER_DIR` != $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP ]; then
+  chown -R $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP $FWS_API_WORKSPACE_DOCKER_DIR
+  echo Changed UID:GID for $FWS_API_WORKSPACE_DOCKER_DIR to $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP
+else
+  echo UID:GID for $FWS_API_WORKSPACE_DOCKER_DIR is set to $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP
+fi

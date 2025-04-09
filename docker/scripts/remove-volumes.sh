@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-docker volume rm -f pgadmin pgdata vscode pgbootstrap
+docker volume rm -f pgadmin pgdata vscode pgbootstrap liquibase
 
 FWS_VOLUME=$(docker volume ls -q -f "name=fws")
 

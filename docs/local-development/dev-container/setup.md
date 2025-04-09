@@ -1,15 +1,13 @@
-# Local Development Quickstart
+# Development Container Setup
 
-The quickest way to get started is with a [containerised development environment](https://code.visualstudio.com/docs/remote/containers).
-
-A containerised development environment automates a number of setup activities required for a functioning local development environment such as:
+A [development container](https://code.visualstudio.com/docs/remote/containers) automates a number of setup activities required for a functioning local development environment such as:
 
 * Configuration of additional operating system package repositories.
 * Installation of additional operating system packages.
 * Addition of Visual Studio Code extensions.
 * FWS database creation and reference data population using a containerised Postgres instance.
 * Use of a [containerised Postgres Graphical User Interface](https://www.pgadmin.org/download/pgadmin-4-container/)
-  for performing database options.
+  for performing database operations.
 * [LocalStack](https://www.localstack.cloud/) AWS API Gateway and AWS Lambda
   provisioning to facilitate local running and debugging of FWS API calls without round tripping
   to AWS infrastructure.
@@ -30,10 +28,10 @@ If an existing local development environment has been configured manually **it i
 * [Prerequisites](./prerequisites.md)
 * [Local Repository Creation](./local-repository-creation.md)
 * [Workspace Folder Configuration](./workspace-folder-configuration.md)
-  * **Not** applicable when using Windows with WSL2 currently.
+  * **Not** applicable when using Windows with non-systemd enabled WSL 2 currently.
 * [Rootless Docker Configuration](./rootless-docker-configuration.md)
-  * **Only** applicable when using native Linux.
+  * **Only** applicable when using native Linux or systemd enabled WSL 2 with native Docker.
 * [Dev Container Creation](./dev-container-creation.md)
-* [Running And Debugging Lambda Functions](./running-and-debugging-lambda-functions.md)
-* [Troubleshooting](./troubleshooting.md)
+* [Running And Debugging Lambda Functions](../common/running-and-debugging-lambda-functions.md)
+* [Troubleshooting](../common/troubleshooting.md)
 * [Additional Development Container Considerations](./additional-dev-container-considerations.md)

@@ -1,4 +1,4 @@
-# Local Repoistory Creation
+# Local Repository Creation
 
 ## Plaform Specific Location
 
@@ -39,19 +39,21 @@ If creating a dev container from a local repository, the local repository can be
 home directory structure of the user running the dev container). In this scenario, [configuration is required](./workspace-folder-configuration.md) to link
 the workspace folder to the local repository root.
 
-### Windows / WSL 2 Constraints
+### Windows / Non-Systemd Enabled WSL 2 With Docker Desktop Constraints
 
-As for macOS, WSL 2 is capable of allowing a local repository to be placed in a different location to the workspace folder and accessed through a symbolic link within **/opt/workspaces/**. However, at the time of writing Windows does not seem to follow symbolic links created by WSL 2 resulting in no access to code at runtime. As such, a local repository **must** be located within the workspace folder when using WSL 2.
+As for macOS, WSL 2 is capable of allowing a local repository to be placed in a different location to the workspace folder and accessed through a symbolic link within **/opt/workspaces/**. However, at the time of writing Windows does not seem to follow symbolic links created by WSL 2 resulting in no access to code at runtime. As such, a local repository **must** be located within the workspace folder when using non-systemd enabled WSL 2 with Docker Desktop.
 
-### Dev Container Volume Consraints
+Note that systemd enabled WSL 2 with native Docker does not have these constraints.
+
+### Dev Container Volume Constraints
 
 When creating a dev container by cloning a remote repository into a container volume, a bootstrap container is used. Within the
 bootstrap container the repository contents are placed within **/workspaces/**. This location appears to be non-configurable and
-seems incompatible with running/debugging code on macOS and WSL 2 accordingly for the reasons described above.
+seems incompatible with running/debugging code on macOS and non-systemd enabled WSL 2 with Docker Desktop accordingly for the reasons described above.
 
-As such, running/debugging code on macOS and Windows WSL 2 with Docker Desktop only seems possible when creating a dev container from a local repository.
+As such, running/debugging code on macOS and non-systemd enabled Windows WSL 2 with Docker Desktop only seems possible when creating a dev container from a local repository.
 
-Symbolic links allow running/debugging code on native Linux regardless of how a dev container is created:
+Symbolic links allow running/debugging code on native Linux and systemd enabled WSL 2 with native Docker regardless of how a dev container is created:
 
 * As for macOS, symbolic links allow the local repository to be placed in a different location to the workspace folder.
 * As the Linux root file system is not read only by default, symbolic links can also be used to access **/opt/workspaces/** from **/workspaces/** to facilitate running/debugging when a dev container is created by cloning a remote repository into a container volume.

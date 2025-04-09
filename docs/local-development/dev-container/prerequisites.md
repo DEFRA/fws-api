@@ -21,7 +21,7 @@ Development container creation has been tested using the following platforms:
 * [jq utility](https://jqlang.github.io/jq/download/)
   * **Install on the WSL 2 Linux distribution when using Windows.**
 * [GNU coreutils](https://www.gnu.org/software/coreutils/coreutils.html)
-  * These should be available by default when using native Linux and WSL2.
+  * These should be available by default when using native Linux and WSL 2.
   * These will need installing manually when using macOS.
 * Ensure [GPG-AGENT is running as a daemon](https://www.gnupg.org/documentation/manuals/gnupg-2.0/Invoking-GPG_002dAGENT.html)
   * **Run on the WSL 2 Linux distribution when using Windows.**

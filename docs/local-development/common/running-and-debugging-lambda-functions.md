@@ -1,8 +1,8 @@
-# Running And Debugging AWS Lambda Functions In The Development Container
+# Running And Debugging AWS Lambda Functions
 
 ## Default Configuration
 
-[The dev container environment variable file](../.devcontainer/.env) is configured to debug a
+[The Docker environment variable file](../../../docker/.env) is configured to debug a
 LocalStack hosted AWS Lambda function by default through the following environment variable:
 
 ```sh
@@ -16,8 +16,8 @@ in a LocalStack Docker container used to run an AWS Lambda function.
 
 AWS Lambda function debugging can be disabled by:
 
-* Commenting out the **LAMBDA_DOCKER_FLAGS** environment variable in [the dev container environment variable file](../.devcontainer/.env).
-* Replacing ([Teardown](./additional-dev-container-considerations.md#teardown) and recreate) the existing containerised development environment with a new containerised development environment using
+* Commenting out the **LAMBDA_DOCKER_FLAGS** environment variable in [the dev container environment variable file]](../../../docker/.env).
+* Replacing ([Teardown](../dev-container/additional-dev-container-considerations.md#teardown) and recreate) the existing containerised development environment with a new containerised development environment using
   the revised configuration
   * **IMPORTANT** - If cloning the remote repository into a container volume, the configuration change must be pushed to a branch from which the new containerised development environment **must** be created.
   * **IMPORTANT** - If a new containerised dev environment is not created, running multiple Lambda functions without
@@ -25,13 +25,19 @@ AWS Lambda function debugging can be disabled by:
 
 ## Re-enabling Debug Functionality
 
-Uncomment the **LAMBDA_DOCKER_FLAGS** environment variable in [the dev container environment variable file](../.devcontainer/.env) and replace the containerised development environment as described above.
+Uncomment the **LAMBDA_DOCKER_FLAGS** environment variable in [the Docker environment variable file](../../../docker/.env) and replace the containerised development environment as described above.
 
 ## Preparing To Debug An AWS Lambda Function
+
+### Visual Studio Code
 
 Run the Visual Studio Code **Attach to Remote Node.js (fws-api)** debug configuration **before** AWS Lambda function
 invocation. This waits for the standard Node.js debug port to be made available by a Docker container running an
 AWS Lambda function before attempting to attach the debugger. Please consult the [LocalStack Lambda debugging documentation](https://hashnode.localstack.cloud/debugging-nodejs-lambda-functions-locally-using-localstack) for further details.
+
+### Other Software
+
+Please consult appropriate documentation.
 
 ## Invoking An AWS Lambda Function
 
@@ -130,4 +136,4 @@ At a particular point in time, the standard Node.js debug port can only be used 
 used to run an AWS Lambda function. This restriction means that a particular AWS Lambda function cannot be debugged
 if a container for debugging a different AWS Lambda function is running. As such, while Docker containers used to run
 Lambda functions are ephemeral, manual container removal or timeout (causing automatic removal) is needed when invoking different AWS Lambda functions in quick succession. The timeout for a Lambda function is specified by the LAMBDA_TIMEOUT
-environment variable within [the dev container environment variable file](../.devcontainer/.env).
+environment variable within [the  Docker environment variable file](../../../docker/.env).

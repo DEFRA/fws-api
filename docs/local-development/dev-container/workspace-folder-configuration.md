@@ -1,6 +1,6 @@
 # Workspace Configuration
 
-*Workpace configuration is not applicable when using Windows with WSL 2 currently*.
+*Workpace configuration is not applicable when using non-systemd enabled Windows with WSL 2 currently*.
 
 As described in [local repository creation](./local-repository-creation.md), support is provided for:
 

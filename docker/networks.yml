@@ -1,5 +1,5 @@
 networks:
-  fws:
+  ls:
     ipam:
       config:
         # Specify the subnet range for IP address allocation

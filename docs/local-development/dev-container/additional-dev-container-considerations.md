@@ -48,15 +48,16 @@ sudo chown -R <<user ID>>:<<group ID>> <<path/to/volume>>
 ## Teardown
 
 Teardown can be performed by closing the remote connection to the dev container in Visual Studio Code
-(File -> Close Remote Connection) and running [teardown.sh](../docker/scripts/teardown.sh). This script:
+(File -> Close Remote Connection) and running [teardown.sh](../../../docker/scripts/teardown.sh). This script:
 
-* stops and removes **ALL** Docker containers (using [stop-and-remove-containers.sh](../docker/scripts/stop-and-remove-containers.sh))
-* removes the custom network **ls** used by fws-api associated Docker containers (using [remove-networks.sh](../docker/scripts/remove-networks.sh))
-* removes the following fws-api associated volumes (using [remove-volumes.sh](../docker/scripts/remove-volumes.sh)):
+* stops and removes **ALL** Docker containers (using [stop-and-remove-containers.sh](../../../docker/scripts/stop-and-remove-containers.sh))
+* removes the custom network **ls** used by fws-api associated Docker containers (using [remove-networks.sh](../../../docker/scripts/remove-networks.sh))
+* removes the following fws-api associated volumes (using [remove-volumes.sh](../../../docker/scripts/remove-volumes.sh)):
   * pgadmin
   * pgdata
   * pgbootstrap
   * vscode
+  * liquibase
   * Development container volume
 
  The custom network and/or volumes can be retained by running the individual removal scripts mentioned above.

@@ -18,4 +18,4 @@ services:
       # Set the DNS server to be the LocalStack container
       - 192.168.0.20
     networks:
-      - fws
+      - ls

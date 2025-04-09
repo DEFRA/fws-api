@@ -1,47 +1,58 @@
 ![Build status](https://github.com/DEFRA/fws-api/actions/workflows/ci.yml/badge.svg)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_fws-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=DEFRA_fws-api)[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_fws-api&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_fws-api)
 
-
 # FWS-API
 
 This repository contains the serverless backend services for the **FWIS replacement API** and the **FWIS management tool (FWS-app)**.
 
 ## Prerequisites
 
+### Runtime Prerequisites
+
 - **Node.js 20** or higher
 - Appropriate API keys and environment variables (see below)
 
 ## Getting Started
 
-[Containerised development environments](docs/local-development-quickstart.md) are used to provide developers with the ability to develop, run and debug AWS Lambda functions without reliance on deployment to AWS infrastructure. This replaces [Serverless local function invocation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local) following Serverless V.3 reaching end of support and a decision not to [upgrade to Serverless V.4](https://wb.serverless.com/framework/docs-guides-upgrading-v4).
+ Install dependencies:
 
-## Manual Setup
+```bash
+npm install
+```
 
-Following the removal of [Serverless](https://www.serverless.com/), manual setup is **not** recommended due to running and debugging AWS Lambda functions locally being limited to running and debugging unit tests.
+### Local Development
 
-1. Install dependencies:
+#### Local Development Prerequisites
 
-   ```bash
-   npm install
-   ```
+- Docker 28.02 or above
+- Docker Compose 2.34 or above
 
-2. API keys can be found in **fws-db**. Connection details are available in the config files (see `./lib/config.js` for more information).
+Containerisation is used to provide developers with the ability to develop, run and debug AWS Lambda functions without reliance on deployment to AWS infrastructure. This replaces [Serverless local function invocation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local) following Serverless V.3 reaching end of support and a decision not to [upgrade to Serverless V.4](https://wb.serverless.com/framework/docs-guides-upgrading-v4).
 
-3. Ensure you have the required environment variables (see below).
+#### Local Development Options
 
-## Environment Variables
+- [Local Development Quickstart Using Visual Studio Code Development Containers](docs/local-development/dev-container/setup.md)
+- [Configuring And Running A Local Development Environment Manually](docs/local-development/manual-configuration/setup.md)
+
+### Cloud Resource Connectivity
+
+1. API keys can be found in **fws-db**. Connection details are available in the config files (see `./lib/config.js` for more information).
+
+2. Ensure you have the required environment variables (see below).
+
+#### Environment Variables
 
 Environment variables are critical for the correct functioning of the API. These variables can be found in a `.profile` file stored in GitLab: [GitLab: FWS-config](https://gitlab-dev.aws-int.defra.cloud/flood/fws-config).
 
 You can check the required environment variables in `./lib/config.js`, which contains validation logic for them.
 
-### Example environment variables:
+##### Example environment variables
 
 ```bash
 export FWS_ENV_NAME="env-name"
-export FWS_LAMBDA_ROLEL="lambda-connection-role"
+export FWS_LAMBDA_ROLE="lambda-connection-role"
 ```
 
-Ensure all required environment variables are configured correctly before running the project.
+Ensure all required environment variables are configured correctly before connecting to cloud resources.
 
 ## Running Tests
 
