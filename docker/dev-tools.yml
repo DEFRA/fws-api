@@ -7,7 +7,7 @@ services:
     volumes:
       # IMPORTANT
       # Named volumes ensure portability across the host plaforms used to
-      # create and run dev containers.
+      # create and run development containers.
       - pgadmin:/var/lib/pgadmin
     ports:
       - "127.0.0.1:8080:80"
@@ -23,7 +23,7 @@ services:
     volumes:
       # IMPORTANT
       # Named volumes ensure portability across the host plaforms used to
-      # create and run dev containers.
+      # create and run development containers.
       - liquibase:/fwsdb
     networks:
       ls:

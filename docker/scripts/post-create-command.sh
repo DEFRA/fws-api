@@ -9,7 +9,7 @@ docker/scripts/init-npm.sh
 docker/scripts/register-lambda-functions.sh
 docker/scripts/register-api-gateway.sh
 docker exec -it docker-fwsdb-1 bash -c "(cd /tmp && psql -d ${FWS_DB_NAME} -f ./populate-api-keys.sql -f ./target_area_load.sql)"
-# Ensure that docker directory contents can be modified from within the dev container.
+# Ensure that docker directory contents can be modified from within the development container.
 sudo chown -R vscode:vscode /opt/workspaces/fws-api/docker
 docker rm docker-liquibase-1
 docker image prune -f

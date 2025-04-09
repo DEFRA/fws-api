@@ -4,8 +4,7 @@
 
 * This could be caused by an existing application using the subnet configured for LocalStack to act as a DNS server (192.168.0.0/24).
   * The configured subnet avoids conflict with Oracle VirtualBox networking.
-* If the configured subnet conflicts with another application that cannot be stopped, try changing the networking configuration in the [dev container Docker Compose file](../.devcontainer/devcontainer.yml) to use a different subnet
-(such as 10.0.2.0/24 as used in [LocalStack network connectivity documentation](https://blog.localstack.cloud/2024-03-04-making-connecting-to-localstack-easier/)), [teardown](../dev-container/additional-dev-container-considerations.md#teardown) existing dev container based resources and create a new dev container.
+* If the configured subnet conflicts with another application that cannot be stopped, try changing the networking configuration in the [development container Docker Compose file](../.devcontainer/devcontainer.yml) to use a different subnet (such as 10.0.2.0/24 as used in [LocalStack network connectivity documentation](https://blog.localstack.cloud/2024-03-04-making-connecting-to-localstack-easier/)), [teardown](../dev-container/additional-dev-container-considerations.md#teardown) existing development container based resources and create a new development container.
 
 **IMPORTANT** - If cloning the remote repository into a container volume, the configuration change must be pushed to a branch from which the new containerised development environment **must** be created.
 
@@ -30,7 +29,7 @@ invocation.
 #### Dev Container Based Local Development Environment
 
 * Check that the IP address of the Lambda function container matches that configured in the DEBUG_HOST_ADDRESS
-  environment variable within [the docker environment variable file](../../../docker/.env).
+  environment variable within [the Docker environment variable file](../../../docker/.env).
   * This check could be difficult to perform if Lambda function containers only exist for a short amount of time.
   * In a standard debugging scenario, a Lambda function container should have the IP address **192.168.0.5** based
     on these four containers running before the Lambda function container is created:

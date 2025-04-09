@@ -16,7 +16,7 @@ in a LocalStack Docker container used to run an AWS Lambda function.
 
 AWS Lambda function debugging can be disabled by:
 
-* Commenting out the **LAMBDA_DOCKER_FLAGS** environment variable in [the dev container environment variable file]](../../../docker/.env).
+* Commenting out the **LAMBDA_DOCKER_FLAGS** environment variable in [the development container environment variable file](../../../docker/.env).
 * Replacing ([Teardown](../dev-container/additional-dev-container-considerations.md#teardown) and recreate) the existing containerised development environment with a new containerised development environment using
   the revised configuration
   * **IMPORTANT** - If cloning the remote repository into a container volume, the configuration change must be pushed to a branch from which the new containerised development environment **must** be created.
@@ -41,7 +41,7 @@ Please consult appropriate documentation.
 
 ## Invoking An AWS Lambda Function
 
-From within the dev container, use the [LocalStack AWS Command Line interface](https://docs.localstack.cloud/user-guide/integrations/aws-cli/) to retrieve the identifier of the deployed REST API from the API Gateway. For example, the command below can be used when an initial attempt to create a containerised development environment succeeds (resulting in the creation of one
+From within the development container, use the [LocalStack AWS Command Line interface](https://docs.localstack.cloud/user-guide/integrations/aws-cli/) to retrieve the identifier of the deployed REST API from the API Gateway. For example, the command below can be used when an initial attempt to create a containerised development environment succeeds (resulting in the creation of one
 REST API instance)
 
 ```sh

@@ -1,5 +1,5 @@
 #!/bin/sh
-# This script MUST be run on the host before attempting to create a dev container.
+# This script MUST be run on the host before attempting to create a development container.
 set -e
 
 if [ `whoami` != root ]; then
@@ -30,12 +30,12 @@ if [ `uname` = "Darwin" ]; then
   alias realpath="grealpath"
 fi
 
-# Ensure that local/remote repository contents are available in a dev container directory compatible with Linux and macOS.
+# Ensure that local/remote repository contents are available in a development container directory compatible with Linux and macOS.
 FWS_API_WORKSPACE_DIR=/opt/workspaces/fws-api
 
-# A Docker Compose based dev container requires a workspace folder (see https://containers.dev/implementors/json_reference/).
-# If creating a dev container from a local fws-api repository, the dev container user needs read write access to the workspace
-# folder from within the dev container.
+# A Docker Compose based development container requires a workspace folder (see https://containers.dev/implementors/json_reference/).
+# If creating a development container from a local fws-api repository, the development container user needs read write access to the workspace
+# folder from within the development container.
 #
 # Create a symbolic link from the workspace folder to the local repository on the host.
 if [ ! -L "$FWS_API_WORKSPACE_DIR" ] && [ $(realpath -m "$FWS_API_WORKSPACE_DIR") != $(realpath -m "$LOCAL_FWS_API_DIR") ]; then
@@ -48,14 +48,14 @@ if [ $(realpath -m "$FWS_API_WORKSPACE_DIR") = $(realpath -m "$LOCAL_FWS_API_DIR
   echo "$FWS_API_WORKSPACE_DIR" references "$LOCAL_FWS_API_DIR"
 fi
 
-# To support dev container creation by cloning into a container volume, a bootstrap container is used that makes the
+# To support development container creation by cloning into a container volume, a bootstrap container is used that makes the
 # remote repository contents available within /workspaces/fws-api
 # (see https://github.com/microsoft/vscode-remote-release/issues/6891).
 # This location appears to be non-configurable. For running and debugging to work, the source code MUST be available in the
 # same directory structure on the host machine.
 FWS_API_VOLUME_WORKSPACE_DIR=/workspaces/fws-api
 
-# To support dev container creation by cloning into a container volume on a Linux host, provide the required directory
+# To support development container creation by cloning into a container volume on a Linux host, provide the required directory
 # structure by creating a symbolic link from /workspaces/fws-api to the macOS compatible local repository location
 # /opt/fws-api. If a local repository has been cloned to somewhere other than /opt/fws-api, this results in two symbolic
 # links leading to the local repository on the host. For example:
@@ -70,7 +70,7 @@ if [ `uname` = "Linux" ] && [ ! -L "$FWS_API_VOLUME_WORKSPACE_DIR" ] && [ $(real
   ln -s "$FWS_API_WORKSPACE_DIR" "$FWS_API_VOLUME_WORKSPACE_DIR"
   echo Created symbolic link from "$FWS_API_VOLUME_WORKSPACE_DIR" to "$FWS_API_WORKSPACE_DIR"
 elif [ `uname` = "Darwin" ]; then
-  echo "macOS detected - WARNING - Running/debugging is only supported when creating a dev container from a local fws-api repository"
+  echo "macOS detected - WARNING - Running/debugging is only supported when creating a development container from a local fws-api repository"
 fi
 
 if [ $(realpath -m "$FWS_API_VOLUME_WORKSPACE_DIR") = $(realpath -m "$FWS_API_WORKSPACE_DIR") ]; then

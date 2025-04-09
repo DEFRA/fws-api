@@ -26,7 +26,7 @@ services:
     volumes:
       # IMPORTANT
       # Named volumes ensure portability across the host plaforms used to
-      # create and run dev containers.
+      # create and run development containers.
       - pgdata:/var/lib/postgresql/data
       - pgbootstrap:/docker-entrypoint-initdb.d
     networks:

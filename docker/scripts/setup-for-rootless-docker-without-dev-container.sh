@@ -1,6 +1,6 @@
 #!/bin/sh
 # This script MUST be run on the host before bootstrapping to run/debug Lambda functions using rootless Docker
-# without a dev container.
+# without a development container.
 
 set -e
 

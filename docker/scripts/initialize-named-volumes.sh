@@ -43,12 +43,12 @@ else
   echo Named volume liquibase exists
 fi
 
-# Default to configuration required when creating a dev container by cloning the remote
+# Default to configuration required when creating a development container by cloning the remote
 # repository into a container volume.
 FWS_API_HOST_DIR=/workspaces/fws-api/
 
 if [ ! -d ${FWS_API_HOST_DIR} ] && ([ -d /opt${FWS_API_HOST_DIR} ] || [ -L /opt${FWS_API_HOST_DIR} ]); then
-  # A dev container is being created from a local repository.
+  # A development container is being created from a local repository.
   FWS_API_HOST_DIR=/opt${FWS_API_HOST_DIR}
   ln -s 
 fi

@@ -2,7 +2,7 @@
 
 ## Using Terminals Outside Visual Studio Code
 
-If you prefer not to use Visual Studio Code integrated terminals, the **docker exec** command offers an alternative way to provide a terminal. For example, issue the following command in a Linux environment on a machine running a dev container (substituting the container ID or container name):
+If you prefer not to use Visual Studio Code integrated terminals, the **docker exec** command offers an alternative way to provide a terminal. For example, issue the following command in a Linux environment on a machine running a development container (substituting the container ID or container name):
 
 ```sh
 docker exec -it <<container ID or container name>> bash
@@ -10,18 +10,18 @@ docker exec -it <<container ID or container name>> bash
 
 ## Ongoing Maintenance
 
-Application changes requiring local development environment updates should be applied to the dev container automation wherever possible.
+Application changes requiring local development environment updates should be applied to the development container automation wherever possible.
 
 ## Backup Considerations
 
 Pushing to GitHub or backing up regularly is recommended.
 
-* If a dev container uses a bind mount and the source of the bind mount is deleted, any local updates made in the dev container **will be lost**.
-* If a repository is cloned into a container volume and the volume is deleted, any local updates made in the dev container **will be lost**.
+* If a development container uses a bind mount and the source of the bind mount is deleted, any local updates made in the development container **will be lost**.
+* If a repository is cloned into a container volume and the volume is deleted, any local updates made in the development container **will be lost**.
 
 ## Network Connectivity Loss
 
-If network connectivity from Docker containers is lost try restarting the docker daemon (or equivalent) on the machine running the Visual Studio Code dev container.
+If network connectivity from Docker containers is lost try restarting the Docker daemon (or equivalent) on the machine running the Visual Studio Code development container.
 
 For example, in a Linux environment using systemd:
 
@@ -47,7 +47,7 @@ sudo chown -R <<user ID>>:<<group ID>> <<path/to/volume>>
 
 ## Teardown
 
-Teardown can be performed by closing the remote connection to the dev container in Visual Studio Code
+Teardown can be performed by closing the remote connection to the development container in Visual Studio Code
 (File -> Close Remote Connection) and running [teardown.sh](../../../docker/scripts/teardown.sh). This script:
 
 * stops and removes **ALL** Docker containers (using [stop-and-remove-containers.sh](../../../docker/scripts/stop-and-remove-containers.sh))
