@@ -14,7 +14,7 @@ services:
     networks:
       ls:
   liquibase:
-    image: liquibase/liquibase:4.31
+    image: liquibase/liquibase
     depends_on:
       fwsdb:
         condition: service_healthy
