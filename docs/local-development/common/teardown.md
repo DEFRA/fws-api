@@ -1,11 +1,11 @@
-
-## Teardown
+# Teardown
 
  Teardown can be performed by running the teardown npm script from the repository root:
 
  ```sh
  npm run teardown
  ```
+
 The teardown npm script runs [teardown.sh](../../../docker/scripts/teardown.sh). This script:
 
 * stops and removes **ALL** Docker containers (using [stop-and-remove-containers.sh](../../../docker/scripts/stop-and-remove-containers.sh))
