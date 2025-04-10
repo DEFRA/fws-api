@@ -40,9 +40,8 @@ invocation.
 
 #### Non-Dev Container Based Local Development Environment
 
-* Ensure that the DEBUG_HOST_ADDRESS environment variable on the host running the Lambda function container is set to 127.0.0.1.
-  * The [Visual Studio Code debug configuration](../../../.vscode/launch.json) defaults to using 127.0.0.1 if this environment
-    variable is not set.
+* Ensure that the DEBUG_HOST_ADDRESS environment variable on the host running the Lambda function container is set to 127.0.0.1
+  **before** launching Visual Studio Code.
 
 ### Node.js Module Import Errors
 

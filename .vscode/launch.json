@@ -3,7 +3,7 @@
     "configurations": [
         {
             // # The address of the host running the Lambda function to be debugged.
-            "address": "${env:DEBUG_HOST_ADDRESS:127.0.0.1}",
+            "address": "${env:DEBUG_HOST_ADDRESS}",
             "localRoot": "${workspaceFolder}",
             "name": "Attach to Remote Node.js",
             "port": 9229,
