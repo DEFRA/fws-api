@@ -4,7 +4,7 @@
 
 * This could be caused by an existing application using the subnet configured for LocalStack to act as a DNS server (192.168.0.0/24).
   * The configured subnet avoids conflict with Oracle VirtualBox networking.
-* If the configured subnet conflicts with another application that cannot be stopped, try changing the networking configuration in the [development container Docker Compose file](../.devcontainer/devcontainer.yml) to use a different subnet (such as 10.0.2.0/24 as used in [LocalStack network connectivity documentation](https://blog.localstack.cloud/2024-03-04-making-connecting-to-localstack-easier/)), [teardown](../dev-container/additional-dev-container-considerations.md#teardown) existing development container based resources and create a new development container.
+* If the configured subnet conflicts with another application that cannot be stopped, try changing the networking configuration in the [development container Docker Compose file](../.devcontainer/devcontainer.yml) to use a different subnet (such as 10.0.2.0/24 as used in [LocalStack network connectivity documentation](https://blog.localstack.cloud/2024-03-04-making-connecting-to-localstack-easier/)), [teardown](../common/teardown.md) existing development container based resources and create a new development container.
 
 **IMPORTANT** - If cloning the remote repository into a container volume, the configuration change must be pushed to a branch from which the new containerised development environment **must** be created.
 
@@ -59,4 +59,4 @@ Ensure that the [local fws-api repository location](../dev-container/local-repos
 
 ### Unsuccessful Resolution Of Problems
 
-If problems persist, prerequisites and associated configuration should be reviewed followed by a [teardown](../dev-container/additional-dev-container-considerations.md#teardown) and rebuild of the containerised development environment.
+If problems persist, prerequisites and associated configuration should be reviewed followed by a [teardown](../common/teardown.md) and rebuild of the containerised development environment.

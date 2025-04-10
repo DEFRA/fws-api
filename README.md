@@ -30,8 +30,8 @@ Containerisation is used to provide developers with the ability to develop, run 
 
 #### Local Development Options
 
-- [Local Development Quickstart Using Visual Studio Code Development Containers](docs/local-development/dev-container/setup.md)
-- [Configuring And Running A Local Development Environment Manually](docs/local-development/manual-configuration/setup.md)
+- [Local Development Quickstart Using Visual Studio Code Development Containers](docs/local-development/dev-container/setup-and-teardown.md)
+- [Configuring And Running A Local Development Environment Manually](docs/local-development/manual-configuration/setup-and-teardown.md)
 
 ### Cloud Resource Connectivity
 

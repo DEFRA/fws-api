@@ -8,3 +8,4 @@
 * [Bootstrapping](./bootstrapping.md).
 * [Running And Debugging Lambda Functions](../common/running-and-debugging-lambda-functions.md).
 * [Troubleshooting](../common/troubleshooting.md).
+* [Teardown](../common/teardown.md)

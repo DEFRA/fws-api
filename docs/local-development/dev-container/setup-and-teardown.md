@@ -34,4 +34,5 @@ If an existing local development environment has been configured manually **it i
 * [Dev Container Creation](./dev-container-creation.md)
 * [Running And Debugging Lambda Functions](../common/running-and-debugging-lambda-functions.md)
 * [Troubleshooting](../common/troubleshooting.md)
+* [Teardown](../common/teardown.md)
 * [Additional Development Container Considerations](./additional-dev-container-considerations.md)

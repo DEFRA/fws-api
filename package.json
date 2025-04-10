@@ -11,7 +11,9 @@
     "test": "npm run lint && npm run unit-test",
     "unit-test": "lab test -v -c --coverage-path lib -r console -o stdout -r lcov -o coverage/lcov.info -r junit -o test/output-unit.xml",
     "validate-config": "node lib/config.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "bootstrap-debug": "docker/scripts/non-dev-container-bootstrap.sh",
+    "teardown": "docker/scripts/teardown.sh"
   },
   "author": "DEFRA",
   "license": "ISC",
