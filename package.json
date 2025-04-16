@@ -16,7 +16,8 @@
   "author": "DEFRA",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "2.1692.0",
+    "@aws-sdk/client-ec2": "^3.787.0",
+    "@aws-sdk/client-sns": "^3.787.0",
     "joi": "^17.13.3",
     "js2xmlparser": "5.0.0",
     "lodash.escape": "^4.0.1",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@hapi/code": "9.0.3",
     "@hapi/lab": "26.0.0",
+    "aws-sdk-client-mock": "^4.1.0",
     "husky": "^9.1.6",
     "standard": "17.1.2"
   }
