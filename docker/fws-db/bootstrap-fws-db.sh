@@ -8,6 +8,6 @@ if [ ! -d /fws_indexes ]; then
   mkdir /fws_indexes
 fi
 psql -c "CREATE USER u_fws WITH PASSWORD '$U_FWS_PASSWORD';"
-psql -c "CREATE DATABASE fws";
+psql -c "CREATE DATABASE $FWS_DB_NAME";
 psql -d $FWS_DB_NAME -f "/tmp/fws-setup.sql";
 psql -d $FWS_DB_NAME -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"";
