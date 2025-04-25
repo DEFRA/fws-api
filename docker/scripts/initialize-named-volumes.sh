@@ -50,7 +50,9 @@ FWS_API_HOST_DIR=/workspaces/fws-api/
 if [ ! -d ${FWS_API_HOST_DIR} ] && ([ -d /opt${FWS_API_HOST_DIR} ] || [ -L /opt${FWS_API_HOST_DIR} ]); then
   # A development container is being created from a local repository.
   FWS_API_HOST_DIR=/opt${FWS_API_HOST_DIR}
-  ln -s 
+elif [ -d ${LOCAL_FWS_API_DIR} ]; then
+  # A development container is not being created.
+  FWS_API_HOST_DIR=${LOCAL_FWS_API_DIR}
 fi
 
 PG_TEMP_CONTAINER=$(docker ps -a -q -f "name=pgbootstraptemp")

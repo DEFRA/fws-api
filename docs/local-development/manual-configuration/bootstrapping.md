@@ -1,11 +1,21 @@
 # Bootstrapping
 
+## Mandatory Environment Variables
+
+| name | description |
+|------|-------------|
+| LOCAL_FWS_API_DIR | The **absolute** path to the root of a local fws-api repository. |
+
+### Mandatory Environment Variables For Visual Studio Code Debugging
+
 * If using Visual Studio Code for debugging, the environment variable DEBUG_HOST_ADDRESS **must** be set to 127.0.0.1
   **before** launching Visual Studio Code. For example, the following command can be used on native Linux:
 
   ```sh
   export DEBUG_HOST_ADDRESS=127.0.0.1 && code
   ```
+
+## Run Bootstrap Script
 
 * Run the bootstrap-debug npm script from the repository root.
 
