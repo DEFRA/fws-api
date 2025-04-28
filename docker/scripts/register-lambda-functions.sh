@@ -9,10 +9,9 @@ lambda_functions_dir="lib/functions"
 # each Lambda function.
 fws_db_username=$(echo FWS_DB_USERNAME=$FWS_DB_USERNAME)
 fws_db_password=$(echo FWS_DB_PASSWORD=$FWS_DB_PASSWORD)
-fws_db_url=$(echo FWS_DB_URL=$FWS_DB_URL)
 fws_db_name=$(echo FWS_DB_NAME=$FWS_DB_NAME)
 fws_db_host=$(echo FWS_DB_HOST=$FWS_DB_HOST)
-set -- $fws_db_username $fws_db_password $fws_db_url $fws_db_name $fws_db_host
+set -- $fws_db_username $fws_db_password $fws_db_name $fws_db_host
 custom_environment_variables=$(printf '%s,' "$@" | sed 's/,*$//g')
 
 # Iterate over each file in lambda_functions_dir
