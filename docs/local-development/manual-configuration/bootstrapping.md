@@ -5,7 +5,6 @@
 | name | description |
 |------|-------------|
 | LOCAL_FWS_API_DIR | The **absolute** path to the root of a local fws-api repository. |
-| LOCAL_FWS_DB_DIR | The **absolute** path to the root of a local fws-db repository. |
 
 ### Mandatory Environment Variables For Visual Studio Code Debugging
 

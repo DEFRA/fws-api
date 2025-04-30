@@ -9,11 +9,6 @@ if [ `uname` = "Darwin" ] && [ x`command -v grealpath` = "x" ]; then
   exit 1
 fi
 
-if [ ! -d "$LOCAL_FWS_DB_DIR"/.git ] && [ x`echo $"$LOCAL_FWS_DB_DIR" | grep -E /fws-db/?$` = "x" ]; then
- echo LOCAL_FWS_DB_DIR must be set to the absolute path of the root of a local fws-db repository
- exit 1
-fi
-
 # If running on macOS use the GNU version of realpath.
 if [ `uname` = "Darwin" ]; then
   alias realpath="grealpath"
@@ -88,6 +83,6 @@ fi
 # https://stackoverflow.com/questions/37468788/what-is-the-right-way-to-add-data-to-an-existing-named-volume-in-docker
 docker container create --name liquibasetemp -v liquibase:/fwsdb alpine
 echo Created liquibasetemp container
-(cd `realpath -m ${LOCAL_FWS_DB_DIR}`/u_fws && docker cp . liquibasetemp:/fwsdb)
+(cd `realpath -m ${FWS_API_HOST_DIR}`/../fws-db/u_fws && docker cp . liquibasetemp:/fwsdb)
 docker rm liquibasetemp
 echo Removed liquibasetemp container
