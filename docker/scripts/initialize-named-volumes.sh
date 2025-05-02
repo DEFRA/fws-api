@@ -50,7 +50,7 @@ FWS_API_HOST_DIR=/workspaces/fws-api/
 if [ ! -d ${FWS_API_HOST_DIR} ] && ([ -d /opt${FWS_API_HOST_DIR} ] || [ -L /opt${FWS_API_HOST_DIR} ]); then
   # A development container is being created from a local repository.
   FWS_API_HOST_DIR=/opt${FWS_API_HOST_DIR}
-elif [  x"$LOCAL_FWS_API_DIR"  != "x" ] && [ -d ${LOCAL_FWS_API_DIR} ]; then
+elif [ x"$LOCAL_FWS_API_DIR"  != "x" ] && [ -d ${LOCAL_FWS_API_DIR} ]; then
   # A development container is not being created.
   FWS_API_HOST_DIR=${LOCAL_FWS_API_DIR}
 fi
