@@ -1,8 +1,5 @@
 # Prerequisites
 
-- Local fws-api repository
-- Local fws-db repository
-  - This **must** be located in the same directory as the local fws-api repository.
 - [Amazon CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
   - [Configuring command completion is recommended](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html).
 - [LocalStack AWS CLI](https://github.com/localstack/awscli-local)
