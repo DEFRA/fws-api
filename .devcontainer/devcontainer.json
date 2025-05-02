@@ -33,6 +33,5 @@
 		}
 	},
 	"initializeCommand": "docker/scripts/initialize-command.sh",
-	"onCreateCommand": "(cd ${containerWorkspaceFolder} && docker/scripts/on-create-command.sh)",
 	"postCreateCommand": "(cd ${containerWorkspaceFolder} && docker/scripts/post-create-command.sh)"
 }

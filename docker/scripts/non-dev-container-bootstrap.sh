@@ -8,7 +8,7 @@ set -a
 . docker/.env
 set +a
 
-docker/scripts/initialize-named-volumes.sh
+docker/scripts/initialize-command.sh
 docker compose -f docker/infrastructure.yml -f docker/networks.yml -f docker/dev-tools.yml up -d
 docker/scripts/register-lambda-functions.sh
 docker/scripts/register-api-gateway.sh
