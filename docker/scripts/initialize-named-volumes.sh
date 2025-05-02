@@ -67,7 +67,6 @@ fi
 # https://stackoverflow.com/questions/37468788/what-is-the-right-way-to-add-data-to-an-existing-named-volume-in-docker
 docker container create --name pgbootstraptemp -v pgbootstrap:/docker-entrypoint-initdb.d alpine
 echo Created pgbootstraptemp container
-echo $FWS_API_HOST_DIR **
 docker cp ${FWS_API_HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh pgbootstraptemp:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
 docker rm pgbootstraptemp
 echo Removed pgbootstraptemp container
