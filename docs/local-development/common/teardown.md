@@ -11,11 +11,11 @@ The teardown npm script runs [teardown.sh](../../../docker/scripts/teardown.sh).
 * stops and removes **ALL** Docker containers (using [stop-and-remove-containers.sh](../../../docker/scripts/stop-and-remove-containers.sh))
 * removes the custom network **ls** used by fws-api associated Docker containers (using [remove-networks.sh](../../../docker/scripts/remove-networks.sh))
 * removes the following fws-api associated volumes (using [remove-volumes.sh](../../../docker/scripts/remove-volumes.sh)):
-  * pgadmin
-  * pgdata
-  * pgbootstrap
+  * fwspgadmin
+  * fwspgdata
+  * fwspgbootstrap
   * vscode
-  * liquibase
+  * fwsliquibase
   * development container volume
 
  The custom network and/or volumes can be retained by running the individual removal scripts mentioned above.

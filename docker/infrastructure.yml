@@ -27,8 +27,8 @@ services:
       # IMPORTANT
       # Named volumes ensure portability across the host plaforms used to
       # create and run development containers.
-      - pgdata:/var/lib/postgresql/data
-      - pgbootstrap:/docker-entrypoint-initdb.d
+      - fwspgdata:/var/lib/postgresql/data
+      - fwspgbootstrap:/docker-entrypoint-initdb.d
     networks:
       ls:
     healthcheck:
@@ -37,7 +37,7 @@ services:
       timeout: 5s
       retries: 5
 volumes:
-  pgdata:
+  fwspgdata:
     external: true
-  pgbootstrap:
+  fwspgbootstrap:
     external: true

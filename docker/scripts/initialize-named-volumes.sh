@@ -14,33 +14,33 @@ if [ `uname` = "Darwin" ]; then
   alias realpath="grealpath"
 fi
 
-PGDATA_VOLUME=$(docker volume ls -q -f "name=pgdata")
-PGADMIN_VOLUME=$(docker volume ls -q -f "name=pgadmin")
-PGBOOTSTRAP_VOLUME=$(docker volume ls -q -f "name=pgbootstrap")
-LIQUIBASE_VOLUME=$(docker volume ls -q -f "name=liquibase")
+PGDATA_VOLUME=$(docker volume ls -q -f "name=fwspgdata")
+PGADMIN_VOLUME=$(docker volume ls -q -f "name=fwspgadmin")
+PGBOOTSTRAP_VOLUME=$(docker volume ls -q -f "name=fwspgbootstrap")
+LIQUIBASE_VOLUME=$(docker volume ls -q -f "name=fwsliquibase")
 
 if [ -z "$PGDATA_VOLUME" ]; then
-  docker volume create pgdata
+  docker volume create fwspgdata
 else
-  echo Named volume pgdata exists
+  echo Named volume fwspgdata exists
 fi
 
 if [ -z "$PGADMIN_VOLUME" ]; then
-  docker volume create pgadmin
+  docker volume create fwspgadmin
 else
-  echo Named volume pgadmin exists
+  echo Named volume fwspgadmin exists
 fi
 
 if [ -z "$PGBOOTSTRAP_VOLUME" ]; then
-  docker volume create pgbootstrap
+  docker volume create fwspgbootstrap
 else
-  echo Named volume pgbootstrap exists
+  echo Named volume fwspgbootstrap exists
 fi
 
 if [ -z "$LIQUIBASE_VOLUME" ]; then
-  docker volume create liquibase
+  docker volume create fwsliquibase
 else
-  echo Named volume liquibase exists
+  echo Named volume fwsliquibase exists
 fi
 
 # Default to configuration required when creating a development container by cloning the remote
@@ -55,34 +55,34 @@ elif [ x"$LOCAL_FWS_API_DIR"  != "x" ] && [ -d ${LOCAL_FWS_API_DIR} ]; then
   FWS_API_HOST_DIR=${LOCAL_FWS_API_DIR}
 fi
 
-PG_TEMP_CONTAINER=$(docker ps -a -q -f "name=pgbootstraptemp")
+PG_TEMP_CONTAINER=$(docker ps -a -q -f "name=fwspgbootstraptemp")
 
 if [ ! -z "$PG_TEMP_CONTAINER" ]; then
-  docker rm pgbootstraptemp
-  echo Removed pgbootstraptemp container
+  docker rm fwspgbootstraptemp
+  echo Removed fwspgbootstraptemp container
 fi
 
 # Create a temporary container to load the database bootstrapping script into a named volume
 # used by the database container.
 # https://stackoverflow.com/questions/37468788/what-is-the-right-way-to-add-data-to-an-existing-named-volume-in-docker
-docker container create --name pgbootstraptemp -v pgbootstrap:/docker-entrypoint-initdb.d alpine
-echo Created pgbootstraptemp container
-docker cp ${FWS_API_HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh pgbootstraptemp:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
-docker rm pgbootstraptemp
-echo Removed pgbootstraptemp container
+docker container create --name fwspgbootstraptemp -v fwspgbootstrap:/docker-entrypoint-initdb.d alpine
+echo Created fwspgbootstraptemp container
+docker cp ${FWS_API_HOST_DIR}/docker/fws-db/bootstrap-fws-db.sh fwspgbootstraptemp:/docker-entrypoint-initdb.d/bootstrap-fws-db.sh
+docker rm fwspgbootstraptemp
+echo Removed fwspgbootstraptemp container
 
-LIQUIBASE_TEMP_CONTAINER=$(docker ps -a -q -f "name=liquibasetemp")
+LIQUIBASE_TEMP_CONTAINER=$(docker ps -a -q -f "name=fwsliquibasetemp")
 
 if [ ! -z "$LIQUIBASE_TEMP_CONTAINER" ]; then
-  docker rm liquibasetemp
-  echo Removed liquibasetemp container
+  docker rm fwsliquibasetemp
+  echo Removed fwsliquibasetemp container
 fi
 
 # Create a temporary container to facilitate liquibase bootstrapping through a named volume
 # used by the Liquibase container.
 # https://stackoverflow.com/questions/37468788/what-is-the-right-way-to-add-data-to-an-existing-named-volume-in-docker
-docker container create --name liquibasetemp -v liquibase:/fwsdb alpine
-echo Created liquibasetemp container
-(cd `realpath -m ${FWS_API_HOST_DIR}`/../fws-db/u_fws && docker cp . liquibasetemp:/fwsdb)
-docker rm liquibasetemp
-echo Removed liquibasetemp container
+docker container create --name fwsliquibasetemp -v fwsliquibase:/fwsdb alpine
+echo Created fwsliquibasetemp container
+(cd `realpath -m ${FWS_API_HOST_DIR}`/../fws-db/u_fws && docker cp . fwsliquibasetemp:/fwsdb)
+docker rm fwsliquibasetemp
+echo Removed fwsliquibasetemp container

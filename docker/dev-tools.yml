@@ -1,5 +1,5 @@
 services:
-  pgadmin:
+  fwspgadmin:
     image: dpage/pgadmin4
     user: pgadmin
     env_file:
@@ -8,7 +8,7 @@ services:
       # IMPORTANT
       # Named volumes ensure portability across the host plaforms used to
       # create and run development containers.
-      - pgadmin:/var/lib/pgadmin
+      - fwspgadmin:/var/lib/pgadmin
     ports:
       - "127.0.0.1:8080:80"
     networks:
@@ -24,12 +24,12 @@ services:
       # IMPORTANT
       # Named volumes ensure portability across the host plaforms used to
       # create and run development containers.
-      - liquibase:/fwsdb
+      - fwsliquibase:/fwsdb
     networks:
       ls:
     command: update
 volumes:
-  pgadmin:
+  fwspgadmin:
     external: true
-  liquibase:
+  fwsliquibase:
     external: true
