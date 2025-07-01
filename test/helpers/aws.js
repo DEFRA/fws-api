@@ -49,7 +49,7 @@ lab.describe('AWS Helper Tests', () => {
 
       // Verify parameters
       Code.expect(publishParams.TopicArn).to.equal(process.env.FWS_SNS_TOPIC)
-      Code.expect(publishParams.Subject).to.equal('Failed warning message - test')
+      Code.expect(publishParams.Subject).to.equal('Failed FWIS warning message - test')
       Code.expect(publishParams.Message).to.contain('Test Error')
       Code.expect(publishParams.Message).to.contain('2024-01-01')
       Code.expect(publishParams.Message).to.contain('Test Message')
