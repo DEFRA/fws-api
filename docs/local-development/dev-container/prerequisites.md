@@ -25,6 +25,13 @@ Development container creation has been tested using the following platforms:
   * These will need installing manually when using macOS.
 * Ensure [GPG-AGENT is running as a daemon](https://www.gnupg.org/documentation/manuals/gnupg-2.0/Invoking-GPG_002dAGENT.html)
   * **Run on the WSL 2 Linux distribution when using Windows.**
+* Ensure that an SSH Agent is running. The followng command can be used to start an SSH agent if needed:
+
+  ```sh
+  eval $(ssh-agent -s)
+  ```
+
+  * **Run on the WSL 2 Linux distribution when using Windows.**
 
 ## Setup GitHub Credential Sharing
 
