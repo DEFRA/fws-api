@@ -8,7 +8,7 @@
   - [Configuring command completion is recommended](https://github.com/localstack/awscli-local?tab=readme-ov-file#completion).
 
 **IMPORTANT** - [LocalStack initialisation hooks](https://docs.localstack.cloud/aws/capabilities/config/initialization-hooks/) are **not** used due
-to [LocalStack Docker containers providing no support for the AWS CLI v2](https://github.com/localstack/localstack/issues/11948).
+to [LocalStack Docker containers providing no support for the AWS CLI v2 currently](https://github.com/localstack/localstack/issues/11948).
 
 ## Additional Prerequisites
 
