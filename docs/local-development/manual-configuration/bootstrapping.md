@@ -5,6 +5,7 @@
 | name | description |
 |------|-------------|
 | LOCAL_FWS_API_DIR | The **absolute** path to the root of a local fws-api repository. |
+| DOCKER_SOCK | (Optional) absolute path to docker.sock for rootless installation, defaults to /run/user/1000/docker.sock
 
 ### Mandatory Environment Variables For Visual Studio Code Debugging
 

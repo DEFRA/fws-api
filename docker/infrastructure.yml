@@ -8,7 +8,7 @@ services:
     env_file:
       - .env
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${DOCKER_SOCK:-/run/user/1000/docker.sock}:/var/run/docker.sock"
       - "./.volume:/var/lib/localstack"
     networks:
       ls:
