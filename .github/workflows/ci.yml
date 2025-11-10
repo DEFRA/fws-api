@@ -7,14 +7,14 @@ jobs:
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                 fetch-depth: 0
 
             - name: Install nodejs
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
-                node-version: "18.x"
+                node-version: "20.x"
             
             - name: Install node dependencies
               run: npm ci
@@ -27,7 +27,7 @@ jobs:
                 npm run unit-test
 
             - name: Analyse code quality
-              uses: sonarsource/sonarqube-scan-action@master
+              uses: sonarsource/sonarqube-scan-action@1a6d90ebcb0e6a6b1d87e37ba693fe453195ae25 # v5.3.1
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
