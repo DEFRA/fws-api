@@ -34,7 +34,8 @@ main() {
 }
 
 get_http_method() {
-  if [ $1 = "process-message" ]; then
+  lambda_function_name=$1
+  if [ $lambda_function_name = "process-message" ]; then
     echo POST
   else
     echo GET
@@ -71,10 +72,12 @@ register_api_gateway_support_for_process_message() {
 }
 
 create_resource() {
+  fws_rest_api_root_resource_id=$1
+  fws_rest_api_path_part=$2
   echo $(awslocal apigateway create-resource \
     --rest-api-id $fws_rest_api_id \
-    --parent-id $1 \
-    --path-part $2 | jq -r '.id')
+    --parent-id $fws_rest_api_root_resource_id \
+    --path-part $fws_rest_api_path_part | jq -r '.id')
   return 0
 }
 
@@ -162,7 +165,8 @@ get_request_parameters() {
 }
 
 get_selection_pattern() {
-  case $1 in
+  status_code=$1
+  case $status_code in
     200)
       # Do not set a selection pattern for the default response.
     ;;
