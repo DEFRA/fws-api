@@ -30,6 +30,7 @@ main() {
     --stage-name local
 
   echo "Created API Gateway deployment"
+  return 0
 }
 
 get_http_method() {
@@ -38,6 +39,7 @@ get_http_method() {
   else
     echo GET
   fi
+  return 0
 }
 
 register_api_gateway_support_for_get_all_messages() {
@@ -46,22 +48,26 @@ register_api_gateway_support_for_get_all_messages() {
     all_messages_resource_id=$(create_resource $fws_rest_api_root_resource_id $message_type)
     put_method_and_integration $all_messages_resource_id
   done
+  return 0
 }
 
 register_api_gateway_support_for_get_all_historical_messages() {
   all_historical_messages_resource_id=$(create_resource $fws_rest_api_root_resource_id  "historical-messages")
   all_target_area_historical_messages_resource_id=$(create_resource $all_historical_messages_resource_id  "{code}")
   put_method_and_integration $all_target_area_historical_messages_resource_id
+  return 0
 }
 
 register_api_gateway_support_for_get_all_target_areas() {
   all_target_areas_resource_id=$(create_resource $fws_rest_api_root_resource_id  "target-areas.json")
   put_method_and_integration $all_target_areas_resource_id
+  return 0
 }
 
 register_api_gateway_support_for_process_message() {
   process_message_resource_id=$(create_resource $fws_rest_api_root_resource_id  "message")
   put_method_and_integration $process_message_resource_id
+  return 0
 }
 
 create_resource() {
@@ -69,6 +75,7 @@ create_resource() {
     --rest-api-id $fws_rest_api_id \
     --parent-id $1 \
     --path-part $2 | jq -r '.id')
+  return 0
 }
 
 put_method_and_integration() {
@@ -144,13 +151,14 @@ put_method_and_integration() {
       --uri arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:000000000000:function:$lambda_function_name/invocations \
       --passthrough-behavior WHEN_NO_TEMPLATES
   fi
+  return 0
 }
 
 get_request_parameters() {
   if [ $lambda_function_name = "get-all-historical-messages" ]; then
     echo --request-parameters "method.request.path.code=true"
   fi
-  return
+  return 0
 }
 
 get_selection_pattern() {
@@ -170,7 +178,7 @@ get_selection_pattern() {
     ;;
   esac
 
-  return
+  return 0
 }
 
 main "$@"
