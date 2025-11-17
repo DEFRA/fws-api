@@ -23,7 +23,7 @@ for lambda_function in "$lambda_functions_dir"/*; do
       awslocal lambda create-function \
         --function-name "$function_name" \
         --code S3Bucket="hot-reload",S3Key="$(pwd)/" \
-        --runtime nodejs20.x \
+        --runtime nodejs${NODEJS_VERSION}.x \
         --timeout $LAMBDA_TIMEOUT \
         --role arn:aws:iam::000000000000:role/lambda-role \
         --handler lib/functions/$function_name.handler \
