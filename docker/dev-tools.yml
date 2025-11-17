@@ -27,7 +27,7 @@ services:
       - fwsliquibase:/fwsdb
     networks:
       ls:
-    command: update
+    command: sh -c "lpm add postgresql --global && liquibase update"
 volumes:
   fwspgadmin:
     external: true
