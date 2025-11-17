@@ -4,7 +4,7 @@
 
 set -e
 
-if [ `whoami` != root ]; then
+if [ $(whoami) != root ]; then
   echo This script must be run as root
   exit 1
 fi
@@ -13,7 +13,7 @@ HOST_UID=$(id -u "$FWS_API_HOST_USERNAME")
 DOCKER_SOCKET=/var/run/docker.sock
 ROOTLESS_DOCKER_SOCKET=/run/user/$HOST_UID/docker.sock
 
-if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x`echo $"$LOCAL_FWS_API_DIR" | grep -E /fws-api/?$` = "x" ]; then
+if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x$(echo $"$LOCAL_FWS_API_DIR" | grep -E /fws-api/?$) = "x" ]; then
  echo LOCAL_FWS_API_DIR must be set to the absolute path of the root of a local fws-api repository
  exit 1
 fi

@@ -2,15 +2,15 @@
 # This script MUST be run on the host before attempting to create a dev container using rootless Docker.
 set -e
 
-if [ `whoami` != root ]; then
+if [ $(whoami) != root ]; then
   echo This script must be run as root
   exit 1
 fi
 
 HOST_UID=$(id -u "$FWS_API_HOST_USERNAME")
 HOST_GID=$(id -g "$FWS_API_HOST_USERNAME")
-HOST_SUBUID=$(echo $(cat /etc/subuid | grep `echo $FWS_API_HOST_USERNAME` | cut -d ':' -f 2))
-HOST_SUBGID=$(echo $(cat /etc/subgid | grep `echo $FWS_API_HOST_USERNAME` | cut -d ':' -f 2))
+HOST_SUBUID=$(echo $(cat /etc/subuid | grep $(echo $FWS_API_HOST_USERNAME) | cut -d ':' -f 2))
+HOST_SUBGID=$(echo $(cat /etc/subgid | grep $(echo $FWS_API_HOST_USERNAME) | cut -d ':' -f 2))
 
 if [ x"$HOST_SUBUID" = "x" ]; then
   echo The host user $FWS_API_HOST_USERNAME does not have a subuid entry in /etc/subuid
@@ -22,9 +22,9 @@ if [ x"$HOST_SUBGID" = "x" ]; then
   exit 1
 fi
 
-DEV_CONTAINER_UID_ON_HOST=`echo $((($HOST_SUBUID + $HOST_UID) - 1))`
-DEV_CONTAINER_GID_ON_HOST=`echo $((($HOST_SUBGID + $HOST_GID) - 1))`
-DEV_CONTAINER_DOCKER_GID_ON_HOST=$((($HOST_SUBGID + `getent group docker | cut -d ':' -f 3`) - 1))
+DEV_CONTAINER_UID_ON_HOST=$(echo $((($HOST_SUBUID + $HOST_UID) - 1)))
+DEV_CONTAINER_GID_ON_HOST=$(echo $((($HOST_SUBGID + $HOST_GID) - 1)))
+DEV_CONTAINER_DOCKER_GID_ON_HOST=$((($HOST_SUBGID + $(getent group docker | cut -d ':' -f 3)) - 1))
 DOCKER_SOCKET=/var/run/docker.sock
 ROOTLESS_DOCKER_SOCKET=/run/user/$HOST_UID/docker.sock
 FWS_API_WORKSPACE_DIR=/workspaces/fws-api/
@@ -32,7 +32,7 @@ FWS_API_WORKSPACE_DOCKER_DIR=${FWS_API_WORKSPACE_DIR}docker
 WORKSPACE_FOLDER_HOST_OWNERSHIP=$DEV_CONTAINER_UID_ON_HOST:$DEV_CONTAINER_GID_ON_HOST
 WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP=$HOST_UID:$HOST_GID
 
-if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x`echo $"$LOCAL_FWS_API_DIR" | grep -E /fws-api/?$` = "x" ]; then
+if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x$(echo $"$LOCAL_FWS_API_DIR" | grep -E /fws-api/?$) = "x" ]; then
  echo LOCAL_FWS_API_DIR must be set to the absolute path of the root of a local fws-api repository
  exit 1
 fi
@@ -64,7 +64,7 @@ fi
 #
 # If creating a dev container by cloning the fws-api repository into a container volume, the dev container user has ownership
 # of items in the volume without risk of git reporting dubious ownership.
-if [ `stat -c "%u:%g" $FWS_API_WORKSPACE_DIR` != $WORKSPACE_FOLDER_HOST_OWNERSHIP ]; then
+if [ $(stat -c "%u:%g" $FWS_API_WORKSPACE_DIR) != $WORKSPACE_FOLDER_HOST_OWNERSHIP ]; then
   chown -R $WORKSPACE_FOLDER_HOST_OWNERSHIP $FWS_API_WORKSPACE_DIR
   echo Changed UID:GID for $FWS_API_WORKSPACE_DIR to $WORKSPACE_FOLDER_HOST_OWNERSHIP
 else
@@ -73,7 +73,7 @@ fi
 
 # Ensure the local fws-api repository docker directory hierarchy UID:GID is set to HOST_UID:HOST_GID so that
 # named Docker volumes can be created.
-if [ `stat -c "%u:%g" $FWS_API_WORKSPACE_DOCKER_DIR` != $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP ]; then
+if [ $(stat -c "%u:%g" $FWS_API_WORKSPACE_DOCKER_DIR) != $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP ]; then
   chown -R $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP $FWS_API_WORKSPACE_DOCKER_DIR
   echo Changed UID:GID for $FWS_API_WORKSPACE_DOCKER_DIR to $WORKSPACE_DOCKER_FOLDER_HOST_OWNERSHIP
 else

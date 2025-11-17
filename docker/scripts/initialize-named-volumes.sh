@@ -4,13 +4,13 @@ set -e
 
 # The macOS version of realpath does not support the -m switch so the GNU version
 # is needed.
-if [ `uname` = "Darwin" ] && [ x`command -v grealpath` = "x" ]; then
+if [ $(uname) = "Darwin" ] && [ x$(command -v grealpath) = "x" ]; then
   echo "GNU coreutils need to be installed to use realpath with the -m switch"
   exit 1
 fi
 
 # If running on macOS use the GNU version of realpath.
-if [ `uname` = "Darwin" ]; then
+if [ $(uname) = "Darwin" ]; then
   alias realpath="grealpath"
 fi
 
@@ -83,6 +83,6 @@ fi
 # https://stackoverflow.com/questions/37468788/what-is-the-right-way-to-add-data-to-an-existing-named-volume-in-docker
 docker container create --name fwsliquibasetemp -v fwsliquibase:/fwsdb alpine
 echo Created fwsliquibasetemp container
-(cd `realpath -m ${FWS_API_HOST_DIR}`/../fws-db/u_fws && docker cp . fwsliquibasetemp:/fwsdb)
+(cd $(realpath -m ${FWS_API_HOST_DIR})/../fws-db/u_fws && docker cp . fwsliquibasetemp:/fwsdb)
 docker rm fwsliquibasetemp
 echo Removed fwsliquibasetemp container
