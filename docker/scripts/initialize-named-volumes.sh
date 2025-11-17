@@ -2,15 +2,17 @@
 
 set -e
 
+DARWIN="Darwin"
+
 # The macOS version of realpath does not support the -m switch so the GNU version
 # is needed.
-if [ $(uname) = "Darwin" ] && [ x$(command -v grealpath) = "x" ]; then
+if [ $(uname) = DARWIN ] && [ x$(command -v grealpath) = "x" ]; then
   echo "GNU coreutils need to be installed to use realpath with the -m switch"
   exit 1
 fi
 
 # If running on macOS use the GNU version of realpath.
-if [ $(uname) = "Darwin" ]; then
+if [ $(uname) = DARWIN ]; then
   alias realpath="grealpath"
 fi
 

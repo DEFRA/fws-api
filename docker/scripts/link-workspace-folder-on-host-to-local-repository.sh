@@ -2,6 +2,8 @@
 # This script MUST be run on the host before attempting to create a development container.
 set -e
 
+DARWIN="Darwin"
+
 if [ $(whoami) != root ]; then
   echo This script must be run as root
   exit 1
@@ -12,7 +14,7 @@ if [ ! -d "$LOCAL_FWS_API_DIR"/.git ] && [ x$(echo $"$LOCAL_FWS_API_DIR" | grep 
  exit 1
 fi
 
-if [ $(uname) != "Linux" ] && [ $(uname) != "Darwin" ]; then
+if [ $(uname) != "Linux" ] && [ $(uname) != DARWIN ]; then
   echo "Unsupported operating system $(uname) detected - Linux and  macOS are supported"
   exit 1
 fi
@@ -20,13 +22,13 @@ fi
 
 # The macOS version of realpath does not support the -m switch so the GNU version
 # is needed.
-if [ $(uname) = "Darwin" ] && [ x$(command -v grealpath) = "x" ]; then
+if [ $(uname) = DARWIN ] && [ x$(command -v grealpath) = "x" ]; then
   echo "GNU coreutils need to be installed to use realpath with the -m switch"
   exit 1
 fi
 
 # If running on macOS use the GNU version of realpath.
-if [ $(uname) = "Darwin" ]; then
+if [ $(uname) = DARWIN ]; then
   alias realpath="grealpath"
 fi
 
@@ -69,7 +71,7 @@ if [ $(uname) = "Linux" ] && [ ! -L "$FWS_API_VOLUME_WORKSPACE_DIR" ] && [ $(rea
   mkdir -p /workspaces
   ln -s "$FWS_API_WORKSPACE_DIR" "$FWS_API_VOLUME_WORKSPACE_DIR"
   echo Created symbolic link from "$FWS_API_VOLUME_WORKSPACE_DIR" to "$FWS_API_WORKSPACE_DIR"
-elif [ $(uname) = "Darwin" ]; then
+elif [ $(uname) = DARWIN ]; then
   echo "macOS detected - WARNING - Running/debugging is only supported when creating a development container from a local fws-api repository"
 fi
 
