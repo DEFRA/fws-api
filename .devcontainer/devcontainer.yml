@@ -1,0 +1,21 @@
+services:
+  fws:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: ""
+    volumes:
+      # IMPORTANT
+      # For successful debugger attachment, the workspace folder MUST be the same
+      # in the container as it is on the host.
+      - ../..:/opt/workspaces/:cached
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    init: true
+    env_file:
+      - .env
+    dns:
+      # Set the DNS server to be the LocalStack container
+      - 192.168.0.20
+    networks:
+      - ls
