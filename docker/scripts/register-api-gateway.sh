@@ -30,6 +30,8 @@ main() {
     --stage-name local
 
   echo "Created API Gateway deployment"
+  echo "API Gateway ID: $fws_rest_api_id"
+  echo "Test endpoint URL: http://$fws_rest_api_id.execute-api.localhost.localstack.cloud:4566/local/fwis.xml"
   return 0
 }
 
@@ -119,7 +121,9 @@ put_method_and_integration() {
       --integration-http-method POST \
       --uri arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:000000000000:function:$lambda_function_name/invocations \
       --passthrough-behavior WHEN_NO_TEMPLATES \
-      --request-templates '{"text/html": "{\"bodyXml\": $input.json(\"$.message\")}", "application/json": "$input.body"}'
+      --request-templates '{
+            "text/html": "{\"bodyXml\": \"$util.escapeJavaScript($input.body)\"}"
+          }'
 
     # AWS integrations require integration responses to be set manually.
     # Note that response parameters are omitted due to https://github.com/localstack/localstack/issues/11303.
@@ -174,7 +178,7 @@ get_selection_pattern() {
       echo --selection-pattern [\\s\\S]*\\[$1\\][\\s\\S]*
       ;;
     500)
-      echo --selection-pattern '[\s\S]*(Process\s?exited\s?before\s?completing\s?request|\[$1\])[\s\S]*'
+      echo --selection-pattern '[\s\S]*(Process\s?exited\s?before\s?completing\s?request|\[500\])[\s\S]*'
       ;;
     *)
       # Return an error code if an unsupported status code is received.
