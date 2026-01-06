@@ -42,4 +42,4 @@ jobs:
                   -Dsonar.issue.ignore.multicriteria.e1.ruleKey=shell:S5332
                   -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/docker/scripts/register-api-gateway.sh
                   -Dsonar.issue.ignore.multicriteria.e2.ruleKey=secrets:S2068
-                  -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/docker/.env
+                  -Dsonar.issue.ignore.multicriteria.e2.resourceKey=**/docker/.env
