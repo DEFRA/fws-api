@@ -7,5 +7,5 @@ NPM_PACKAGES_PATH="${HOME}/.npm-packages"
 ( echo ""; echo NPM_PACKAGES="${NPM_PACKAGES_PATH}"; echo PATH="${NPM_PACKAGES_PATH}/bin:${PATH}") >> ${HOME}/.bashrc
 
 # Install npm packages
-npm i
+npm i --ignore-scripts
 
