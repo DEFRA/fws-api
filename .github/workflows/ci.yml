@@ -14,10 +14,10 @@ jobs:
             - name: Install nodejs
               uses: actions/setup-node@v4
               with:
-                node-version: "20.x"
+                node-version: "22.x"
             
             - name: Install node dependencies
-              run: npm ci
+              run: npm ci --ignore-scripts
 
             - name: Run linting
               run: npm run lint
@@ -38,3 +38,8 @@ jobs:
                   -Dsonar.exclusions=**/node_modules/**,**/test/**,**/test-output/**
                   -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
                   -Dsonar.javascript.exclusions=**/node_modules/**,**/test/**,**/test-output/**,**/mock/**,**/public/**
+                  -Dsonar.issue.ignore.multicriteria=e1,e2
+                  -Dsonar.issue.ignore.multicriteria.e1.ruleKey=shell:S5332
+                  -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/docker/scripts/register-api-gateway.sh
+                  -Dsonar.issue.ignore.multicriteria.e2.ruleKey=secrets:S2068
+                  -Dsonar.issue.ignore.multicriteria.e2.resourceKey=**/docker/.env

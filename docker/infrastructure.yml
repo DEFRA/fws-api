@@ -1,0 +1,43 @@
+services:
+  localstack:
+    container_name: "localstack-main"
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    env_file:
+      - .env
+    volumes:
+      - "${DOCKER_SOCK:-/run/user/1000/docker.sock}:/var/run/docker.sock"
+      - "./.volume:/var/lib/localstack"
+    networks:
+      ls:
+        # Set the container IP address in the 192.168.0.0/24 subnet
+        ipv4_address: 192.168.0.20
+  fwsdb:
+    build:
+      context: ../docker/fws-db
+      dockerfile: Dockerfile
+    user: "postgres"
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      # IMPORTANT
+      # Named volumes ensure portability across the host plaforms used to
+      # create and run development containers.
+      - fwspgdata:/var/lib/postgresql/data
+      - fwspgbootstrap:/docker-entrypoint-initdb.d
+    networks:
+      ls:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  fwspgdata:
+    external: true
+  fwspgbootstrap:
+    external: true
