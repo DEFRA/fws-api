@@ -2,30 +2,29 @@
 
 ## Default Configuration
 
-[The Docker environment variable file](../../../docker/.env) is configured to debug a
-LocalStack hosted AWS Lambda function by default through the following environment variable:
-
-```sh
-LAMBDA_DOCKER_FLAGS=-e NODE_OPTIONS=--inspect-brk=0.0.0.0:9229 -p 9229:9229
-```
+[The Docker environment variable file](../../../docker/.env) is configured to run LocalStack hosted AWS Lambda functions without
+debugging support by default.
 
 This environment variable allows the Visual Studio Code debugger to attach to the standard Node.js debug port (9229)
 in a LocalStack Docker container used to run an AWS Lambda function.
 
-## Disabling Debug Functionality
+## Enabling Debug Functionality
 
-AWS Lambda function debugging can be disabled by:
+AWS Lambda function debugging can be enabled by:
 
-* Commenting out the **LAMBDA_DOCKER_FLAGS** environment variable in [the development container environment variable file](../../../docker/.env).
+* Uncommenting the **LAMBDA_DOCKER_FLAGS** environment variable in [the development container environment variable file](../../../docker/.env).
+  ```sh
+  LAMBDA_DOCKER_FLAGS=-e NODE_OPTIONS=--inspect-brk=0.0.0.0:9229 -p 9229:9229
+  ```
 * Replacing ([Teardown](../dev-container/additional-dev-container-considerations.md#teardown) and recreate) the existing containerised development environment with a new containerised development environment using
   the revised configuration
   * **IMPORTANT** - If cloning the remote repository into a container volume, the configuration change must be pushed to a branch from which the new containerised development environment **must** be created.
-  * **IMPORTANT** - If a new containerised dev environment is not created, running multiple Lambda functions without
-    remote debug limitations will **not** be possible.
+  * **IMPORTANT** - If a new containerised dev environment is not created, remote debugging of Lambda functions will **not** be possible.
 
-## Re-enabling Debug Functionality
 
-Uncomment the **LAMBDA_DOCKER_FLAGS** environment variable in [the Docker environment variable file](../../../docker/.env) and replace the containerised development environment as described above.
+## Re-disabling Debug Functionality
+
+Comment the **LAMBDA_DOCKER_FLAGS** environment variable in [the Docker environment variable file](../../../docker/.env) and replace the containerised development environment as described above.
 
 ## Preparing To Debug An AWS Lambda Function
 
@@ -41,8 +40,7 @@ Please consult appropriate documentation.
 
 ## Invoking An AWS Lambda Function
 
-From within the development container, use the [LocalStack AWS Command Line interface](https://docs.localstack.cloud/user-guide/integrations/aws-cli/) to retrieve the identifier of the deployed REST API from the API Gateway. For example, the command below can be used when an initial attempt to create a containerised development environment succeeds (resulting in the creation of one
-REST API instance)
+Use the [LocalStack AWS Command Line interface](https://docs.localstack.cloud/user-guide/integrations/aws-cli/) to retrieve the identifier of the deployed REST API from the API Gateway. For example, the command below can be used when an initial attempt to create a containerised development environment succeeds (resulting in the creation of one REST API instance)
 
 ```sh
 awslocal apigateway get-rest-apis | jq -r '.items[0].id'
