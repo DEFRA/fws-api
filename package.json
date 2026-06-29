@@ -20,7 +20,7 @@
   "dependencies": {
     "@aws-sdk/client-ec2": "3.1029.0",
     "@aws-sdk/client-sns": "3.1029.0",
-    "joi": "18.1.2",
+    "joi": "18.2.1",
     "js2xmlparser": "5.0.0",
     "lodash.escape": "4.0.1",
     "lodash.unescape": "4.0.1",
