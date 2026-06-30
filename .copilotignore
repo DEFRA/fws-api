@@ -1,0 +1,12 @@
+# GitHub Copilot exclusions
+# Keep generated artifacts and local development data out of indexing.
+
+node_modules/
+.serverless/
+coverage/
+lcov.info
+
+config/
+test/output-unit.xml
+.devcontainer/.volume/
+docker/.volume/
