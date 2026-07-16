@@ -1,0 +1,16 @@
+# Exclude non-source/generated content from GitHub Copilot indexing
+# Align with Defra AI toolkit security guidance: https://digital.defra.gov.uk/ai-toolkit/guidance/security
+# .env files are excluded at organisation level.
+
+# Dependencies
+node_modules/**
+
+# Build and generated artifacts
+.serverless/**
+coverage/**
+lcov.info
+test/output-unit.xml
+
+# Local development environment volumes (may contain sensitive data)
+.devcontainer/.volume/**
+docker/.volume/**
