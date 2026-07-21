@@ -6,7 +6,7 @@ This repository contains the serverless backend services for the **FWIS replacem
 
 ## Prerequisites
 
-- **Node.js 22** or higher
+- **Node.js 24** or higher
 - Appropriate API keys and environment variables (see below)
 
 ## Getting Started
