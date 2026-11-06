@@ -7,7 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "standard",
+    "lint": "neostandard",
     "test": "npm run lint && npm run unit-test",
     "unit-test": "lab test -v -c --coverage-path lib -r console -o stdout -r lcov -o coverage/lcov.info -r junit -o test/output-unit.xml",
     "validate-config": "node lib/config.js",
@@ -37,7 +37,7 @@
     "@hapi/lab": "26.0.1",
     "aws-sdk-client-mock": "4.1.0",
     "husky": "9.1.7",
-    "sinon": "21.1.2",
-    "standard": "17.1.2"
+    "neostandard": "0.13.0",
+    "sinon": "21.1.2"
   }
 }
