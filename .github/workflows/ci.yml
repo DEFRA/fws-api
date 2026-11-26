@@ -35,9 +35,9 @@ jobs:
                 args: >
                   -Dsonar.organization=defra
                   -Dsonar.projectKey=DEFRA_fws-api
-                  -Dsonar.exclusions=**/node_modules/**,**/test/**,**/test-output/**
+                  -Dsonar.exclusions=**/node_modules/**,**/test/**,**/test-output/**,eslint.config.js,jest.config.js
                   -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-                  -Dsonar.javascript.exclusions=**/node_modules/**,**/test/**,**/test-output/**,**/mock/**,**/public/**
+                  -Dsonar.javascript.exclusions=**/node_modules/**,**/test/**,**/test-output/**,**/mock/**,**/public/**,eslint.config.js,jest.config.js
                   -Dsonar.issue.ignore.multicriteria=e1,e2
                   -Dsonar.issue.ignore.multicriteria.e1.ruleKey=shell:S5332
                   -Dsonar.issue.ignore.multicriteria.e1.resourceKey=**/docker/scripts/register-api-gateway.sh

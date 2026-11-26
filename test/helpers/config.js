@@ -1,29 +1,23 @@
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
-const sinon = require('sinon')
-const Joi = require('joi')
-
-lab.experiment('Config test', () => {
-  lab.beforeEach(() => {
+describe('Config test', () => {
+  beforeEach(() => {
     process.env.FWS_ENV_NAME = 'tst'
   })
 
-  lab.afterEach(() => {
-    delete require.cache[require.resolve('../../lib/config')]
-    sinon.restore()
+  afterEach(() => {
+    jest.resetModules()
+    jest.restoreAllMocks()
   })
 
-  lab.test('Check valid config passes', () => {
-    Code.expect(() => { require('../../lib/config') }).not.to.throw()
+  it('Check valid config passes', () => {
+    expect(() => { require('../../lib/config') }).not.toThrow()
   })
 
-  lab.test('Check bad config fails', () => {
+  it('Check bad config fails', () => {
     process.env.FWS_ENV_NAME = 'unknown'
-    Code.expect(() => { require('../../lib/config') }).to.throw()
+    expect(() => { require('../../lib/config') }).toThrow()
   })
 
-  lab.test('Legacy configuration is rejected', () => {
+  it('Legacy configuration is rejected', () => {
     // As configuration schema definition and validation are part of the same module,
     // validation of the schema returned by Joi.object is stubbed so that a legacy
     // configuration setting can be provided and tested for expected rejection.
@@ -31,16 +25,20 @@ lab.experiment('Config test', () => {
     // needing to stub the validate method of the schema returned by Joi.object.
     // At the time of writing, a way to do this without refactoring the software under
     // test into two modules for stubbing purposes has not been found.
-    sinon.stub(Joi, 'object').callsFake(function (...args) {
+    // Required here so the stub applies to the same Joi instance that config loads after resetModules
+    const Joi = require('joi')
+    const originalObject = Joi.object
+    jest.spyOn(Joi, 'object').mockImplementation(function (...args) {
       // Call the original Joi.object function so that the validate method of the
       // returned schema object can be stubbed.
-      const schema = Joi.object.wrappedMethod.apply(this, args)
-      sinon.stub(schema, 'validate').callsFake(function (...innerArgs) {
+      const schema = originalObject.apply(this, args)
+      const originalValidate = schema.validate
+      jest.spyOn(schema, 'validate').mockImplementation(function (...innerArgs) {
         innerArgs[0].dbConnection = 'mock connection'
-        return schema.validate.wrappedMethod.apply(this, innerArgs)
+        return originalValidate.apply(this, innerArgs)
       })
       return schema
     })
-    Code.expect(() => { require('../../lib/config') }).to.throw()
+    expect(() => { require('../../lib/config') }).toThrow()
   })
 })

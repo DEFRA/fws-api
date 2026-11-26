@@ -1,48 +1,45 @@
 'use strict'
 
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
 const xml2js = require('xml2js')
 const Fwis = require('../../lib/models/fwis')
 const getAllMessages = require('../data/get-all-messages.json')
 
-lab.experiment('models/fwis', () => {
-  lab.test('Happy path: vanilla', () => {
+describe('models/fwis', () => {
+  it('Happy path: vanilla', () => {
     const fwis = new Fwis(getAllMessages.rows)
-    Code.expect(fwis.warnings.length).to.equal(1)
-    Code.expect(fwis.warnings[0].situation).to.equal('test situation')
-    Code.expect(fwis.warnings[0].attr.taCode).to.equal('111FWCECD022')
-    Code.expect(fwis.warnings[0].attr.createdDate).to.equal('2019-02-12T13:33:41.040Z')
+    expect(fwis.warnings).toBeArrayOfSize(1)
+    expect(fwis.warnings[0].situation).toEqual('test situation')
+    expect(fwis.warnings[0].attr.taCode).toEqual('111FWCECD022')
+    expect(fwis.warnings[0].attr.createdDate).toEqual('2019-02-12T13:33:41.040Z')
   })
 
-  lab.test('Happy path: getJson', () => {
+  it('Happy path: getJson', () => {
     const fwis = new Fwis(getAllMessages.rows)
     const string = fwis.getJson()
     const obj = JSON.parse(string)
-    Code.expect(obj.warnings.length).to.equal(1)
-    Code.expect(obj.warnings[0].attr.taCode).to.equal('111FWCECD022')
-    Code.expect(obj.warnings[0].attr.createdDate).to.equal('2019-02-12T13:33:41.040Z')
+    expect(obj.warnings).toBeArrayOfSize(1)
+    expect(obj.warnings[0].attr.taCode).toEqual('111FWCECD022')
+    expect(obj.warnings[0].attr.createdDate).toEqual('2019-02-12T13:33:41.040Z')
   })
 
-  lab.test('Happy path: get Xml', async () => {
+  it('Happy path: get Xml', async () => {
     const fwis = new Fwis(getAllMessages.rows)
     const xml = fwis.getXml()
     // test for correct date formatting
-    Code.expect(xml).to.contain('2019-02-12T13:33:41.040Z')
+    expect(xml).toInclude('2019-02-12T13:33:41.040Z')
     const obj = await new Promise((resolve, reject) => {
       xml2js.parseString(xml, (err, value) => {
         if (err) reject(err)
         resolve(value)
       })
     })
-    Code.expect(obj.warningreport.warning.length).to.equal(1)
-    Code.expect(obj.warningreport.warning[0].$.taCode).to.equal('111FWCECD022')
-    Code.expect(obj.warningreport.warning[0].$.createdDate).to.equal('2019-02-12T13:33:41.040Z')
+    expect(obj.warningreport.warning).toBeArrayOfSize(1)
+    expect(obj.warningreport.warning[0].$.taCode).toEqual('111FWCECD022')
+    expect(obj.warningreport.warning[0].$.createdDate).toEqual('2019-02-12T13:33:41.040Z')
   })
 
-  lab.test('Happy path: no results', () => {
+  it('Happy path: no results', () => {
     const fwis = new Fwis([])
-    Code.expect(fwis.warnings.length).to.equal(0)
+    expect(fwis.warnings).toBeArrayOfSize(0)
   })
 })

@@ -1,32 +1,28 @@
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
-const sinon = require('sinon')
 const { mockClient } = require('aws-sdk-client-mock')
 const { SNSClient, PublishCommand } = require('@aws-sdk/client-sns')
 const { EC2Client, DescribeInstancesCommand } = require('@aws-sdk/client-ec2')
 
 const { email, ec2 } = require('../../lib/helpers/aws')
 
-lab.describe('AWS Helper Tests', () => {
+describe('AWS Helper Tests', () => {
   const snsMock = mockClient(SNSClient)
   const ec2Mock = mockClient(EC2Client)
 
-  lab.beforeEach(() => {
+  beforeEach(() => {
     process.env.stage = 'test'
     process.env.FWS_SNS_TOPIC = 'arn:aws:sns:region:account:topic'
     snsMock.reset()
     ec2Mock.reset()
   })
 
-  lab.afterEach(() => {
-    sinon.restore()
+  afterEach(() => {
+    jest.restoreAllMocks()
     delete process.env.stage
     delete process.env.FWS_SNS_TOPIC
   })
 
-  lab.describe('email.publishMessage', () => {
-    lab.it('verifies SNS publish is called once with correct parameters', async () => {
+  describe('email.publishMessage', () => {
+    it('verifies SNS publish is called once with correct parameters', async () => {
       // Setup mock response
       snsMock.on(PublishCommand).resolves({
         MessageId: 'test-message-id'
@@ -42,22 +38,22 @@ lab.describe('AWS Helper Tests', () => {
 
       // Verify the mock was called
       const publishCalls = snsMock.commandCalls(PublishCommand)
-      Code.expect(publishCalls).to.have.length(1)
+      expect(publishCalls).toBeArrayOfSize(1)
 
       // Get the parameters passed to publish
       const publishParams = publishCalls[0].args[0].input
 
       // Verify parameters
-      Code.expect(publishParams.TopicArn).to.equal(process.env.FWS_SNS_TOPIC)
-      Code.expect(publishParams.Subject).to.equal('Failed FWIS warning message - test')
-      Code.expect(publishParams.Message).to.contain('Test Error')
-      Code.expect(publishParams.Message).to.contain('2024-01-01')
-      Code.expect(publishParams.Message).to.contain('Test Message')
+      expect(publishParams.TopicArn).toEqual(process.env.FWS_SNS_TOPIC)
+      expect(publishParams.Subject).toEqual('Failed FWIS warning message - test')
+      expect(publishParams.Message).toInclude('Test Error')
+      expect(publishParams.Message).toInclude('2024-01-01')
+      expect(publishParams.Message).toInclude('Test Message')
     })
   })
 
-  lab.describe('ec2.describeInstances', () => {
-    lab.it('should describe EC2 instances with specified tag', async () => {
+  describe('ec2.describeInstances', () => {
+    it('should describe EC2 instances with specified tag', async () => {
       // Setup mock response
       const mockResponse = {
         Reservations: [{
@@ -77,18 +73,18 @@ lab.describe('AWS Helper Tests', () => {
 
       // Verify the mock was called
       const describeCalls = ec2Mock.commandCalls(DescribeInstancesCommand)
-      Code.expect(describeCalls).to.have.length(1)
+      expect(describeCalls).toBeArrayOfSize(1)
 
       // Verify parameters
       const describeParams = describeCalls[0].args[0].input
-      Code.expect(describeParams).to.equal({
+      expect(describeParams).toEqual({
         Filters: [{
           Name: 'tag:ID',
           Values: [tagId]
         }]
       })
 
-      Code.expect(result).to.equal(mockResponse)
+      expect(result).toEqual(mockResponse)
     })
   })
 })
