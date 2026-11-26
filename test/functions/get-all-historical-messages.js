@@ -1,59 +1,49 @@
 'use strict'
 
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
 const handler = require('../../lib/functions/get-all-historical-messages').handler
 const event = require('../data/events/get-all-historical-messages.json')
 const Services = require('../../lib/helpers/services')
 
-const sinon = require('sinon').createSandbox()
-
-lab.experiment('functions/get-all-historical-messages', () => {
-  lab.beforeEach(() => {
+describe('functions/get-all-historical-messages', () => {
+  beforeEach(() => {
     // setup mocks
-    sinon.stub(Services.prototype, 'getAllHistoricalMessages').callsFake(() => {
+    jest.spyOn(Services.prototype, 'getAllHistoricalMessages').mockImplementation(() => {
       return Promise.resolve({
         rows: require('../data/db-response/messages-db.json')
       })
     })
   })
 
-  lab.afterEach(() => {
-    sinon.restore()
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
-  lab.test('Happy: get all historical messages', async () => {
+  it('Happy: get all historical messages', async () => {
     const response = await handler(event)
-    Code.expect(response.statusCode).to.equal(200)
-    Code.expect(response.headers['Content-Type']).to.equal('application/json')
-    Code.expect(response.body).to.equal(JSON.stringify(require('../data/lambda-response/fwis-plus.json')))
+    expect(response.statusCode).toEqual(200)
+    expect(response.headers['Content-Type']).toEqual('application/json')
+    expect(response.body).toEqual(JSON.stringify(require('../data/lambda-response/fwis-plus.json')))
   })
 
-  lab.test('Sad: get all historical messages error', async () => {
-    Services.prototype.getAllHistoricalMessages.restore()
-    sinon.stub(Services.prototype, 'getAllHistoricalMessages').callsFake(() => {
+  it('Sad: get all historical messages error', async () => {
+    jest.spyOn(Services.prototype, 'getAllHistoricalMessages').mockImplementation(() => {
       return Promise.resolve({
         rows: 'sdgfdfshdhndf'
       })
     })
 
-    const err = await Code.expect(handler(event)).to.reject()
-    Code.expect(err.message).to.equal('[500] rows.forEach is not a function')
+    await expect(handler(event)).rejects.toThrow(new Error('[500] rows.forEach is not a function'))
   })
 
-  lab.test('Sad: get historical messages throw error', async () => {
-    Services.prototype.getAllHistoricalMessages.restore()
-    sinon.stub(Services.prototype, 'getAllHistoricalMessages').callsFake(() => {
+  it('Sad: get historical messages throw error', async () => {
+    jest.spyOn(Services.prototype, 'getAllHistoricalMessages').mockImplementation(() => {
       return Promise.reject(new Error('test error'))
     })
-    const err = await Code.expect(handler(event)).to.reject()
-    Code.expect(err.message).to.equal('[500] test error')
+    await expect(handler(event)).rejects.toThrow(new Error('[500] test error'))
   })
 
-  lab.test('Sad: get historical messages bad request throw error', async () => {
+  it('Sad: get historical messages bad request throw error', async () => {
     event.pathParameters = undefined
-    const err = await Code.expect(handler(event)).to.reject()
-    Code.expect(err.message).to.equal('[500] Cannot read properties of undefined (reading \'code\')')
+    await expect(handler(event)).rejects.toThrow(new Error('[500] Cannot read properties of undefined (reading \'code\')'))
   })
 })

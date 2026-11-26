@@ -1,24 +1,21 @@
 'use strict'
 
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
 const Db = require('../../lib/helpers/db')
 const Services = require('../../lib/helpers/services')
-const sinon = require('sinon').createSandbox()
 
-lab.experiment('helpers/services', () => {
-  lab.beforeEach(() => {
+describe('helpers/services', () => {
+  beforeEach(() => {
     // setup mocks
-    sinon.stub(Db.prototype, 'query').callsFake(() => {
+    jest.spyOn(Db.prototype, 'query').mockImplementation(() => {
       return Promise.resolve({})
     })
   })
 
-  lab.afterEach(() => {
-    sinon.restore()
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
-  lab.test('Happy path: vanilla', async () => {
+  it('Happy path: vanilla', async () => {
     const db = new Db()
     const services = new Services(db)
 

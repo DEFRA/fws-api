@@ -1,14 +1,9 @@
 'use strict'
 
-const Lab = require('@hapi/lab')
-const lab = exports.lab = Lab.script()
-const Code = require('@hapi/code')
 const handler = require('../../lib/functions/authorizer').handler
 const event = require('../data/events/authorizer.json')
 
 const Services = require('../../lib/helpers/services')
-
-const sinon = require('sinon').createSandbox()
 
 const scenarios = [{
   resource: '/message',
@@ -257,24 +252,23 @@ const scenarios = [{
   }]
 }]
 
-lab.experiment('functions/get-all-messages', () => {
-  lab.beforeEach(() => {
+describe('functions/get-all-messages', () => {
+  beforeEach(() => {
     // setup mocks
-    sinon.stub(Services.prototype, 'getApiKey').callsFake((accountId, accountKey) => {
+    jest.spyOn(Services.prototype, 'getApiKey').mockImplementation((accountId, accountKey) => {
       return Promise.resolve({
         rows: []
       })
     })
   })
 
-  lab.afterEach(() => {
-    sinon.restore()
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
-  lab.test('run through permission tests', async () => {
+  it('run through permission tests', async () => {
     for (let i = 0; i < scenarios.length; i++) {
       for (let ii = 0; ii < scenarios[i].tests.length; ii++) {
-        Services.prototype.getApiKey.restore()
         const scenario = scenarios[i]
         const test = scenarios[i].tests[ii]
         console.log(scenario.resource + ' | ' + JSON.stringify(test))
@@ -297,7 +291,7 @@ lab.experiment('functions/get-all-messages', () => {
           }
         }
 
-        sinon.stub(Services.prototype, 'getApiKey').callsFake((accountId, accountKey) => {
+        jest.spyOn(Services.prototype, 'getApiKey').mockImplementation((accountId, accountKey) => {
           return Promise.resolve({
             rows: dbReturn
           })
@@ -306,7 +300,7 @@ lab.experiment('functions/get-all-messages', () => {
         const response = await handler(event)
         // do try .. catch around expect as need to concatenate the scenario to err message
         try {
-          Code.expect(response.policyDocument.Statement[0].Effect).to.equal(test.result)
+          expect(response.policyDocument.Statement[0].Effect).toEqual(test.result)
         } catch (err) {
           err.message = scenario.resource + ' | ' + JSON.stringify(test) + ' | ' + err.message
           throw err
@@ -315,14 +309,12 @@ lab.experiment('functions/get-all-messages', () => {
     }
   })
 
-  lab.test('case insensitive headers', async () => {
+  it('case insensitive headers', async () => {
     deleteApiEventProperties()
     event.headers['X-Api-Account-Id'] = 'test'
     event.headers['X-Api-Key'] = 'test'
     event.resource = '/message'
-
-    Services.prototype.getApiKey.restore()
-    sinon.stub(Services.prototype, 'getApiKey').callsFake((accountId, accountKey) => {
+    jest.spyOn(Services.prototype, 'getApiKey').mockImplementation((accountId, accountKey) => {
       return Promise.resolve({
         rows: [{
           read: false,
@@ -332,7 +324,7 @@ lab.experiment('functions/get-all-messages', () => {
     })
 
     const response = await handler(event)
-    Code.expect(response.policyDocument.Statement[0].Effect).to.equal('Allow')
+    expect(response.policyDocument.Statement[0].Effect).toEqual('Allow')
 
     deleteApiEventProperties()
     event.headers['X-API-ACCOUNT-ID'] = 'test'
@@ -340,33 +332,32 @@ lab.experiment('functions/get-all-messages', () => {
     event.resource = '/message'
 
     const response2 = await handler(event)
-    Code.expect(response2.policyDocument.Statement[0].Effect).to.equal('Allow')
+    expect(response2.policyDocument.Statement[0].Effect).toEqual('Allow')
     deleteApiEventProperties()
   })
 
-  lab.test('missing keys', async () => {
+  it('missing keys', async () => {
     event.headers['x-api-account-id'] = 'test'
     delete event.headers['x-api-key']
 
     const response = await handler(event)
-    Code.expect(response.policyDocument.Statement[0].Effect).to.equal('Deny')
+    expect(response.policyDocument.Statement[0].Effect).toEqual('Deny')
 
     delete event.headers['x-api-account-id']
     event.headers['x-api-key'] = 'test'
 
     const response2 = await handler(event)
-    Code.expect(response2.policyDocument.Statement[0].Effect).to.equal('Deny')
+    expect(response2.policyDocument.Statement[0].Effect).toEqual('Deny')
   })
 
-  lab.test('thrown error from database', async () => {
-    Services.prototype.getApiKey.restore()
-    sinon.stub(Services.prototype, 'getApiKey').callsFake((accountId, accountKey) => {
+  it('thrown error from database', async () => {
+    jest.spyOn(Services.prototype, 'getApiKey').mockImplementation((accountId, accountKey) => {
       throw new Error('DB test error')
     })
     event.headers['x-api-account-id'] = 'test'
     event.headers['x-api-key'] = 'test'
 
-    await Code.expect(handler(event)).to.reject()
+    await expect(handler(event)).rejects.toThrow()
   })
 })
 

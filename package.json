@@ -7,9 +7,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "neostandard",
+    "lint": "eslint .",
     "test": "npm run lint && npm run unit-test",
-    "unit-test": "lab test -v -c --coverage-path lib -r console -o stdout -r lcov -o coverage/lcov.info -r junit -o test/output-unit.xml",
+    "unit-test": "jest --coverage",
     "validate-config": "node lib/config.js",
     "prepare": "husky install",
     "bootstrap-debug": "docker/scripts/non-dev-container-bootstrap.sh",
@@ -33,11 +33,11 @@
     "xmlbuilder": "15.1.1"
   },
   "devDependencies": {
-    "@hapi/code": "9.0.3",
-    "@hapi/lab": "26.0.1",
     "aws-sdk-client-mock": "4.1.0",
+    "eslint": "9.39.5",
     "husky": "9.1.7",
-    "neostandard": "0.13.0",
-    "sinon": "21.1.2"
+    "jest": "30.5.2",
+    "jest-extended": "7.0.0",
+    "neostandard": "0.13.0"
   }
 }

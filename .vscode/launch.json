@@ -16,9 +16,9 @@
             "type": "node",
             "request": "launch",
             "name": "debug unit tests",
-            "program": "${workspaceFolder}/node_modules/.bin/lab",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
              "args": [
-                 "test"
+                 "--runInBand"
              ]
         }
     ]
